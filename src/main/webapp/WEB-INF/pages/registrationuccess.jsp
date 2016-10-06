@@ -8,8 +8,6 @@
 <%@include file="tagLibraryTemplate.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List,org.rms.models.ParentNode" %>
-<%@ page import="org.rms.models.StudentNode" %>
 <html>
 <head>
     <title>RMS</title>
@@ -22,7 +20,9 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript">
         jQuery(document).ready(function () {
-
+            $('#finishButton').click(function () {
+                window.location.replace('registration.action');
+            });
         });
     </script>
 
@@ -105,6 +105,10 @@
 
                 <div class="alert alert-info fade in">
                     <strong>Note!</strong> Please remember and bring ‘Student ID’ when you come for the retreat!.
+                </div>
+
+                <div>
+                    <button type="button" value="Finish" id="finishButton"/>
                 </div>
             </div>
         </div>

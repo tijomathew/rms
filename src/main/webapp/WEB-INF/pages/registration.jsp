@@ -78,7 +78,7 @@
             if (elementId != null) {
 
                 var selectedClass = $('#' + elementId).val();
-                var sectionId = $('#' + elementId).closest('div.panel-body').find("select[id ^= retreatSection]").attr("id");
+                var sectionId = $('#' + elementId).closest('div.panel-body').find("input[id ^= retreatSection]").attr("id");
 
                 switch (selectedClass) {
                     case "Class-3":
@@ -226,12 +226,8 @@
                         </div>
                         <div class="form-group">
                             <label for="studentNodeList[0].retreatSection">Section:</label>
-                            <form:select class="form-control" path="studentNodeList[0].retreatSection"
-                                         id="retreatSection0" disabled="true">
-                                <form:option value="Junior">Junior</form:option>
-                                <form:option value="Senior">Senior</form:option>
-                                <form:option value="SuperSenior">Super Senior</form:option>
-                            </form:select>
+                            <form:input class="form-control" path="studentNodeList[0].retreatSection"
+                                         id="retreatSection0" readonly="true"/>
                         </div>
                         <div class="form-group">
                             <label for="studentNodeList[0].dayOne">Oct-29:</label>
