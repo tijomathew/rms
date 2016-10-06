@@ -18,6 +18,7 @@
     <link href="${bootstrapCSS} " rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript">
+
         jQuery(document).ready(function () {
             $('#studentInfo')
                 // Add button click handler
@@ -85,16 +86,19 @@
                 case "c4":
                 case "c5":
                 case "c6": $('#' +sectionId).val("Junior");
+                            $('#' + sectionId).closest('div.panel-body').find("[id ^= dayFour]").parent('.form-group').hide();
                            break;
                 case "y1":
                 case "y2":
                 case "y3":
                 case "y4": $('#' +sectionId).val("Senior");
+                    $('#' + sectionId).closest('div.panel-body').find("[id ^= dayFour]").parent('.form-group').hide();
                            break;
                 case "y5":
                 case "y6":
                 case "g":
                 case "p":  $('#' +sectionId).val("SuperSenior");
+                            $('#' + sectionId).closest('div.panel-body').find("[id ^= dayFour]").parent('.form-group').show();
                             break;
 
             }
@@ -146,27 +150,27 @@
                     </div>
                     <div class="form-group">
                         <label for="firstName">First Name:</label>
-                        <form:input path="firstName" class="form-control"/>
+                        <form:input path="firstName" id = "firstName" class="form-control" required = "true"/>
                     </div>
                     <div class="form-group">
                         <label for="lastName">Last Name:</label>
-                        <form:input path="lastName" class="form-control"/>
+                        <form:input path="lastName" id = "lastName" class="form-control" required = "true"/>
                     </div>
                     <div class="form-group">
                         <label for="phoneNumber">Phone 1:</label>
-                        <form:input path="phoneNumber" class="form-control"/>
+                        <form:input path="phoneNumber" class="form-control"  required = "true"/>
                     </div>
                     <div class="form-group">
                         <label for="alternativePhoneNumber">Phone 2:</label>
-                        <form:input path="alternativePhoneNumber" class="form-control"/>
+                        <form:input path="alternativePhoneNumber" class="form-control" required = "true"/>
                     </div>
                     <div class="form-group">
                         <label for="alternativePhoneNumber">Email:</label>
-                        <form:input path="email" class="form-control"/>
+                        <form:input path="email" class="form-control" required = "true" type = "email"/>
                     </div>
                     <div class="form-group">
                         <label for="address">Address:</label>
-                        <form:textarea path="address" class="form-control"/>
+                        <form:textarea path="address" class="form-control" required = "true"/>
                     </div>
                 </div>
             </div>
@@ -178,13 +182,13 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <label for="firstName">First Name:</label>
-                            <form:input path="studentNodeList[0].firstName" class="form-control" id="firstName0"/>
+                            <form:input path="studentNodeList[0].firstName" class="form-control" id="firstName0" required = "true"/>
                             <form:hidden path="studentNodeList[0].id" class="form-control" id="id0"/>
                         </div>
                         <div class="form-group">
                             <label for="lastName"> Last Name:</label>
                             <form:input class="form-control"
-                                        path="studentNodeList[0].lastName" id="lastName0"/>
+                                        path="studentNodeList[0].lastName" id="lastName0" required = "true"/>
                         </div>
                         <div class="form-group">
                             <label for="studentNodeList[0].classDivision">Class:</label>
@@ -214,6 +218,7 @@
                                 <form:option value="SuperSenior">Super Senior</form:option>
                             </form:select>
                         </div>
+
                         <div class="form-group">
                             <label for="studentNodeList[0].dayOne">Oct-29:</label>
                             <form:checkbox class="form-control" path="studentNodeList[0].dayOne"
@@ -229,7 +234,7 @@
                             <form:checkbox class="form-control" path="studentNodeList[0].dayThree"
                                            id="dayThree0"/>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="display: none;">
                             <label for="studentNodeList[0].dayFour">Nov-4:</label>
                             <form:checkbox class="form-control" path="studentNodeList[0].dayFour"
                                            id="dayFour0"/>
