@@ -8,4 +8,6 @@ import org.rms.models.ParentNode;
 public interface RegistrationService {
 
     ParentNode saveRegistrationEntry(ParentNode parentNode);
+
+    Boolean checkEmailAlreadyRegistered(String email);
 }

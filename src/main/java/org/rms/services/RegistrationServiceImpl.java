@@ -25,4 +25,12 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
         return registrationDao.saveRegistrationEntry(parentNode);
     }
+
+    @Override
+    public Boolean checkEmailAlreadyRegistered(String email) {
+        if (email == null || email.isEmpty()) {
+            throw new IllegalArgumentException("Email cannot be null!!..");
+        }
+        return registrationDao.alreadyRegisteredEmail(email);
+    }
 }

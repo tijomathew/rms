@@ -30,16 +30,16 @@ public class StudentNode implements Serializable {
     private String retreatSection;
 
     @Column(name = "day_one")
-    private Boolean dayOne=Boolean.FALSE;
+    private String dayOne;
 
     @Column(name = "day_two")
-    private Boolean dayTwo=Boolean.FALSE;
+    private String dayTwo;
 
     @Column(name = "day_three")
-    private Boolean dayThree=Boolean.FALSE;
+    private String dayThree;
 
     @Column(name = "day_four")
-    private Boolean dayFour=Boolean.FALSE;
+    private String dayFour;
 
     @ManyToOne(targetEntity = ParentNode.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_student_id", referencedColumnName = "id")
@@ -88,35 +88,35 @@ public class StudentNode implements Serializable {
         this.retreatSection = retreatSection;
     }
 
-    public Boolean getDayOne() {
+    public String getDayOne() {
         return dayOne;
     }
 
-    public void setDayOne(Boolean dayOne) {
+    public void setDayOne(String dayOne) {
         this.dayOne = dayOne;
     }
 
-    public Boolean getDayTwo() {
+    public String getDayTwo() {
         return dayTwo;
     }
 
-    public void setDayTwo(Boolean dayTwo) {
+    public void setDayTwo(String dayTwo) {
         this.dayTwo = dayTwo;
     }
 
-    public Boolean getDayThree() {
+    public String getDayThree() {
         return dayThree;
     }
 
-    public void setDayThree(Boolean dayThree) {
+    public void setDayThree(String dayThree) {
         this.dayThree = dayThree;
     }
 
-    public Boolean getDayFour() {
+    public String getDayFour() {
         return dayFour;
     }
 
-    public void setDayFour(Boolean dayFour) {
+    public void setDayFour(String dayFour) {
         this.dayFour = dayFour;
     }
 

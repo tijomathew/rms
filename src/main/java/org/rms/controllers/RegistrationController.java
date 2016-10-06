@@ -37,11 +37,15 @@ public class RegistrationController {
         for (StudentNode studentNode : studentNodeList) {
             studentNode.setParentNode(parentNode);
         }
-        ParentNode savedParentNode = registrationService.saveRegistrationEntry(parentNode);
 
-        HttpSession session = httpServletRequest.getSession();
-        session.setAttribute("test", "testvalue");
-        return "success";
+        if (!registrationService.checkEmailAlreadyRegistered(parentNode.getEmail())) {
+            ParentNode savedParentNode = registrationService.saveRegistrationEntry(parentNode);
+
+            HttpSession session = httpServletRequest.getSession();
+            session.setAttribute("parentNodeEntry", savedParentNode);
+            return "registrationuccess";
+        }
+        return "registrationfailure";
     }
 
 

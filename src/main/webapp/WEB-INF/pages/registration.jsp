@@ -34,12 +34,12 @@
                         // Remove element containing the fields
                         $row.remove();
                         /*$('#studentInfo div.form-group').each(function (idx) {
-                            var $inputs = $(this).find(':input:not(button)');
-                            $inputs.each(function () {
-                                var $prop = $(this).attr('name').split(".")[1];
-                                $(this).attr('name', 'studentNodeList[' + idx + '].' + $prop).attr('id', 'studentNodeList[' + idx + '].' + $prop);
-                            });
-                        });*/
+                         var $inputs = $(this).find(':input:not(button)');
+                         $inputs.each(function () {
+                         var $prop = $(this).attr('name').split(".")[1];
+                         $(this).attr('name', 'studentNodeList[' + idx + '].' + $prop).attr('id', 'studentNodeList[' + idx + '].' + $prop);
+                         });
+                         });*/
                     });
 
         });
@@ -64,10 +64,10 @@
                         .find('[name="studentNodeList[0].lastName"]').val('').attr('name', 'studentNodeList[' + i + '].lastName').attr('id', 'lastName' + i).end()
                         .find('[name="studentNodeList[0].classDivision"]').val('').attr('name', 'studentNodeList[' + i + '].classDivision').attr('id', 'classDivision' + i).end()
                         .find('[name="studentNodeList[0].retreatSection"]').val('').attr('name', 'studentNodeList[' + i + '].retreatSection').attr('id', 'retreatSection' + i).end()
-                        .find('[name="studentNodeList[0].dayOne"]').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayOne').attr('id', 'dayOne' + i).end()
-                        .find('[name="studentNodeList[0].dayTwo"]').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayTwo').attr('id', 'dayTwo' + i).end()
-                        .find('[name="studentNodeList[0].dayThree"]').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayThree').attr('id', 'dayThree' + i).end()
-                        .find('[name="studentNodeList[0].dayFour"]').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayFour').attr('id', 'dayFour' + i).end()
+                        .find('[name="studentNodeList[0].dayOne"]').val('Oct-29').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayOne').attr('id', 'dayOne' + i).end()
+                        .find('[name="studentNodeList[0].dayTwo"]').val('Oct-30').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayTwo').attr('id', 'dayTwo' + i).end()
+                        .find('[name="studentNodeList[0].dayThree"]').val('Oct-31').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayThree').attr('id', 'dayThree' + i).end()
+                        .find('[name="studentNodeList[0].dayFour"]').val('Nov-1').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayFour').attr('id', 'dayFour' + i).end()
                         .find('[name = actionButton]').removeAttr('class').attr('class', 'btn btn-default removeButton').find('.fa-plus').removeAttr('class').attr('class', 'fa fa-minus');
 
             }
@@ -79,29 +79,32 @@
             if(elementId != null){
 
                 var selectedClass = $('#' + elementId).val();
-                var sectionId =  $('#' + elementId).closest('div.panel-body').find("select[id ^= retreatSection]").attr("id");
+                var sectionId = $('#' + elementId).closest('div.panel-body').find("input[id ^= retreatSection]").attr("id");
 
-            switch(selectedClass){
-                case "c3":
-                case "c4":
-                case "c5":
-                case "c6": $('#' +sectionId).val("Junior");
-                            $('#' + sectionId).closest('div.panel-body').find("[id ^= dayFour]").parent('.form-group').hide();
-                           break;
-                case "y1":
-                case "y2":
-                case "y3":
-                case "y4": $('#' +sectionId).val("Senior");
-                    $('#' + sectionId).closest('div.panel-body').find("[id ^= dayFour]").parent('.form-group').hide();
-                           break;
-                case "y5":
-                case "y6":
-                case "g":
-                case "p":  $('#' +sectionId).val("SuperSenior");
-                            $('#' + sectionId).closest('div.panel-body').find("[id ^= dayFour]").parent('.form-group').show();
-                            break;
+                switch (selectedClass) {
+                    case "Class-3":
+                    case "Class-4":
+                    case "Class-5":
+                    case "Class-6":
+                        $('#' + sectionId).val("Junior");
+                        $('#' + sectionId).closest('div.panel-body').find("[id ^= dayFour]").parent('.form-group').hide();
+                        break;
+                    case "Year-1":
+                    case "Year-2":
+                    case "Year-3":
+                    case "Year-4":
+                        $('#' + sectionId).val("Senior");
+                        $('#' + sectionId).closest('div.panel-body').find("[id ^= dayFour]").parent('.form-group').hide();
+                        break;
+                    case "Year-5":
+                    case "Year-6":
+                    case "Graduate":
+                    case "PG":
+                        $('#' + sectionId).val("SuperSenior");
+                        $('#' + sectionId).closest('div.panel-body').find("[id ^= dayFour]").parent('.form-group').show();
+                        break;
 
-            }
+                }
 
             }
 
@@ -136,16 +139,16 @@
                     <div class="form-group">
                         <label for="massCentreName">MassCentre:</label>
                         <form:select path="massCentreName">
-                            <form:option value="One">One</form:option>
-                            <form:option value="Two">Two</form:option>
-                            <form:option value="Three">Three</form:option>
-                            <form:option value="Four">Four</form:option>
-                            <form:option value="Five">Five</form:option>
-                            <form:option value="Six">Six</form:option>
-                            <form:option value="Seven">Seven</form:option>
-                            <form:option value="Eight">Eight</form:option>
-                            <form:option value="Nine">Nine</form:option>
-                            <form:option value="Ten">Ten</form:option>
+                            <form:option value="Beaumont">Beaumont</form:option>
+                            <form:option value="Blanchardstown">Blanchardstown</form:option>
+                            <form:option value="Bray">Bray</form:option>
+                            <form:option value="Inchicore">Inchicore</form:option>
+                            <form:option value="Lucan">Lucan</form:option>
+                            <form:option value="Phibsborough">Phibsborough</form:option>
+                            <form:option value="StJosephs">St.Joseph’s</form:option>
+                            <form:option value="Swords">Swords</form:option>
+                            <form:option value="Tallaght">Tallaght</form:option>
+                            <form:option value="Other">Other</form:option>
                         </form:select>
                     </div>
                     <div class="form-group">
@@ -169,13 +172,29 @@
                         <form:input path="email" class="form-control" required = "true" type = "email"/>
                     </div>
                     <div class="form-group">
-                        <label for="address">Address:</label>
-                        <form:textarea path="address" class="form-control" required = "true"/>
+                        <label for="houseNo">House No:</label>
+                        <form:input path="houseNo" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="addressLineOne">Address Line-1:</label>
+                        <form:textarea path="addressLineOne" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="addressLineTwo">Address Line-2:</label>
+                        <form:textarea path="addressLineTwo" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="addressLineThree">Address Line-3:</label>
+                        <form:textarea path="addressLineThree" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="county">County:</label>
+                        <form:textarea path="county" class="form-control"/>
                     </div>
                 </div>
             </div>
 
-            <div class="panel panel-primary" id="studentInfo" s>
+            <div class="panel panel-primary" id="studentInfo">
                 <div class="panel-heading">Student Details</div>
                 <div id="studentInfoTemplate">
 
@@ -194,50 +213,46 @@
                             <label for="studentNodeList[0].classDivision">Class:</label>
                             <form:select class="form-control" path="studentNodeList[0].classDivision"
                                          id="classDivision0" onchange="callSectionUpdate($(this).attr('id'))">
-                                <form:option value="c3">Class-3</form:option>
-                                <form:option value="c4">Class-4</form:option>
-                                <form:option value="c5">Class-5</form:option>
-                                <form:option value="c6">Class-6</form:option>
-                                <form:option value="y1">Year-1</form:option>
-                                <form:option value="y2">Year-2</form:option>
-                                <form:option value="y3">Year-3</form:option>
-                                <form:option value="y4">Year-4</form:option>
-                                <form:option value="y5">Year-5</form:option>
-                                <form:option value="y6">Year-6</form:option>
-                                <form:option value="g">Graduate</form:option>
-                                <form:option value="p">PG</form:option>
+                                <form:option value="Class-3">Class-3</form:option>
+                                <form:option value="Class-4">Class-4</form:option>
+                                <form:option value="Class-5">Class-5</form:option>
+                                <form:option value="Class-6">Class-6</form:option>
+                                <form:option value="Year-1">Year-1</form:option>
+                                <form:option value="Year-2">Year-2</form:option>
+                                <form:option value="Year-3">Year-3</form:option>
+                                <form:option value="Year-4">Year-4</form:option>
+                                <form:option value="Year-5">Year-5</form:option>
+                                <form:option value="Year-6">Year-6</form:option>
+                                <form:option value="Graduate">Graduate</form:option>
+                                <form:option value="PG">PG</form:option>
 
                             </form:select>
                         </div>
                         <div class="form-group">
                             <label for="studentNodeList[0].retreatSection">Section:</label>
-                            <form:select class="form-control" path="studentNodeList[0].retreatSection"
-                                         id="retreatSection0" disabled="true">
-                                <form:option value="Junior">Junior</form:option>
-                                <form:option value="Senior">Senior</form:option>
-                                <form:option value="SuperSenior">Super Senior</form:option>
-                            </form:select>
+                            <form:input class="form-control" path="studentNodeList[0].retreatSection"
+                                         id="retreatSection0" readonly="true"/>
                         </div>
 
                         <div class="form-group">
                             <label for="studentNodeList[0].dayOne">Oct-29:</label>
                             <form:checkbox class="form-control" path="studentNodeList[0].dayOne"
-                                           id="dayOne0"/>
+                                           id="dayOne0" value="Oct-29"/>
                         </div>
                         <div class="form-group">
                             <label for="studentNodeList[0].dayTwo">Oct-30:</label>
                             <form:checkbox class="form-control" path="studentNodeList[0].dayTwo"
-                                           id="dayTwo0"/>
+                                           id="dayTwo0" value="Oct-30"/>
                         </div>
                         <div class="form-group">
                             <label for="studentNodeList[0].dayThree">Oct-31:</label>
                             <form:checkbox class="form-control" path="studentNodeList[0].dayThree"
-                                           id="dayThree0"/>
+                                           id="dayThree0" value="Oct-31"/>
                         </div>
                         <div class="form-group" style="display: none;">
-                            <label for="studentNodeList[0].dayFour">Nov-4:</label>
+                            <label for="studentNodeList[0].dayFour">Nov-1:</label>
                             <form:checkbox class="form-control" path="studentNodeList[0].dayFour"
-                                           id="dayFour0"/>
+                                           id="dayFour0" value="Nov-1"/>
                         </div>
                         <p>
                             <button type="button" class="btn btn-default addButton" id="" name="actionButton"><i
@@ -246,33 +261,32 @@
 
                     </div>
 
-
                 </div>
             </div>
 
             <div class="panel panel-primary">
-                <div class="panel-heading">Consent Info</div>
+                <div class="panel-heading">Consent Form</div>
                 <div class="panel-body" id="consentInfoTemplate">
                     <div>
-                        Dear Parents / Guardean,<br><br>
+                        Dear Parents / Guardean,<br>
                         The consent form is necessary to allow Syro-Malabar catholic Community / Church to provide
                         the best ‘duty of care’ to the children in its care during the events as mentioned below. It
                         gives permission for your son / daughter to take part and also necessary to ensure
                         Children’s leaders are aware of any medical, learning issues associated with your son /
-                        daughter so that we can give them a positive and engaging experience.<br><br>
+                        daughter so that we can give them a positive and engaging experience.<br>
 
                         Event / Activity : Christeen Retreat from October 29 to 1st November 2016 from 9.30 AM to
-                        5.30 PM<br><br>
-                        Venue : Phibblestown Community Centre, Clonee, Blanchardstown, Dublin -15.<br><br>
+                        5.30 PM<br>
+                        Venue : Phibblestown Community Centre, Clonee, Blanchardstown, Dublin -15.<br>
                         1. I have read all the information provided concerning the programme of the above
-                        activity.<br><br>
+                        activity.<br>
                         2. I hereby give permission for my son / daughter / ward to participate in the above
-                        activity.<br><br>
+                        activity.<br>
                         3. I accept that my child may be included in photos/videos from the above activity that
-                        might be published by the parish.<br><br>
+                        might be published by the parish.<br>
                         4. Syro- Malabar Catholic Community / Church only accept liability or responsibility for an
                         incident or accident caused by the negligence or breach of statutory duty of the
-                        organisation its servants or agents.<br><br>
+                        organisation its servants or agents.<br>
                     </div>
                     <form:checkbox path="consentSigned"/>By checking the checkbox, you are giving your consent
                     for the above
@@ -298,16 +312,7 @@
     <!-- /.container -->
 </section>
 
-<footer id="footer" style="margin-top: 3px; margin: auto;position: fixed;width: 100%;bottom: 0;" class="navbar-inverse">
-    <div class="container" style="margin: auto;
-    padding-top: 6px;">
-        <div class="row">
-            <div class="col-xs-12 ">
-                <p style="color: #fff">RMS © - 2016</p>
-            </div>
-        </div>
-    </div>
-</footer>
+<%@include file="footer.jsp" %>
 
 </body>
 </html>
