@@ -40,15 +40,27 @@ public class ParentNode implements Serializable {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "address")
-    private String address;
+    @Column(name = "house_no")
+    private String houseNo;
+
+    @Column(name = "address_line_one")
+    private String addressLineOne;
+
+    @Column(name = "address_line_two")
+    private String addressLineTwo;
+
+    @Column(name = "address_line_three")
+    private String addressLineThree;
+
+    @Column(name = "county")
+    private String county;
 
     @Column(name = "consent_signed")
     private Boolean consentSigned;
 
     @LazyCollection(value = LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "parentNode", cascade = CascadeType.ALL)
-    private List<StudentNode> studentNodeList= new ArrayList<>();
+    private List<StudentNode> studentNodeList = new ArrayList<>();
 
     public ParentNode() {
     }
@@ -109,12 +121,44 @@ public class ParentNode implements Serializable {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
+    public String getHouseNo() {
+        return houseNo;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setHouseNo(String houseNo) {
+        this.houseNo = houseNo;
+    }
+
+    public String getAddressLineOne() {
+        return addressLineOne;
+    }
+
+    public void setAddressLineOne(String addressLineOne) {
+        this.addressLineOne = addressLineOne;
+    }
+
+    public String getAddressLineTwo() {
+        return addressLineTwo;
+    }
+
+    public void setAddressLineTwo(String addressLineTwo) {
+        this.addressLineTwo = addressLineTwo;
+    }
+
+    public String getAddressLineThree() {
+        return addressLineThree;
+    }
+
+    public void setAddressLineThree(String addressLineThree) {
+        this.addressLineThree = addressLineThree;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
     }
 
     public Boolean getConsentSigned() {

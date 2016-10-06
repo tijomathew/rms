@@ -8,4 +8,6 @@ import org.rms.models.ParentNode;
 public interface RegistrationDao {
 
     ParentNode saveRegistrationEntry(ParentNode parentNode);
+
+    Boolean alreadyRegisteredEmail(String email);
 }
