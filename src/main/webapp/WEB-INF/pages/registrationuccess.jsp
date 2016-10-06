@@ -11,12 +11,10 @@
 <html>
 <head>
     <title>RMS</title>
-    <spring:url value="/resources/css/styles.min.css" var="stylemincss"/>
-    <link href="${stylemincss} " rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <spring:url value="/resources/css/style.css" var="stylecss"/>
-    <spring:url value="/resources/css/bootstrap.min.css" var="bootstrapCSS"/>
     <link href="${stylecss} " rel="stylesheet">
-    <link href="${bootstrapCSS} " rel="stylesheet">
+
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript">
         jQuery(document).ready(function () {
@@ -27,71 +25,71 @@
     </script>
 
 </head>
-
-<header class="navbar navbar-inverse navbar-fixed-top" role="banner">
-    <a id="leftmenu-trigger" class="tooltips" data-toggle="tooltip" data-placement="bottom" title="Toggle Sidebar"></a>
-    <a id="rightmenu-trigger" class="tooltips" data-toggle="tooltip" data-placement="bottom"></a>
-
-    <div class="navbar-header pull-left">
-        <a class="navbar-brand" href="#"><span id=image-text><span
-                style="font-size: 27px;font-style: italic;">Syro-Malabar Catholic Church </span><br>Dublin-Ireland</span></a>
-    </div>
-</header>
-
 <body>
-<section id="login" style="height: 98%">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="alert alert-success fade in">
-                    You have successfully registered and given consent to below given students for attending Christine
-                    retreat!!..<strong>Your family ID is ${sessionScope.parentNodeEntry.id}</strong> and Student IDs are
-                    given below.
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>Student ID</th>
-                            <th>Name</th>
-                            <th>Class</th>
-                            <th>Section</th>
-                            <th>Dates</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${sessionScope.parentNodeEntry.studentNodeList}" var="studentNodeEntry">
-                            <tr>
-                                <td>${studentNodeEntry.id}</td>
-                                <td>${studentNodeEntry.firstName} ${studentNodeEntry.lastName} </td>
-                                <td>${studentNodeEntry.classDivision}</td>
-                                <td>${studentNodeEntry.retreatSection}</td>
-                                <td><c:if test="${not empty studentNodeEntry.dayOne}">
-                                    ${studentNodeEntry.dayOne}<br>
-                                </c:if><c:if test="${not empty studentNodeEntry.dayTwo}">
-                                    ${studentNodeEntry.dayTwo}<br>
-                                </c:if><c:if test="${not empty studentNodeEntry.dayThree}">
-                                    ${studentNodeEntry.dayThree}<br>
-                                </c:if><c:if test="${not empty studentNodeEntry.dayFour}">
-                                    ${studentNodeEntry.dayFour}
-                                </c:if></td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
+<%@ include file="headerTemplate.jsp"%>
 
-                <div>
-                    Dear ${sessionScope.parentNodeEntry.firstName} ${sessionScope.parentNodeEntry.lastName},<br>
+<div class="mainWrapper">
+        <div class="row row-offcanvas row-offcanvas-right">
+            <div class="col-xs-12 col-sm-12"></div>
+            <h3 class="defaultBold" style="color: #40a297 !important;">Success</h3>
+            <div class="alert alert-success fade in">
+                You have successfully registered and given consent to below given students for attending Christine
+                retreat!!..<strong>Your family ID is ${sessionScope.parentNodeEntry.id}</strong> and Student IDs are
+                given below.
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Class</th>
+                        <th>Section</th>
+                        <th>Dates</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${sessionScope.parentNodeEntry.studentNodeList}" var="studentNodeEntry">
+                        <tr>
+                            <td>${studentNodeEntry.id}</td>
+                            <td>${studentNodeEntry.firstName} ${studentNodeEntry.lastName} </td>
+                            <td>${studentNodeEntry.classDivision}</td>
+                            <td>${studentNodeEntry.retreatSection}</td>
+                            <td><c:if test="${not empty studentNodeEntry.dayOne}">
+                                ${studentNodeEntry.dayOne}<br>
+                            </c:if><c:if test="${not empty studentNodeEntry.dayTwo}">
+                                ${studentNodeEntry.dayTwo}<br>
+                            </c:if><c:if test="${not empty studentNodeEntry.dayThree}">
+                                ${studentNodeEntry.dayThree}<br>
+                            </c:if><c:if test="${not empty studentNodeEntry.dayFour}">
+                                ${studentNodeEntry.dayFour}
+                            </c:if></td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <p>
+                    Dear ${sessionScope.parentNodeEntry.firstName} ${sessionScope.parentNodeEntry.lastName},
+                </p>
+                <p>
                     The consent form is necessary to allow Syro-Malabar catholic Community / Church to provide
                     the best ‘duty of care’ to the children in its care during the events as mentioned below. It
                     gives permission for your son / daughter to take part and also necessary to ensure
                     Children’s leaders are aware of any medical, learning issues associated with your son /
-                    daughter so that we can give them a positive and engaging experience.<br>
-
+                    daughter so that we can give them a positive and engaging experience.
+                </p>
+                <p>
                     Event / Activity : Christeen Retreat from October 29 to 1st November 2016 from 9.30 AM to
-                    5.30 PM<br>
-                    Venue : Phibblestown Community Centre, Clonee, Blanchardstown, Dublin -15.<br>
+                    5.30 PM
+                </p>
+                <p>
+                    Venue : Phibblestown Community Centre, Clonee, Blanchardstown, Dublin -15.
+                </p>
+                <p>
                     1. I have read all the information provided concerning the programme of the above
                     activity.<br>
                     2. I hereby give permission for my son / daughter / ward to participate in the above
@@ -101,26 +99,22 @@
                     4. Syro- Malabar Catholic Community / Church only accept liability or responsibility for an
                     incident or accident caused by the negligence or breach of statutory duty of the
                     organisation its servants or agents.<br>
-                </div>
-
-                <div class="alert alert-info fade in">
+                </p>
+                <p class="alert alert-info fade in text-center" style="margin-top:30px;">
                     <strong>Note!</strong> Please remember and bring ‘Student ID’ when you come for the retreat!.
-                </div>
+                </p>
 
-                <div>
-                    <button type="button" value="Finish" id="finishButton"/>
-                </div>
+            </div>
+
+            <div style="text-align: center">
+                <button type="button" alue="Finish"  class="btn btn-primary commonGreenBtn" style="min-width:140px;" id="finishButton">Finish</button>
             </div>
         </div>
-    </div>
-    <!-- /.col-xs-12 -->
-    </div>
-    <!-- /.row -->
-    </div>
-    <!-- /.container -->
-</section>
+</div>
+<div style="    position: fixed;    bottom: 0;    width: 100%;">
+    <%@include file="footer.jsp" %>
 
-<%@include file="footer.jsp" %>
+</div>>
 
 </body>
 </html>

@@ -10929,7 +10929,7 @@ footer #back-to-top {
     }
 }
 
-nav.navbar {
+/*nav.navbar {
     background: #e6e7e8;
 }
 
@@ -10940,7 +10940,7 @@ nav.navbar .navbar-toggle:focus {
     color: #ffffff;
     border: none;
 }
-
+*/
 @media (min-width: 768px) {
     #horizontal-navbar.large-icons-nav .navbar-nav {
         margin-bottom: 0;

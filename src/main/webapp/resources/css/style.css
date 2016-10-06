@@ -1,174 +1,113 @@
-/*    --------------------------------------------------
-	:: Login Section
-	-------------------------------------------------- */
-#login {
-    padding-top: 50px
-}
+/*
+ * Style tweaks
+ * --------------------------------------------------
+ */
 
-#login .form-wrap {
-    width: 30%;
-    margin: 0 auto;
-}
 
-#login h1 {
-    color: #1fa67b;
-    font-size: 18px;
-    text-align: center;
-    font-weight: bold;
-    padding-bottom: 20px;
-}
-
-#login .form-group {
-    margin-bottom: 25px;
-}
-
-#login .checkbox {
-    margin-bottom: 20px;
-    position: relative;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
-}
-
-#login .checkbox.show:before {
-    content: '\e013';
-    color: #1fa67b;
-    font-size: 17px;
-    margin: 1px 0 0 3px;
-    position: absolute;
-    pointer-events: none;
-    font-family: 'Glyphicons Halflings';
-}
-
-#login .checkbox .character-checkbox {
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-    border-radius: 3px;
-    border: 1px solid #ccc;
-    vertical-align: middle;
-    display: inline-block;
-}
-
-#login .checkbox .label {
-    color: #6d6d6d;
-    font-size: 13px;
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('../fonts/fontawesome-webfont.eot');
+    src: url('../fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff') format('woff'), url('../fonts/fontawesome-webfont.ttf') format('truetype'), url('../fonts/fontawesome-webfont.svg#fontawesomeregular') format('svg');
     font-weight: normal;
+    font-style: normal;
+}
+html,
+body {
+    overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+body {
+    padding-top: 90px;
+}
+footer {
+    padding: 30px 0;
 }
 
-#login .btn.btn-custom {
-    font-size: 14px;
-    margin-bottom: 20px;
+/*
+ * Off Canvas
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 767px) {
+    .row-offcanvas {
+        position: relative;
+        -webkit-transition: all .25s ease-out;
+        -o-transition: all .25s ease-out;
+        transition: all .25s ease-out;
+    }
+
+    .row-offcanvas-right {
+        right: 0;
+    }
+
+    .row-offcanvas-left {
+        left: 0;
+    }
+
+    .row-offcanvas-right
+    .sidebar-offcanvas {
+        right: -50%; /* 6 columns */
+    }
+
+    .row-offcanvas-left
+    .sidebar-offcanvas {
+        left: -50%; /* 6 columns */
+    }
+
+    .row-offcanvas-right.active {
+        right: 50%; /* 6 columns */
+    }
+
+    .row-offcanvas-left.active {
+        left: 50%; /* 6 columns */
+    }
+
+    .sidebar-offcanvas {
+        position: absolute;
+        top: 0;
+        width: 50%; /* 6 columns */
+    }
 }
 
-#login .forget {
-    font-size: 13px;
-    text-align: center;
-    display: block;
+
+.mainWrapper{
+    padding:10px 50px;
+
+}
+.generalFormLayout .form-group{
+    margin-bottom: 10px;
+    margin-right: 10px;
 }
 
-/*    --------------------------------------------------
-	:: Inputs & Buttons
-	-------------------------------------------------- */
-.form-control {
-    color: #212121;
-}
 
-.btn-custom {
-    color: #fff;
-    background-color: #1fa67b;
+.fa {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
-
-.btn-custom:hover,
-.btn-custom:focus {
-    color: #fff;
-}
-
-/*    --------------------------------------------------
-    :: Footer
-	-------------------------------------------------- */
-#footer {
-    color: #6d6d6d;
-    font-size: 12px;
-    text-align: center;
-}
-
-#footer p {
-    margin-bottom: 0;
-}
-
-#footer a {
-    color: inherit;
-}
-
-span#image-text {
-    color: #fff;
-}
-
-i {
-    color: #fff;
-}
-
-.logoutImage{
-    padding-top: 8px;
-    cursor: pointer;
-}
-
-.bold-green-font {
+.headerColor{
+    background-color:#40a297 !important;
+    color:#fff !important;
     font-weight: bold;
-    color: green;
+    font-size: 18px;
+}
+.defaultBold{
+    font-weight:bold !important;
+}
+.commonGreenBtn{
+    background-color:#40a297 !important;
+    border: 0;
+
+}
+.topNavBg{
+    background-color:red;
+}
+.topNavBg h3{
+    font-size:35px;
 }
 
-.bold-font {
-    font-weight: bold;
-}
-
-.right-text {
-    text-align: right;
-}
-
-.large-font {
-    font-size: 15px;
-}
-
-.italic-darkblue-font {
-    font-style: italic;
-    color: darkblue;
-}
-
-.italic-purple-font {
-    font-style: italic;
-    color: purple;
-}
-
-.underline-blue-font {
-    text-decoration: underline;
-    color: blue;
-}
-
-.gold-border {
-    border: 3px solid gold;
-}
-
-.deeppink-border {
-    border: 3px solid deeppink;
-}
-
-.orange-background {
-    background-color: orange;
-}
-
-.orchid-background {
-    background-color: orchid;
-}
-
-.beige-background {
-    background-color: beige;
-}
-
-.modal-header-bg {
-    background-color: #489CA0;
-    color: #fff;
+.topNavBg h3 span{
+    font-size:24px;
 }

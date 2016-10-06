@@ -10,12 +10,10 @@
 <html>
 <head>
     <title>RMS</title>
-    <spring:url value="/resources/css/styles.min.css" var="stylemincss"/>
-    <link href="${stylemincss} " rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <spring:url value="/resources/css/style.css" var="stylecss"/>
-    <spring:url value="/resources/css/bootstrap.min.css" var="bootstrapCSS"/>
     <link href="${stylecss} " rel="stylesheet">
-    <link href="${bootstrapCSS} " rel="stylesheet">
+
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript">
         jQuery(document).ready(function () {
@@ -24,34 +22,30 @@
     </script>
 
 </head>
-<header class="navbar navbar-inverse navbar-fixed-top" role="banner">
-    <a id="leftmenu-trigger" class="tooltips" data-toggle="tooltip" data-placement="bottom" title="Toggle Sidebar"></a>
-    <a id="rightmenu-trigger" class="tooltips" data-toggle="tooltip" data-placement="bottom"></a>
 
-    <div class="navbar-header pull-left">
-        <a class="navbar-brand" href="#"><span id=image-text><span
-                style="font-size: 27px;font-style: italic;">Syro-Malabar Catholic Church </span><br>Dublin-Ireland</span></a>
-    </div>
-</header>
 
 <body>
-<section id="login" style="height: 98%">
-    <div class="container">
-        <div class="row">
-            <div class="alert alert-danger">
+<%@ include file="headerTemplate.jsp"%>
+<div class="mainWrapper">
+    <div class="row row-offcanvas row-offcanvas-right">
+        <div class="col-xs-12 col-sm-12"></div>
+        <h3 class="defaultBold" style="color: #843534 !important;">Failure</h3>
+        <div>
+
+            <p class="alert alert-danger text-center" style="margin-top:30px;">
                 <strong>Failure!</strong> Your registration is failed. Please make sure that your email ID is not
                 registered with our system.
-            </div>
-        </div>
-    </div>
-    <!-- /.col-xs-12 -->
-    </div>
-    <!-- /.row -->
-    </div>
-    <!-- /.container -->
-</section>
+            </p>
 
+        </div>
+
+
+    </div>
+</div>
+<div style="    position: fixed;    bottom: 0;    width: 100%;">
 <%@include file="footer.jsp" %>
+
+</div>
 
 </body>
 </html>
