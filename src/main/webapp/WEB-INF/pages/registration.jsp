@@ -33,12 +33,12 @@
                         // Remove element containing the fields
                         $row.remove();
                         /*$('#studentInfo div.form-group').each(function (idx) {
-                            var $inputs = $(this).find(':input:not(button)');
-                            $inputs.each(function () {
-                                var $prop = $(this).attr('name').split(".")[1];
-                                $(this).attr('name', 'studentNodeList[' + idx + '].' + $prop).attr('id', 'studentNodeList[' + idx + '].' + $prop);
-                            });
-                        });*/
+                         var $inputs = $(this).find(':input:not(button)');
+                         $inputs.each(function () {
+                         var $prop = $(this).attr('name').split(".")[1];
+                         $(this).attr('name', 'studentNodeList[' + idx + '].' + $prop).attr('id', 'studentNodeList[' + idx + '].' + $prop);
+                         });
+                         });*/
                     });
 
         });
@@ -75,29 +75,32 @@
 
         function callSectionUpdate(elementId) {
 
-            if(elementId != null){
+            if (elementId != null) {
 
                 var selectedClass = $('#' + elementId).val();
-                var sectionId =  $('#' + elementId).closest('div.panel-body').find("select[id ^= retreatSection]").attr("id");
+                var sectionId = $('#' + elementId).closest('div.panel-body').find("select[id ^= retreatSection]").attr("id");
 
-            switch(selectedClass){
-                case "c3":
-                case "c4":
-                case "c5":
-                case "c6": $('#' +sectionId).val("Junior");
-                           break;
-                case "y1":
-                case "y2":
-                case "y3":
-                case "y4": $('#' +sectionId).val("Senior");
-                           break;
-                case "y5":
-                case "y6":
-                case "g":
-                case "p":  $('#' +sectionId).val("SuperSenior");
-                            break;
+                switch (selectedClass) {
+                    case "Class-3":
+                    case "Class-4":
+                    case "Class-5":
+                    case "Class-6":
+                        $('#' + sectionId).val("Junior");
+                        break;
+                    case "Year-1":
+                    case "Year-2":
+                    case "Year-3":
+                    case "Year-4":
+                        $('#' + sectionId).val("Senior");
+                        break;
+                    case "Year-5":
+                    case "Year-6":
+                    case "Graduate":
+                    case "PG":
+                        $('#' + sectionId).val("SuperSenior");
+                        break;
 
-            }
+                }
 
             }
 
@@ -166,7 +169,7 @@
                     </div>
                     <div class="form-group">
                         <label for="houseNo">House No:</label>
-                        <form:textarea path="houseNo" class="form-control"/>
+                        <form:input path="houseNo" class="form-control"/>
                     </div>
                     <div class="form-group">
                         <label for="addressLineOne">Address Line-1:</label>
@@ -187,7 +190,7 @@
                 </div>
             </div>
 
-            <div class="panel panel-primary" id="studentInfo" s>
+            <div class="panel panel-primary" id="studentInfo">
                 <div class="panel-heading">Student Details</div>
                 <div id="studentInfoTemplate">
 
@@ -206,18 +209,18 @@
                             <label for="studentNodeList[0].classDivision">Class:</label>
                             <form:select class="form-control" path="studentNodeList[0].classDivision"
                                          id="classDivision0" onchange="callSectionUpdate($(this).attr('id'))">
-                                <form:option value="c3">Class-3</form:option>
-                                <form:option value="c4">Class-4</form:option>
-                                <form:option value="c5">Class-5</form:option>
-                                <form:option value="c6">Class-6</form:option>
-                                <form:option value="y1">Year-1</form:option>
-                                <form:option value="y2">Year-2</form:option>
-                                <form:option value="y3">Year-3</form:option>
-                                <form:option value="y4">Year-4</form:option>
-                                <form:option value="y5">Year-5</form:option>
-                                <form:option value="y6">Year-6</form:option>
-                                <form:option value="g">Graduate</form:option>
-                                <form:option value="p">PG</form:option>
+                                <form:option value="Class-3">Class-3</form:option>
+                                <form:option value="Class-4">Class-4</form:option>
+                                <form:option value="Class-5">Class-5</form:option>
+                                <form:option value="Class-6">Class-6</form:option>
+                                <form:option value="Year-1">Year-1</form:option>
+                                <form:option value="Year-2">Year-2</form:option>
+                                <form:option value="Year-3">Year-3</form:option>
+                                <form:option value="Year-4">Year-4</form:option>
+                                <form:option value="Year-5">Year-5</form:option>
+                                <form:option value="Year-6">Year-6</form:option>
+                                <form:option value="Graduate">Graduate</form:option>
+                                <form:option value="PG">PG</form:option>
 
                             </form:select>
                         </div>
@@ -233,22 +236,22 @@
                         <div class="form-group">
                             <label for="studentNodeList[0].dayOne">Oct-29:</label>
                             <form:checkbox class="form-control" path="studentNodeList[0].dayOne"
-                                           id="dayOne0"/>
+                                           id="dayOne0" value="Oct-29"/>
                         </div>
                         <div class="form-group">
                             <label for="studentNodeList[0].dayTwo">Oct-30:</label>
                             <form:checkbox class="form-control" path="studentNodeList[0].dayTwo"
-                                           id="dayTwo0"/>
+                                           id="dayTwo0" value="Oct-30"/>
                         </div>
                         <div class="form-group">
                             <label for="studentNodeList[0].dayThree">Oct-31:</label>
                             <form:checkbox class="form-control" path="studentNodeList[0].dayThree"
-                                           id="dayThree0"/>
+                                           id="dayThree0" value="Oct-31"/>
                         </div>
                         <div class="form-group">
-                            <label for="studentNodeList[0].dayFour">Nov-4:</label>
+                            <label for="studentNodeList[0].dayFour">Nov-1:</label>
                             <form:checkbox class="form-control" path="studentNodeList[0].dayFour"
-                                           id="dayFour0"/>
+                                           id="dayFour0" value="Nov-1"/>
                         </div>
                         <p>
                             <button type="button" class="btn btn-default addButton" id="" name="actionButton"><i
@@ -256,62 +259,7 @@
                         </p>
 
                     </div>
-                    <div class="form-group">
-                        <label for="lastName"> Last Name:</label>
-                        <form:input class="form-control"
-                                    path="studentNodeList[0].lastName" id="lastName0"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="studentNodeList[0].classDivision">Class:</label>
-                        <form:select class="form-control" path="studentNodeList[0].classDivision"
-                                     id="classDivision0" onchange="callSectionUpdate(this);">
-                            <form:option value="c3">Class-3</form:option>
-                            <form:option value="c4">Class-4</form:option>
-                            <form:option value="c5">Class-5</form:option>
-                            <form:option value="c6">Class-6</form:option>
-                            <form:option value="y1">Year-1</form:option>
-                            <form:option value="y2">Year-2</form:option>
-                            <form:option value="y3">Year-3</form:option>
-                            <form:option value="y4">Year-4</form:option>
-                            <form:option value="y5">Year-5</form:option>
-                            <form:option value="y6">Year-6</form:option>
-                            <form:option value="g">Graduate</form:option>
-                            <form:option value="p">PG</form:option>
-                        </form:select>
-                    </div>
-                    <div class="form-group">
-                        <label for="studentNodeList[0].retreatSection">Section:</label>
-                        <form:select class="form-control" path="studentNodeList[0].retreatSection"
-                                     id="retreatSection0">
-                            <form:option value="Junior">Junior</form:option>
-                            <form:option value="Senior">Senior</form:option>
-                            <form:option value="SuperSenior">Super Senior</form:option>
-                        </form:select>
-                    </div>
-                    <div class="form-group">
-                        <label for="studentNodeList[0].dayOne">Oct-29:</label>
-                        <form:checkbox class="form-control" path="studentNodeList[0].dayOne"
-                                       id="dayOne0" value="Oct-29"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="studentNodeList[0].dayTwo">Oct-30:</label>
-                        <form:checkbox class="form-control" path="studentNodeList[0].dayTwo"
-                                       id="dayTwo0" value="Oct-30"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="studentNodeList[0].dayThree">Oct-31:</label>
-                        <form:checkbox class="form-control" path="studentNodeList[0].dayThree"
-                                       id="dayThree0" value="Oct-31"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="studentNodeList[0].dayFour">Nov-1:</label>
-                        <form:checkbox class="form-control" path="studentNodeList[0].dayFour"
-                                       id="dayFour0" value="Nov-1"/>
-                    </div>
-                    <p>
-                        <button type="button" class="btn btn-default addButton" id="" name="actionButton"><i
-                                class="fa fa-plus"></i></button>
-                    </p>
+
                 </div>
             </div>
 
