@@ -73,6 +73,10 @@
 
         }
 
+        function callSectionUpdate(l) {
+            alert('hi');
+        }
+
     </script>
 </head>
 <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
@@ -157,7 +161,7 @@
                     <div class="form-group">
                         <label for="studentNodeList[0].classDivision">Class:</label>
                         <form:select class="form-control" path="studentNodeList[0].classDivision"
-                                     id="classDivision0">
+                                     id="classDivision0" onchange="callSectionUpdate(this);">
                             <form:option value="c3">Class-3</form:option>
                             <form:option value="c4">Class-4</form:option>
                             <form:option value="c5">Class-5</form:option>
