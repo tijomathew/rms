@@ -277,7 +277,7 @@
                                 <div class="form-group">
                                     <label for="houseNo">House No:<span
                                             style="color: red">*</span></label>
-                                    <form:input path="houseNo" class="form-control" id="houseNo" placeholder="House No."
+                                    <form:input path="houseNo" class="form-control" id="houseNo" placeholder="If NO, enter 0"
                                                 title="If no house number, please enter 0"/>
                                 </div>
 
@@ -351,7 +351,7 @@
                                     <label for="studentNodeList[0].retreatSection">Section:<span
                                             style="color: red">*</span></label>
                                     <form:input class="form-control" path="studentNodeList[0].retreatSection"
-                                                id="retreatSection0" readonly="true" value="Junior"/>
+                                                id="retreatSection0" readonly="true" />
                                 </div>
 
                             </div>
