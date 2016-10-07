@@ -58,6 +58,8 @@ public class ParentNode implements Serializable {
     @Column(name = "consent_signed")
     private Boolean consentSigned;
 
+    private transient String confirmEmail;
+
     @LazyCollection(value = LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "parentNode", cascade = CascadeType.ALL)
     private List<StudentNode> studentNodeList = new ArrayList<>();
@@ -167,6 +169,14 @@ public class ParentNode implements Serializable {
 
     public void setConsentSigned(Boolean consentSigned) {
         this.consentSigned = consentSigned;
+    }
+
+    public String getConfirmEmail() {
+        return confirmEmail;
+    }
+
+    public void setConfirmEmail(String confirmEmail) {
+        this.confirmEmail = confirmEmail;
     }
 
     public List<StudentNode> getStudentNodeList() {

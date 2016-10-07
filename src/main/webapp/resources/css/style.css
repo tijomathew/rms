@@ -111,3 +111,12 @@ footer {
 .topNavBg h3 span{
     font-size:24px;
 }
+
+.borderColor{
+    border-color: red;
+}
+
+.requiredField {
+    content: "*";
+    color: #ff0000;
+}
