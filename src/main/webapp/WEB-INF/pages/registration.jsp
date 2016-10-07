@@ -20,11 +20,29 @@
 
         jQuery(document).ready(function () {
             $("#saveButton").attr('disabled', 'disabled');
+
+            $(function () {
+                $(document).tooltip();
+            });
             $("#consentChecked").click(function () {
                 if ($("#consentChecked").prop('checked')) {
                     $("#saveButton").removeAttr('disabled', 'disabled');
                 } else {
                     $("#saveButton").attr('disabled', 'disabled');
+                }
+            });
+
+            $("#phoneNumber").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    $("#errmsg").html("Digits Only").show().fadeOut("slow");
+                    return false;
+                }
+            });
+
+            $("#alternativePhoneNumber").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    $("#errmsg1").html("Digits Only").show().fadeOut("slow");
+                    return false;
                 }
             });
 
@@ -75,6 +93,8 @@
 
                 if (submitFlag) {
                     $("#registration-form").submit();
+                } else {
+                    alert('Please correct errors in the red highlighted fields and save again');
                 }
             });
 
@@ -91,13 +111,7 @@
 
                         // Remove element containing the fields
                         $row.remove();
-                        /*$('#studentInfo div.form-group').each(function (idx) {
-                         var $inputs = $(this).find(':input:not(button)');
-                         $inputs.each(function () {
-                         var $prop = $(this).attr('name').split(".")[1];
-                         $(this).attr('name', 'studentNodeList[' + idx + '].' + $prop).attr('id', 'studentNodeList[' + idx + '].' + $prop);
-                         });
-                         });*/
+
                     });
 
         });
@@ -120,7 +134,7 @@
                         .find('[name="studentNodeList[0].id"]').val('').attr('name', 'studentNodeList[' + i + '].id').attr('id', 'id' + i).end()
                         .find('[name="studentNodeList[0].firstName"]').val('').attr('name', 'studentNodeList[' + i + '].firstName').attr('id', 'firstName' + i).end()
                         .find('[name="studentNodeList[0].lastName"]').val('').attr('name', 'studentNodeList[' + i + '].lastName').attr('id', 'lastName' + i).end()
-                        .find('[name="studentNodeList[0].classDivision"]').val('').attr('name', 'studentNodeList[' + i + '].classDivision').attr('id', 'classDivision' + i).end()
+                        .find('[name="studentNodeList[0].classDivision"]').attr('name', 'studentNodeList[' + i + '].classDivision').attr('id', 'classDivision' + i).end()
                         .find('[name="studentNodeList[0].retreatSection"]').val('').attr('name', 'studentNodeList[' + i + '].retreatSection').attr('id', 'retreatSection' + i).end()
                         .find('[name="studentNodeList[0].dayOne"]').val('Oct-29').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayOne').attr('id', 'dayOne' + i).end()
                         .find('[name="studentNodeList[0].dayTwo"]').val('Oct-30').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayTwo').attr('id', 'dayTwo' + i).end()
@@ -140,6 +154,8 @@
                 var sectionId = $('#' + elementId).closest('div.panel-body').find("input[id ^= retreatSection]").attr("id");
 
                 switch (selectedClass) {
+                    case "0":
+                        $('#' + sectionId).val('');
                     case "7-12":
                         $('#' + sectionId).val("Junior");
                         $('#' + sectionId).closest('div.panel-body').find("input[id ^= dayFour]").parent().css("display", "none");
@@ -203,14 +219,16 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="firstName">First Name:<span style="color: red">*</span></label>
-                                    <form:input path="firstName" id="firstName" class="form-control" required="true"/>
+                                    <form:input path="firstName" id="firstName" class="form-control" required="true"
+                                                placeholder="First Name"/>
                                 </div>
 
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="lastName">Last Name:<span style="color: red">*</span></label>
-                                    <form:input path="lastName" id="lastName" class="form-control" required="true"/>
+                                    <form:input path="lastName" id="lastName" class="form-control" required="true"
+                                                placeholder="Last Name"/>
                                 </div>
 
                             </div>
@@ -221,7 +239,8 @@
                                 <div class="form-group">
                                     <label for="phoneNumber">Phone - 1:<span style="color: red">*</span></label>
                                     <form:input path="phoneNumber" class="form-control" required="true"
-                                                id="phoneNumber"/>
+                                                id="phoneNumber" placeholder="Phone No."/>
+                                    <div id="errmsg" style="color: red"></div>
                                 </div>
 
                             </div>
@@ -230,7 +249,8 @@
                                     <label for="alternativePhoneNumber">Phone - 2:<span
                                             style="color: red">*</span></label>
                                     <form:input path="alternativePhoneNumber" class="form-control" required="true"
-                                                id="alternativePhoneNumber"/>
+                                                id="alternativePhoneNumber" placeholder="Alternative Phone No."/>
+                                    <div id="errmsg1" style="color: red"></div>
                                 </div>
 
                             </div>
@@ -238,7 +258,7 @@
                                 <div class="form-group">
                                     <label for="email">Email:<span style="color: red">*</span></label>
                                     <form:input path="email" class="form-control" required="true" type="email"
-                                                id="email"/>
+                                                id="email" placeholder="Email"/>
                                 </div>
 
                             </div>
@@ -246,7 +266,7 @@
                                 <div class="form-group">
                                     <label for="confirmEmail">Confirm Email:<span style="color: red">*</span></label>
                                     <form:input path="confirmEmail" class="form-control" required="true" type="email"
-                                                id="confirmEmail"/>
+                                                id="confirmEmail" placeholder="Confirm Email"/>
                                 </div>
 
                             </div>
@@ -255,8 +275,10 @@
                         <div class="row generalFormLayout">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="houseNo">House No:<span style="color: red">*</span></label>
-                                    <form:input path="houseNo" class="form-control" id="houseNo"/>
+                                    <label for="houseNo">House No:<span
+                                            style="color: red">*</span></label>
+                                    <form:input path="houseNo" class="form-control" id="houseNo" placeholder="House No."
+                                                title="If no house number, please enter 0"/>
                                 </div>
 
                             </div>
@@ -264,21 +286,21 @@
                                 <div class="form-group">
                                     <label for="addressLineOne">Address Line - 1:<span
                                             style="color: red">*</span></label>
-                                    <form:input path="addressLineOne" class="form-control" id="addressLineOne"/>
+                                    <form:input path="addressLineOne" class="form-control" id="addressLineOne" placeholder="Address Line - 1"/>
                                 </div>
 
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="addressLineTwo">Address Line - 2:</label>
-                                    <form:input path="addressLineTwo" class="form-control"/>
+                                    <form:input path="addressLineTwo" class="form-control" placeholder="Address Line - 2"/>
                                 </div>
 
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="addressLineThree">Address Line - 3:</label>
-                                    <form:input path="addressLineThree" class="form-control"/>
+                                    <form:input path="addressLineThree" class="form-control" placeholder="Address Line - 3"/>
                                 </div>
 
                             </div>
@@ -298,7 +320,7 @@
                                 <div class="form-group">
                                     <label for="firstName">First Name:<span style="color: red">*</span></label>
                                     <form:input path="studentNodeList[0].firstName" class="form-control" id="firstName0"
-                                                required="true"/>
+                                                required="true" placeholder="First Name"/>
                                     <form:hidden path="studentNodeList[0].id" class="form-control" id="id0"/>
                                 </div>
                             </div>
@@ -306,7 +328,7 @@
                                 <div class="form-group">
                                     <label for="lastName"> Last Name:<span style="color: red">*</span></label>
                                     <form:input class="form-control"
-                                                path="studentNodeList[0].lastName" id="lastName0" required="true"/>
+                                                path="studentNodeList[0].lastName" id="lastName0" required="true" placeholder="Last Name"/>
                                 </div>
 
                             </div>
@@ -316,6 +338,7 @@
                                             style="color: red">*</span></label>
                                     <form:select class="form-control" path="studentNodeList[0].classDivision"
                                                  id="classDivision0" onchange="callSectionUpdate($(this).attr('id'))">
+                                        <form:option value="0">--Select--</form:option>
                                         <form:option value="7-12">7 - 12</form:option>
                                         <form:option value="13-17">13 - 17</form:option>
                                         <form:option value="18+">18+</form:option>
@@ -367,10 +390,6 @@
                                 name="actionButton">
                             Add Student
                         </button>
-
-
-                        <!--<button type="button" class="btn btn-default addButton" id="" name="actionButton"><i class="fa fa-plus" style="color: #000000"></i></button>-->
-
 
                     </div>
                 </div>

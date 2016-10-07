@@ -36,7 +36,7 @@
 
         <div class="alert alert-success fade in">
             You have successfully registered and given consent to below given students for attending Christine
-            retreat!!..<strong>Your family ID is ${sessionScope.parentNodeEntry.id}</strong> and Student IDs are
+            retreat!!..<br><strong>Your family ID is ${sessionScope.parentNodeEntry.id}</strong> and Student IDs are
             given below.
         </div>
 
@@ -114,7 +114,7 @@
         </div>
 
         <div style="text-align: center">
-            <button type="button" alue="Finish" class="btn btn-primary commonGreenBtn" style="min-width:140px;"
+            <button type="button" value="Finish" class="btn btn-primary commonGreenBtn" style="min-width:140px;"
                     id="finishButton">Finish
             </button>
         </div>

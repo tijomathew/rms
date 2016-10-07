@@ -7,7 +7,8 @@
 --%>
 <nav class="navbar navbar-fixed-top topNavBg">
     <div class="container" style="text-align:center">
-        <h3 style="color:#fff" class="defaultBold">Syro-Malabar Catholic Church <br><span>Dublin, Ireland</span></h3>
+        <h3 style="color:#fff" class="defaultBold">Syro-Malabar Indian Catholic Church <br><span>Dublin, Ireland</span>
+        </h3>
     </div>
     <!-- /.container -->
 </nav>

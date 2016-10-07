@@ -52,9 +52,6 @@ public class ParentNode implements Serializable {
     @Column(name = "address_line_three")
     private String addressLineThree;
 
-    @Column(name = "county")
-    private String county;
-
     @Column(name = "consent_signed")
     private Boolean consentSigned;
 
@@ -153,14 +150,6 @@ public class ParentNode implements Serializable {
 
     public void setAddressLineThree(String addressLineThree) {
         this.addressLineThree = addressLineThree;
-    }
-
-    public String getCounty() {
-        return county;
-    }
-
-    public void setCounty(String county) {
-        this.county = county;
     }
 
     public Boolean getConsentSigned() {

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,8 +35,19 @@ public class RegistrationController {
     @RequestMapping(value = "createregistration.action", method = RequestMethod.POST)
     public String registerationProcess(@ModelAttribute("parentNodeForm") ParentNode parentNode, HttpServletRequest httpServletRequest) {
         List<StudentNode> studentNodeList = parentNode.getStudentNodeList();
+        List<StudentNode> removeEmptyStudentList = new ArrayList<>();
         for (StudentNode studentNode : studentNodeList) {
-            studentNode.setParentNode(parentNode);
+            if (!studentNode.getFirstName().isEmpty() && !studentNode.getLastName().isEmpty()) {
+                studentNode.setParentNode(parentNode);
+            } else {
+                removeEmptyStudentList.add(studentNode);
+            }
+        }
+
+        for (StudentNode studentNode : removeEmptyStudentList) {
+            if (studentNodeList.contains(studentNode)) {
+                studentNodeList.remove(studentNode);
+            }
         }
 
         if (!registrationService.checkEmailAlreadyRegistered(parentNode.getEmail())) {
