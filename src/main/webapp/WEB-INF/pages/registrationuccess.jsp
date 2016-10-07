@@ -79,30 +79,30 @@
             </p>
 
             <p>
-                The consent form is necessary to allow Syro-Malabar catholic Community / Church to provide
+                The consent form is necessary to allow Syro-Malabar catholic Community/Church to provide
                 the best ‘duty of care’ to the children in its care during the events as mentioned below. It
-                gives permission for your son / daughter to take part and also necessary to ensure
-                Children’s leaders are aware of any medical, learning issues associated with your son /
-                daughter so that we can give them a positive and engaging experience.
+                gives permission for your son/daughter to take part and also necessary to ensure
+                Children’s leaders are aware of any medical, learning issues associated with your son/daughter so that
+                we can give them a positive and engaging experience.
             </p>
 
             <p>
-                <i> Event / Activity : Christeen Retreat from October 29 to 1st November 2016 from 9.30 AM to
+                <i> <b>Event/Activity:</b> Christeen Retreat from October 29 to 1st November 2016 from 9.30 AM to
                     5.30 PM</i>
             </p>
 
             <p>
-                <i>Venue : Phibblestown Community Centre, Clonee, Blanchardstown, Dublin -15.</i>
+                <i><b>Venue:</b> Phibblestown Community Centre, Clonee, Blanchardstown, Dublin -15.</i>
             </p>
 
             <p>
                 1. I have read all the information provided concerning the programme of the above
                 activity.<br>
-                2. I hereby give permission for my son / daughter / ward to participate in the above
+                2. I hereby give permission for my son/daughter/ward to participate in the above
                 activity.<br>
                 3. I accept that my child may be included in photos/videos from the above activity that
                 might be published by the parish.<br>
-                4. Syro- Malabar Catholic Community / Church only accept liability or responsibility for an
+                4. Syro-Malabar Catholic Community/Church only accept liability or responsibility for an
                 incident or accident caused by the negligence or breach of statutory duty of the
                 organisation its servants or agents.<br>
             </p>

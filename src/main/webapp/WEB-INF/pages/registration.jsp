@@ -32,6 +32,14 @@
                 }
             });
 
+            $("#medicalInfoChecked").click(function () {
+                if ($("#medicalInfoChecked").prop('checked')) {
+                    $("#medicalInformation").css('display', 'block');
+                } else {
+                    $("#medicalInformation").css('display', 'none');
+                }
+            });
+
             $("#phoneNumber").keypress(function (e) {
                 if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
                     $("#errmsg").html("Digits Only").show().fadeOut("slow");
@@ -89,6 +97,10 @@
 
                 if ($("#addressLineOne").val() == "") {
                     $("#addressLineOne").addClass('borderColor');
+                }
+
+                if ($("#addressLineTwo").val() == "") {
+                    $("#addressLineTwo").addClass('borderColor');
                 }
 
                 if (submitFlag) {
@@ -192,7 +204,7 @@
                 <h3 class="defaultBold">Retreat Registration Form</h3>
 
                 <div class="panel panel-default">
-                    <div class="panel-heading headerColor">Parent Details</div>
+                    <div class="panel-heading headerColor">Parent/Guardian Details</div>
                     <div class="panel-body">
                         <div class="row generalFormLayout">
                             <div class="col-md-4">
@@ -277,7 +289,8 @@
                                 <div class="form-group">
                                     <label for="houseNo">House No:<span
                                             style="color: red">*</span></label>
-                                    <form:input path="houseNo" class="form-control" id="houseNo" placeholder="If NO, enter 0"
+                                    <form:input path="houseNo" class="form-control" id="houseNo"
+                                                placeholder="If NO, enter 0"
                                                 title="If no house number, please enter 0"/>
                                 </div>
 
@@ -286,21 +299,25 @@
                                 <div class="form-group">
                                     <label for="addressLineOne">Address Line - 1:<span
                                             style="color: red">*</span></label>
-                                    <form:input path="addressLineOne" class="form-control" id="addressLineOne" placeholder="Address Line - 1"/>
+                                    <form:input path="addressLineOne" class="form-control" id="addressLineOne"
+                                                placeholder="Address Line - 1"/>
                                 </div>
 
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="addressLineTwo">Address Line - 2:</label>
-                                    <form:input path="addressLineTwo" class="form-control" placeholder="Address Line - 2"/>
+                                    <label for="addressLineTwo">Address Line - 2:<span
+                                            style="color: red">*</span></label>
+                                    <form:input path="addressLineTwo" class="form-control"
+                                                placeholder="Address Line - 2" id="addressLineTwo"/>
                                 </div>
 
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="addressLineThree">Address Line - 3:</label>
-                                    <form:input path="addressLineThree" class="form-control" placeholder="Address Line - 3"/>
+                                    <form:input path="addressLineThree" class="form-control"
+                                                placeholder="Address Line - 3"/>
                                 </div>
 
                             </div>
@@ -328,7 +345,8 @@
                                 <div class="form-group">
                                     <label for="lastName"> Last Name:<span style="color: red">*</span></label>
                                     <form:input class="form-control"
-                                                path="studentNodeList[0].lastName" id="lastName0" required="true" placeholder="Last Name"/>
+                                                path="studentNodeList[0].lastName" id="lastName0" required="true"
+                                                placeholder="Last Name"/>
                                 </div>
 
                             </div>
@@ -351,7 +369,7 @@
                                     <label for="studentNodeList[0].retreatSection">Section:<span
                                             style="color: red">*</span></label>
                                     <form:input class="form-control" path="studentNodeList[0].retreatSection"
-                                                id="retreatSection0" readonly="true" />
+                                                id="retreatSection0" readonly="true"/>
                                 </div>
 
                             </div>
@@ -399,25 +417,45 @@
                     <div class="panel-body" id="consentInfoTemplate">
 
                         <div>
-                            Dear Parents / Guardean,<br>
-                            The consent form is necessary to allow Syro-Malabar catholic Community / Church to provide
+                            Dear Parent/Guardian,<br>
+                            The consent form is necessary to allow Syro-Malabar catholic Community/Church to provide
                             the best ‘duty of care’ to the children in its care during the events as mentioned below. It
-                            gives permission for your son / daughter to take part and also necessary to ensure
-                            Children’s leaders are aware of any medical, learning issues associated with your son /
-                            daughter so that we can give them a positive and engaging experience.<br>
+                            gives permission for your son/daughter to take part and also necessary to ensure
+                            Children’s leaders are aware of any medical, learning issues associated with your
+                            son/daughter so that we can give them a positive and engaging experience.<br>
 
-                            <i>Event / Activity : Christeen Retreat from October 29 to 1st November 2016 from 9.30 AM to
+                            <i><b>Event/Activity:</b> Christeen Retreat from October 29 to 1st November 2016 from 9.30
+                                AM to
                                 5.30 PM<br>
-                                Venue : Phibblestown Community Centre, Clonee, Blanchardstown, Dublin -15.</i><br>
+                                <b>Venue:</b> Phibblestown Community Centre, Clonee, Blanchardstown, Dublin
+                                -15.</i><br>
                             1. I have read all the information provided concerning the programme of the above
                             activity.<br>
-                            2. I hereby give permission for my son / daughter / ward to participate in the above
+                            2. I hereby give permission for my son/daughter/ward to participate in the above
                             activity.<br>
                             3. I accept that my child may be included in photos/videos from the above activity that
                             might be published by the parish.<br>
-                            4. Syro- Malabar Catholic Community / Church only accept liability or responsibility for an
+                            4. Syro-Malabar Catholic Community/Church only accept liability or responsibility for an
                             incident or accident caused by the negligence or breach of statutory duty of the
                             organisation its servants or agents.<br><br>
+
+                            <div class="panel panel-warning">
+                                <div class="panel-heading">Warning</div>
+                                <div class="panel-body">If any medical
+                                    condition/special requirement for your child,
+                                    which the organisers ought to
+                                    be aware, please click on the check box and enter details in the text
+                                    box.&nbsp;&nbsp;<form:checkbox path="medicalInfoFlag"
+                                                                   style="width:15px;height:15px;"
+                                                                   id="medicalInfoChecked"/>
+                                </div>
+                                <div>
+
+                                    <div><form:textarea path="medicalInformation" id="medicalInformation"
+                                                        style="display:none" class="form-control"
+                                                        placeholder="Please enter details here..."></form:textarea></div>
+                                </div>
+                            </div>
                         </div>
 
                         <div>

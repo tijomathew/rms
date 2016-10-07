@@ -55,6 +55,12 @@ public class ParentNode implements Serializable {
     @Column(name = "consent_signed")
     private Boolean consentSigned;
 
+    @Column(name = "medical_info_flag")
+    private Boolean medicalInfoFlag;
+
+    @Column(name = "medical_information")
+    private String medicalInformation;
+
     private transient String confirmEmail;
 
     @LazyCollection(value = LazyCollectionOption.FALSE)
@@ -158,6 +164,22 @@ public class ParentNode implements Serializable {
 
     public void setConsentSigned(Boolean consentSigned) {
         this.consentSigned = consentSigned;
+    }
+
+    public Boolean getMedicalInfoFlag() {
+        return medicalInfoFlag;
+    }
+
+    public void setMedicalInfoFlag(Boolean medicalInfoFlag) {
+        this.medicalInfoFlag = medicalInfoFlag;
+    }
+
+    public String getMedicalInformation() {
+        return medicalInformation;
+    }
+
+    public void setMedicalInformation(String medicalInformation) {
+        this.medicalInformation = medicalInformation;
     }
 
     public String getConfirmEmail() {
