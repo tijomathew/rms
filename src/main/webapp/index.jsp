@@ -10,7 +10,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
-  <title>RMS</title>
+  <title>Event Manager</title>
   <spring:url value="/resources/js/jquery-1.11.0.min.js" var="jqueryURL"/>
   <script src="${jqueryURL}" type="text/javascript"
           language="javascript"></script>

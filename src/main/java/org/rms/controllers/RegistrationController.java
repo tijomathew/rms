@@ -62,13 +62,17 @@ public class RegistrationController {
             ParentNode savedParentNode = registrationService.saveRegistrationEntry(parentNode);
             List<StudentNode> studentNodesToUpdateWithBandCode = savedParentNode.getStudentNodeList();
 
+            List<StudentNode> updatedStudentNodes = new ArrayList<>();
+
             Integer lengthOfMassCentreName = savedParentNode.getMassCentreName().length();
             String concatMassCentreCode = lengthOfMassCentreName >= 3 ? savedParentNode.getMassCentreName().substring(0, 3) : savedParentNode.getMassCentreName();
 
             for (StudentNode studentNode : studentNodesToUpdateWithBandCode) {
                 String bandCode = concatMassCentreCode.toUpperCase() + "-" + savedParentNode.getId() + "-" + studentNode.getId();
                 studentNode.setBandCode(bandCode);
+                updatedStudentNodes.add(studentNode);
             }
+            savedParentNode.setStudentNodeList(updatedStudentNodes);
 
             Boolean emailSentForRegisteredParent = mailService.sendRegistrationDetailsWithConsentForm(savedParentNode);
 
