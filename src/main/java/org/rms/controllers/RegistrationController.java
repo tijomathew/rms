@@ -87,7 +87,7 @@ public class RegistrationController {
             HttpSession session = httpServletRequest.getSession();
             session.setAttribute("parentNodeEntry", savedParentNode);
 
-            return "registrationuccess";
+            return "registrationsuccess";
         }
         return "registrationfailure";
     }

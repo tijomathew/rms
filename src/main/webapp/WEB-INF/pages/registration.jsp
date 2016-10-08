@@ -35,8 +35,10 @@
             $("#medicalInfoChecked").click(function () {
                 if ($("#medicalInfoChecked").prop('checked')) {
                     $("#medicalInformation").css('display', 'block');
+                    $("#medicalInformation").val('');
                 } else {
                     $("#medicalInformation").css('display', 'none');
+                    $("#medicalInformation").val('');
                 }
             });
 
@@ -93,6 +95,14 @@
 
                 if ($("#houseNo").val() == "") {
                     $("#houseNo").addClass('borderColor');
+                }
+
+                if ($("#firstName").val() == "") {
+                    $("#firstName").addClass('borderColor');
+                }
+
+                if ($("#lastName").val() == "") {
+                    $("#lastName").addClass('borderColor');
                 }
 
                 if ($("#addressLineOne").val() == "") {
@@ -152,7 +162,7 @@
                         .find('[name="studentNodeList[0].dayTwo"]').val('Oct-30').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayTwo').attr('id', 'dayTwo' + i).end()
                         .find('[name="studentNodeList[0].dayThree"]').val('Oct-31').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayThree').attr('id', 'dayThree' + i).end()
                         .find('[name="studentNodeList[0].dayFour"]').val('Nov-1').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayFour').attr('id', 'dayFour' + i).end()
-                        .find('[name = actionButton]').removeAttr('class').attr('class', 'btn btn-primary removeButton commonGreenBtn').text("Remove Student").find('.fa-plus').removeAttr('class').attr('class', 'fa fa-minus');
+                        .find('[name = actionButton]').removeAttr('class').attr('class', 'btn btn-primary removeButton commonGreenBtn').text("Remove Child").find('.fa-plus').removeAttr('class').attr('class', 'fa fa-minus');
 
             }
 
@@ -168,7 +178,7 @@
                 switch (selectedClass) {
                     case "0":
                         $('#' + sectionId).val('');
-                    case "7-12":
+                    case "8-12":
                         $('#' + sectionId).val("Junior");
                         $('#' + sectionId).closest('div.panel-body').find("input[id ^= dayFour]").parent().css("display", "none");
                         ;
@@ -357,7 +367,7 @@
                                     <form:select class="form-control" path="studentNodeList[0].classDivision"
                                                  id="classDivision0" onchange="callSectionUpdate($(this).attr('id'))">
                                         <form:option value="0">--Select--</form:option>
-                                        <form:option value="7-12">7 - 12</form:option>
+                                        <form:option value="8-12">8 - 12</form:option>
                                         <form:option value="13-17">13 - 17</form:option>
                                         <form:option value="18+">18+</form:option>
                                     </form:select>
@@ -418,7 +428,8 @@
 
                         <div>
                             Dear Parent/Guardian,<br>
-                            The consent form is necessary to allow Syro-Malabar catholic Community/Church to provide
+                            The consent form is necessary to allow Syro Malabar Catholic Church Dublin, Ireland to
+                            provide
                             the best ‘duty of care’ to the children in its care during the events as mentioned below. It
                             gives permission for your son/daughter to take part and also necessary to ensure
                             Children’s leaders are aware of any medical, learning issues associated with your
@@ -435,8 +446,8 @@
                             activity.<br>
                             3. I accept that my child may be included in photos/videos from the above activity that
                             might be published by the parish.<br>
-                            4. Syro Malabar Church,Ireland Community/Church only accept liability or responsibility for an
-                            incident or accident caused by the negligence or breach of statutory duty of the
+                            4. Syro Malabar Catholic Church Dublin, Ireland only accept liability or responsibility for
+                            an incident or accident caused by the negligence or breach of statutory duty of the
                             organisation its servants or agents.<br><br>
 
                             <div class="panel panel-warning">
@@ -460,7 +471,7 @@
                         <div>
                             <form:checkbox path="consentSigned" style="width:15px;height:15px;" id="consentChecked"/>
                             &nbsp;&nbsp;<strong>By
-                            checking the checkbox, you are giving your consent for the above childs.</strong>
+                            checking the checkbox, you are giving your consent for the above child/children.</strong>
                         </div>
                     </div>
                 </div>

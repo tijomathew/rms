@@ -5,8 +5,8 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -66,13 +66,10 @@ public class ParentNode implements Serializable {
     private Boolean emailSent;
 
     @Column(name = "registered_date")
-    private Date registeredDate;
+    private Date registeredDate = new Date();
 
     @Column(name = "registered_ip")
     private String ip;
-
-    @Column(name = "band_code")
-    private String bandCode;
 
     private transient String confirmEmail;
 

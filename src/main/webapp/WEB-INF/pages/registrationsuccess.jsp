@@ -36,7 +36,7 @@
 
         <div class="alert alert-success fade in">
             You have successfully registered and given consent to below given childs for attending Christine
-            retreat!!..<br><strong>Your family ID is ${sessionScope.parentNodeEntry.id}</strong> and Child IDs are
+            retreat!!..<br><strong>Your family ID is: ${sessionScope.parentNodeEntry.id}</strong> <br>Child IDs are
             given below.
         </div>
 
@@ -46,7 +46,7 @@
                 <tr>
                     <th>Child ID</th>
                     <th>Name</th>
-                    <th>Class</th>
+                    <th>Age Range</th>
                     <th>Section</th>
                     <th>Dates</th>
                 </tr>
@@ -79,7 +79,7 @@
             </p>
 
             <p>
-                The consent form is necessary to allow Syro-Malabar catholic Community/Church to provide
+                The consent form is necessary to allow Syro Malabar Catholic Church Dublin, Ireland to provide
                 the best ‘duty of care’ to the children in its care during the events as mentioned below. It
                 gives permission for your son/daughter to take part and also necessary to ensure
                 Children’s leaders are aware of any medical, learning issues associated with your son/daughter so that
@@ -102,13 +102,13 @@
                 activity.<br>
                 3. I accept that my child may be included in photos/videos from the above activity that
                 might be published by the parish.<br>
-                4. Syro-Malabar Catholic Community/Church only accept liability or responsibility for an
+                4. Syro Malabar Catholic Church Dublin, Ireland only accept liability or responsibility for an
                 incident or accident caused by the negligence or breach of statutory duty of the
                 organisation its servants or agents.<br>
             </p>
 
             <p class="alert alert-info fade in text-center" style="margin-top:30px;">
-                <strong>Note!</strong> Please remember and bring ‘Child ID’ when you come for the retreat!.
+                <strong>Note!</strong> Please remember and bring ‘Child ID’ when you come for the retreat.
             </p>
 
         </div>
