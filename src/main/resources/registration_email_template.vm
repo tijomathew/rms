@@ -36,7 +36,7 @@
         #end
         #if($registeredParentNode.addressLineThree)
             ${registeredParentNode.addressLineThree}&nbsp;
-        #end$</p>
+        #end</p>
 </div>
 <div>
     <table>
@@ -105,7 +105,7 @@
         activity.<br>
         3. I accept that my child may be included in photos/videos from the above activity that
         might be published by the parish.<br>
-        4. Syro-Malabar Catholic Community/Church only accept liability or responsibility for an
+        4. Syro Malabar Church, Ireland Community/Church only accept liability or responsibility for an
         incident or accident caused by the negligence or breach of statutory duty of the
         organisation its servants or agents.<br>
     </p>

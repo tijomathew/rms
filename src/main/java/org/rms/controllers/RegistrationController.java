@@ -66,7 +66,7 @@ public class RegistrationController {
             String concatMassCentreCode = lengthOfMassCentreName >= 3 ? savedParentNode.getMassCentreName().substring(0, 3) : savedParentNode.getMassCentreName();
 
             for (StudentNode studentNode : studentNodesToUpdateWithBandCode) {
-                String bandCode = concatMassCentreCode + "-" + savedParentNode.getId() + "-" + studentNode.getId();
+                String bandCode = concatMassCentreCode.toUpperCase() + "-" + savedParentNode.getId() + "-" + studentNode.getId();
                 studentNode.setBandCode(bandCode);
             }
 
