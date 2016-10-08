@@ -319,7 +319,7 @@
                                     <form:input path="addressLineThree" class="form-control"
                                                 placeholder="Address Line - 3"/>
                                 </div>
-
+                                <form:hidden path="ip" value="<%=request.getRemoteAddr()%>"/>
                             </div>
                         </div>
 
@@ -329,7 +329,7 @@
 
 
                 <div class="panel panel-default" id="studentInfo">
-                    <div class="panel-heading headerColor">Student Details</div>
+                    <div class="panel-heading headerColor">Child Details</div>
                     <div class="panel-body" id="studentInfoTemplate">
 
                         <div class="row generalFormLayout">
@@ -406,7 +406,7 @@
 
                         <button type="button" class="btn btn-primary addButton commonGreenBtn" id=""
                                 name="actionButton">
-                            Add Student
+                            Add Child
                         </button>
 
                     </div>
@@ -440,14 +440,13 @@
                             organisation its servants or agents.<br><br>
 
                             <div class="panel panel-warning">
-                                <div class="panel-heading">Warning</div>
-                                <div class="panel-body">If any medical
-                                    condition/special requirement for your child,
-                                    which the organisers ought to
-                                    be aware, please click on the check box and enter details in the text
-                                    box.&nbsp;&nbsp;<form:checkbox path="medicalInfoFlag"
-                                                                   style="width:15px;height:15px;"
-                                                                   id="medicalInfoChecked"/>
+                                <div class="panel-heading"><b>Important</b></div>
+                                <div class="panel-body">If there is any medical condition/special requirement for your
+                                    child required, which the organisers ought to be aware, please click on the check
+                                    box and enter details in the text box.&nbsp;&nbsp;<form:checkbox
+                                            path="medicalInfoFlag"
+                                            style="width:15px;height:15px;"
+                                            id="medicalInfoChecked"/>
                                 </div>
                                 <div>
 
@@ -461,7 +460,7 @@
                         <div>
                             <form:checkbox path="consentSigned" style="width:15px;height:15px;" id="consentChecked"/>
                             &nbsp;&nbsp;<strong>By
-                            checking the checkbox, you are giving your consent for the above students.</strong>
+                            checking the checkbox, you are giving your consent for the above childs.</strong>
                         </div>
                     </div>
                 </div>

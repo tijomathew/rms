@@ -5,6 +5,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +33,10 @@ public class ParentNode implements Serializable {
     private String lastName;
 
     @Column(name = "phone_number")
-    private Long phoneNumber;
+    private String phoneNumber;
 
     @Column(name = "alternative_phone_number")
-    private Long alternativePhoneNumber;
+    private String alternativePhoneNumber;
 
     @Column(name = "email")
     private String email;
@@ -60,6 +61,18 @@ public class ParentNode implements Serializable {
 
     @Column(name = "medical_information")
     private String medicalInformation;
+
+    @Column(name = "email_sent")
+    private Boolean emailSent;
+
+    @Column(name = "registered_date")
+    private Date registeredDate;
+
+    @Column(name = "registered_ip")
+    private String ip;
+
+    @Column(name = "band_code")
+    private String bandCode;
 
     private transient String confirmEmail;
 
@@ -102,19 +115,19 @@ public class ParentNode implements Serializable {
         this.lastName = lastName;
     }
 
-    public Long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public Long getAlternativePhoneNumber() {
+    public String getAlternativePhoneNumber() {
         return alternativePhoneNumber;
     }
 
-    public void setAlternativePhoneNumber(Long alternativePhoneNumber) {
+    public void setAlternativePhoneNumber(String alternativePhoneNumber) {
         this.alternativePhoneNumber = alternativePhoneNumber;
     }
 
@@ -180,6 +193,30 @@ public class ParentNode implements Serializable {
 
     public void setMedicalInformation(String medicalInformation) {
         this.medicalInformation = medicalInformation;
+    }
+
+    public Boolean getEmailSent() {
+        return emailSent;
+    }
+
+    public void setEmailSent(Boolean emailSent) {
+        this.emailSent = emailSent;
+    }
+
+    public Date getRegisteredDate() {
+        return registeredDate;
+    }
+
+    public void setRegisteredDate(Date registeredDate) {
+        this.registeredDate = registeredDate;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
     public String getConfirmEmail() {

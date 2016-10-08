@@ -20,7 +20,7 @@ public class RegistrationDaoImpl implements RegistrationDao {
     @Override
     public ParentNode saveRegistrationEntry(ParentNode parentNode) {
         try {
-            sessionFactory.getCurrentSession().save(parentNode);
+            sessionFactory.getCurrentSession().saveOrUpdate(parentNode);
             return parentNode;
         } catch (Exception e) {
             return null;

@@ -1,5 +1,7 @@
 package org.rms.models;
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -8,7 +10,7 @@ import java.io.Serializable;
  */
 
 @Entity
-@Table(name = "student_node")
+@Table(name = "child_node")
 public class StudentNode implements Serializable {
 
     private static final long serialVersionUID = 7450539180039911995L;
@@ -30,16 +32,19 @@ public class StudentNode implements Serializable {
     private String retreatSection;
 
     @Column(name = "day_one")
-    private String dayOne;
+    private String dayOne = StringUtils.EMPTY;
 
     @Column(name = "day_two")
-    private String dayTwo;
+    private String dayTwo = StringUtils.EMPTY;
 
     @Column(name = "day_three")
-    private String dayThree;
+    private String dayThree = StringUtils.EMPTY;
 
     @Column(name = "day_four")
-    private String dayFour;
+    private String dayFour = StringUtils.EMPTY;
+
+    @Column(name = "band_code")
+    private String bandCode;
 
     @ManyToOne(targetEntity = ParentNode.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_student_id", referencedColumnName = "id")
@@ -118,6 +123,14 @@ public class StudentNode implements Serializable {
 
     public void setDayFour(String dayFour) {
         this.dayFour = dayFour;
+    }
+
+    public String getBandCode() {
+        return bandCode;
+    }
+
+    public void setBandCode(String bandCode) {
+        this.bandCode = bandCode;
     }
 
     public ParentNode getParentNode() {

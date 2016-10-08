@@ -35,8 +35,8 @@
         <h3 class="defaultBold" style="color: #40a297 !important;">Success</h3>
 
         <div class="alert alert-success fade in">
-            You have successfully registered and given consent to below given students for attending Christine
-            retreat!!..<br><strong>Your family ID is ${sessionScope.parentNodeEntry.id}</strong> and Student IDs are
+            You have successfully registered and given consent to below given childs for attending Christine
+            retreat!!..<br><strong>Your family ID is ${sessionScope.parentNodeEntry.id}</strong> and Child IDs are
             given below.
         </div>
 
@@ -44,7 +44,7 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>Student ID</th>
+                    <th>Child ID</th>
                     <th>Name</th>
                     <th>Class</th>
                     <th>Section</th>
@@ -54,7 +54,7 @@
                 <tbody>
                 <c:forEach items="${sessionScope.parentNodeEntry.studentNodeList}" var="studentNodeEntry">
                     <tr>
-                        <td>${studentNodeEntry.id}</td>
+                        <td>${studentNodeEntry.bandCode}</td>
                         <td>${studentNodeEntry.firstName} ${studentNodeEntry.lastName} </td>
                         <td>${studentNodeEntry.classDivision}</td>
                         <td>${studentNodeEntry.retreatSection}</td>
@@ -108,7 +108,7 @@
             </p>
 
             <p class="alert alert-info fade in text-center" style="margin-top:30px;">
-                <strong>Note!</strong> Please remember and bring ‘Student ID’ when you come for the retreat!.
+                <strong>Note!</strong> Please remember and bring ‘Child ID’ when you come for the retreat!.
             </p>
 
         </div>
