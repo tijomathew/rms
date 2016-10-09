@@ -108,6 +108,7 @@
             </p>
 
             <p class="alert alert-info fade in text-center" style="margin-top:30px;">
+                <strong>An email has been sent to the registered email with the web signed consent form.</strong><br>
                 <strong>Note!</strong> Please remember and bring ‘Child ID’ when you come for the retreat.
             </p>
 
