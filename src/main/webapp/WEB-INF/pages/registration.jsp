@@ -58,7 +58,7 @@
 
             $("#saveButton").click(function () {
                 $("#registration-form").find(':input').removeClass('borderColor');
-
+                $("#saveButton").html('Loading');
                 var submitFlag = true;
                 if ($("#massCentreName").val() == '0') {
                     submitFlag = false;
@@ -117,6 +117,7 @@
                     $("#registration-form").submit();
                 } else {
                     alert('Please correct errors in the red highlighted fields and save again');
+                    $("#saveButton").html('Save');
                 }
             });
 
