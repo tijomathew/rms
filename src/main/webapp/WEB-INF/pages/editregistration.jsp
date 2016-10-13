@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <spring:url value="/resources/css/style.css" var="stylecss"/>
-
     <link href="${stylecss} " rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -214,13 +213,6 @@
         <div class="row row-offcanvas row-offcanvas-right">
             <div class="col-xs-12 col-sm-12">
                 <h3 class="defaultBold">Retreat Registration Form</h3>
-
-                <a style="text-align: right" href="${pageContext.request.contextPath}/login.action">Login</a>
-
-                <a style="text-align: right" href="${pageContext.request.contextPath}/editregisteration.action">Manage
-                    My Registeration</a>
-
-                <a style="text-align: right" href="${pageContext.request.contextPath}/showcounts.action">Show Counts</a>
 
                 <div class="panel panel-default">
                     <div class="panel-heading headerColor">Parent/Guardian Details</div>
@@ -500,7 +492,6 @@
 <%@include file="footer.jsp" %>
 
 </body>
-
 </html>
 
 
