@@ -1,15 +1,17 @@
 package org.rms.controllers;
 
+import org.rms.helpers.JsonBuilder;
 import org.rms.models.ParentNode;
 import org.rms.models.StudentNode;
+import org.rms.models.User;
+import org.rms.services.ChildService;
 import org.rms.services.MailService;
 import org.rms.services.RegistrationService;
+import org.rms.visualizations.ChartResultContainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,11 +30,15 @@ public class RegistrationController {
     private RegistrationService registrationService;
 
     @Autowired
+    private ChildService childService;
+
+    @Autowired
     private MailService mailService;
 
     @RequestMapping(value = "registration.action", method = RequestMethod.GET)
     public String registrationPageDisplay(Model model) {
         model.addAttribute("parentNodeForm", new ParentNode());
+        model.addAttribute("loginUser", new User());
         return "registration";
     }
 
@@ -90,6 +96,24 @@ public class RegistrationController {
             return "registrationsuccess";
         }
         return "registrationfailure";
+    }
+
+    @RequestMapping(value = "editregisteration.action", method = RequestMethod.GET)
+    public String editRegistrationPage(Model model) {
+        model.addAttribute("parentNodeForm", new ParentNode());
+        return "editregistration";
+    }
+
+    @RequestMapping(value = "showcounts.action", method = RequestMethod.GET)
+    public String showRegisterationCountsonPage() {
+        return "registerationcounts";
+    }
+
+    @RequestMapping(value = "viewcounts.action", method = RequestMethod.GET)
+    @ResponseBody
+    public Object showRegisterationCounts(@RequestParam(value = "tqx") String tqx) {
+        ChartResultContainer chartResultContainer = childService.getChartResultContainer(tqx.substring(6));
+        return JsonBuilder.convertToJson(chartResultContainer);
     }
 
 
