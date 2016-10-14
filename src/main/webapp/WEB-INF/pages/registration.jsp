@@ -20,6 +20,7 @@
 
         jQuery(document).ready(function () {
             $("#saveButton").attr('disabled', 'disabled');
+            $("button.addButton").hide();
 
             $(function () {
                 $(document).tooltip();
@@ -135,7 +136,22 @@
                         // Remove element containing the fields
                         $row.remove();
 
+                        $("button.addButton").show();
+
                     });
+            $("#registration-form").on("change", "#studentInfo div.generalFormLayout :input:visible", function (e) {
+                e.stopImmediatePropagation();
+                var $this = $(this);
+
+                if ($this.closest("div.generalFormLayout").find(":input:visible").filter(function () {
+                            var hasValue = $(this).is(":checkbox") ? $this.closest("div.generalFormLayout").find(":checkbox").is(":checked") : ($(this).is("select") ? $(this).val() != '0' : $(this).val());
+                            return !hasValue;
+                        }).length) {
+                    $("button.addButton").hide();
+                } else {
+                    $("button.addButton").show();
+                }
+            });
 
         });
     </script>
@@ -166,6 +182,8 @@
                         .find('[name = actionButton]').removeAttr('class').attr('class', 'btn btn-primary removeButton commonGreenBtn').text("Remove Child").find('.fa-plus').removeAttr('class').attr('class', 'fa fa-minus');
 
             }
+
+            $("button.addButton").hide();
 
         }
 
