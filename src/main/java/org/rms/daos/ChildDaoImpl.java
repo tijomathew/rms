@@ -1,6 +1,7 @@
 package org.rms.daos;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.rms.models.StudentNode;
@@ -18,9 +19,9 @@ public class ChildDaoImpl implements ChildDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public Long getAllRegisteredStudentsOnCategoryAndOct29Wise(String category) {
+    public Long getAllRegisteredStudentsOnCategoryAndOct29Wise(String category, String date, String property) {
         Long registeredStudentCounts = 0l;
-        registeredStudentCounts = (Long) sessionFactory.getCurrentSession().createCriteria(StudentNode.class, "studentNode").add(Restrictions.eq("studentNode.retreatSection", category)).add(Restrictions.eq("studentNode.dayOne", "Oct-29")).setProjection(Projections.rowCount()).uniqueResult();
+        registeredStudentCounts = (Long) sessionFactory.getCurrentSession().createCriteria(StudentNode.class, "studentNode").add(Restrictions.eq("studentNode.retreatSection", category)).add(Restrictions.eq("studentNode." + property, date)).setProjection(Projections.rowCount()).uniqueResult();
         if (registeredStudentCounts == null) {
             registeredStudentCounts = 0l;
         }
@@ -48,9 +49,11 @@ public class ChildDaoImpl implements ChildDao {
     }
 
     @Override
-    public Long getAllRegisteredStudentsOnCategoryAndNov1Wise(String category) {
+    public Long getAllRegisteredStudentsOnCategoryAndNov1Wise() {
         Long registeredStudentCounts = 0l;
-        registeredStudentCounts = (Long) sessionFactory.getCurrentSession().createCriteria(StudentNode.class, "studentNode").add(Restrictions.eq("studentNode.retreatSection", category)).add(Restrictions.eq("studentNode.dayFour", "Nov-1")).setProjection(Projections.rowCount()).uniqueResult();
+        Criterion retreatSelectionSenior = Restrictions.eq("studentNode.retreatSection", "Senior");
+        Criterion retreatSelectionSuperSenior = Restrictions.eq("studentNode.retreatSection", "SuperSenior");
+        registeredStudentCounts = (Long) sessionFactory.getCurrentSession().createCriteria(StudentNode.class, "studentNode").add(Restrictions.or(retreatSelectionSenior, retreatSelectionSuperSenior)).add(Restrictions.eq("studentNode.dayFour", "Nov-1")).setProjection(Projections.rowCount()).uniqueResult();
         if (registeredStudentCounts == null) {
             registeredStudentCounts = 0l;
         }

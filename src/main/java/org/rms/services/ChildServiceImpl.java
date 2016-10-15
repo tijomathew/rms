@@ -1,10 +1,7 @@
 package org.rms.services;
 
 import org.rms.daos.ChildDao;
-import org.rms.visualizations.ChartCol;
-import org.rms.visualizations.ChartResultContainer;
-import org.rms.visualizations.ChartRow;
-import org.rms.visualizations.ChartTable;
+import org.rms.visualizations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,12 +27,18 @@ public class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public Long getAllRegisteredStudentsOnCategoryAndOct29Wise(String category) {
+    public Long getAllRegisteredStudentsOnCategoryAndOct29Wise(String category, String date, String property) {
         if (category == null) {
             throw new IllegalArgumentException("category cannot be null!!..");
         }
+        if (date == null) {
+            throw new IllegalArgumentException("date cannot be null!!..");
+        }
+        if (property == null) {
+            throw new IllegalArgumentException("property cannot be null!!..");
+        }
 
-        return childDao.getAllRegisteredStudentsOnCategoryAndOct29Wise(category);
+        return childDao.getAllRegisteredStudentsOnCategoryAndOct29Wise(category, date, property);
     }
 
     @Override
@@ -57,12 +60,9 @@ public class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public Long getAllRegisteredStudentsOnCategoryAndNov1Wise(String category) {
-        if (category == null) {
-            throw new IllegalArgumentException("category cannot be null!!..");
-        }
+    public Long getAllRegisteredStudentsOnCategoryAndNov1Wise() {
 
-        return childDao.getAllRegisteredStudentsOnCategoryAndNov1Wise(category);
+        return childDao.getAllRegisteredStudentsOnCategoryAndNov1Wise();
     }
 
     @Override
@@ -103,8 +103,47 @@ public class ChildServiceImpl implements ChildService {
 
     private List<ChartRow> getChartRows() {
         List<ChartRow> chartRowList = new ArrayList<>();
-        String[] dates = new String[]{"Oct-29", "Oct-30", "Oct-31", "Nov-1"};
-        String[] category = new String[]{"Junior", "Senior", "SuperSenior"};
+
+        String[] date = new String[]{"Oct-29", "Oct-30", "Oct-31"};
+        String[] property = new String[]{"dayOne", "dayTwo", "dayThree"};
+
+        for (int i = 0; i < 3; i++) {
+
+            List<ChartCell> chartCellList = new ArrayList<>();
+
+            ChartCell<String> chartCellDate = new ChartCell<>(date[i], date[i]);
+            ChartCell<Long> chartCellJuniorCount = new ChartCell<>(getAllRegisteredStudentsOnCategoryAndOct29Wise("Junior", date[i], property[i]), getAllRegisteredStudentsOnCategoryAndOct29Wise("Junior", date[i], property[i]).toString());
+            ChartCell<Long> chartCellSeniorCount = new ChartCell<>(getAllRegisteredStudentsOnCategoryAndOct29Wise("Senior", date[i], property[i]), getAllRegisteredStudentsOnCategoryAndOct29Wise("Senior", date[i], property[i]).toString());
+            ChartCell<Long> chartCellSuperSeniorCount = new ChartCell<>(getAllRegisteredStudentsOnCategoryAndOct29Wise("SuperSenior", date[i], property[i]), getAllRegisteredStudentsOnCategoryAndOct29Wise("SuperSenior", date[i], property[i]).toString());
+
+
+            ChartCell<Long> chartCellYouthCount = new ChartCell<>(0l, String.valueOf(0));
+
+            chartCellList.add(chartCellDate);
+            chartCellList.add(chartCellJuniorCount);
+            chartCellList.add(chartCellSeniorCount);
+            chartCellList.add(chartCellSuperSeniorCount);
+            chartCellList.add(chartCellYouthCount);
+
+            chartRowList.add(new ChartRow(chartCellList));
+        }
+
+        ChartCell<String> chartCellDate = new ChartCell<>("Nov-1", "Nov-1");
+        ChartCell<Long> chartCellJuniorCount = new ChartCell<>(0l, String.valueOf(0));
+        ChartCell<Long> chartCellSeniorCount = new ChartCell<>(getAllRegisteredStudentsOnCategoryAndOct29Wise("Senior", "Nov-1", "dayFour"), getAllRegisteredStudentsOnCategoryAndOct29Wise("Senior", "Nov-1", "dayFour").toString());
+        ChartCell<Long> chartCellSuperSeniorCount = new ChartCell<>(getAllRegisteredStudentsOnCategoryAndOct29Wise("SuperSenior", "Nov-1", "dayFour"), getAllRegisteredStudentsOnCategoryAndOct29Wise("SuperSenior", "Nov-1", "dayFour").toString());
+
+        ChartCell<Long> chartCellYouthCount = new ChartCell<>(getAllRegisteredStudentsOnCategoryAndNov1Wise(), getAllRegisteredStudentsOnCategoryAndNov1Wise().toString());
+
+        List<ChartCell> chartCellList = new ArrayList<>();
+
+        chartCellList.add(chartCellDate);
+        chartCellList.add(chartCellJuniorCount);
+        chartCellList.add(chartCellSeniorCount);
+        chartCellList.add(chartCellSuperSeniorCount);
+        chartCellList.add(chartCellYouthCount);
+
+        chartRowList.add(new ChartRow(chartCellList));
 
         return chartRowList;
     }
