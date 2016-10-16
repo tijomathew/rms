@@ -55,7 +55,13 @@
                 'rowNumberCell': ''
             };
 
-            var options = {'showRowNumber': true, 'cssClassNames': cssClassNames, width: '100%'};
+            var options = {
+                allowHtml: true, showRowNumber: false,
+                width: 'auto',
+                height: 'auto',
+                alternatingRowStyle:true,
+                cssClassNames:cssClassNames
+            };
 
             table.draw(data, options);
 

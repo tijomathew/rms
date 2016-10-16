@@ -1,5 +1,7 @@
 package org.rms.models;
 
+import org.rms.enums.SystemRole;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -22,6 +24,22 @@ public class User implements Serializable {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "system_role")
+    @Enumerated(EnumType.STRING)
+    private SystemRole systemRole;
+
+    @Column(name = "already_loggedIn")
+    private Boolean alreadyLoggedIn = Boolean.FALSE;
+
+    @Column(name = "sent_mail")
+    private Boolean sendMailFlag = Boolean.TRUE;
+
+    @Transient
+    private String newPassword;
+
+    @Transient
+    private String confirmPassword;
 
     public User() {
     }
@@ -48,5 +66,45 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public SystemRole getSystemRole() {
+        return systemRole;
+    }
+
+    public void setSystemRole(SystemRole systemRole) {
+        this.systemRole = systemRole;
+    }
+
+    public Boolean getAlreadyLoggedIn() {
+        return alreadyLoggedIn;
+    }
+
+    public void setAlreadyLoggedIn(Boolean alreadyLoggedIn) {
+        this.alreadyLoggedIn = alreadyLoggedIn;
+    }
+
+    public Boolean getSendMailFlag() {
+        return sendMailFlag;
+    }
+
+    public void setSendMailFlag(Boolean sendMailFlag) {
+        this.sendMailFlag = sendMailFlag;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }
