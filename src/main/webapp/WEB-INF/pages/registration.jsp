@@ -139,22 +139,54 @@
 
                         $("button.addButton").show();
 
-                    });
-            $("#registration-form").on("change", "#studentInfo div.generalFormLayout :input:visible", function (e) {
-                e.stopImmediatePropagation();
-                var $this = $(this);
+                    }).on('click', '.deleteChildRow', function (e) {
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                        var $row = $(this).parents('.form-group'),
+                                index = $row.attr('studentNodes-index');
 
-                if ($this.closest("div.generalFormLayout").find(":input:visible").filter(function () {
-                            var hasValue = $(this).is(":checkbox") ? $this.closest("div.generalFormLayout").find(":checkbox").is(":checked") : ($(this).is("select") ? $(this).val() != '0' : $(this).val());
+                        // Remove element containing the fields
+                        $row.remove();
+                        $('div.form-group.childRows').each(function (idx) {
+                            var $inputs = $(this).find(':input:not(button)');
+                            idx = idx + 1;
+                            $inputs.each(function () {
+                                var $prop = $(this).attr('name').split(".")[1];
+                                $(this).attr('name', 'studentNodeList[' + idx + '].' + $prop).attr('id', 'studentNodeList[' + idx + '].' + $prop);
+                            });
+                        });
+                        if(showAddChildbutton())
+                            $("button.addButton").show();
+
+                    })
+                    .on("change", "div.generalFormLayout :input:visible", function (e) {
+                       e.stopImmediatePropagation();
+                        var $this = $(this);
+
+                        if (showAddChildbutton()) {
+                            $("button.addButton").show();
+                        } else {
+                            $("button.addButton").hide();
+                        }
+                    });
+
+                });
+
+        function showAddChildbutton() {
+            var showAddButton = true
+            $('#studentInfo div.generalFormLayout').each(function (idx) { //Evalues all inputs to check whether to show Add row button or not.
+                var $parent = $(this), $inputs = $parent.find(":input:visible:not(:button)");
+                if ($inputs.filter(function () { //filters any input without value
+                            var hasValue = $(this).is(":checkbox") ? $parent.find(":checkbox").is(":checked") : ($(this).is("select") ? $(this).val() != '0' : $(this).val());
                             return !hasValue;
                         }).length) {
-                    $("button.addButton").hide();
-                } else {
-                    $("button.addButton").show();
+                    showAddButton = false;
+                    return false;
                 }
             });
+            return showAddButton;
+        }
 
-        });
     </script>
     <script type="text/javascript">
         function generateStudentTemplate() {
@@ -180,7 +212,8 @@
                         .find('[name="studentNodeList[0].dayTwo"]').val('Oct-30').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayTwo').attr('id', 'dayTwo' + i).end()
                         .find('[name="studentNodeList[0].dayThree"]').val('Oct-31').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayThree').attr('id', 'dayThree' + i).end()
                         .find('[name="studentNodeList[0].dayFour"]').val('Nov-1').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayFour').attr('id', 'dayFour' + i).end()
-                        .find('[name = actionButton]').removeAttr('class').attr('class', 'btn btn-primary removeButton commonGreenBtn').text("Remove Child").find('.fa-plus').removeAttr('class').attr('class', 'fa fa-minus');
+                        .find("button.deleteChildRow").closest("div.hidden").removeClass("hidden").end()
+                       // .find('[name = actionButton]').removeAttr('class').attr('class', 'btn btn-primary removeButton commonGreenBtn').text("Remove Child").find('.fa-plus').removeAttr('class').attr('class', 'fa fa-minus');
 
             }
 
@@ -410,7 +443,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <div class="col-md-3 text-center">
                                         <label>Oct-29</label><br/>
@@ -438,15 +471,19 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-1 hidden">
+                                <div class="form-group vcenter">
+                                    <label>Delete</label>
+                                    <button type="button" class="btn btn-danger deleteChildRow" data-type="minus"><span class="glyphicon glyphicon-minus"></span></button>
+                                </div>
+                            </div>
                         </div>
 
-
-                        <button type="button" class="btn btn-primary addButton commonGreenBtn" id=""
-                                name="actionButton">
-                            Add Child
-                        </button>
-
                     </div>
+                    <button type="button" class="btn btn-primary addButton commonGreenBtn" id=""
+                            name="actionButton">
+                        Add Child
+                    </button>
                 </div>
 
                 <div class="panel panel-default">
