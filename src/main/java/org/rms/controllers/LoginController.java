@@ -46,7 +46,7 @@ public class LoginController {
             if (loggedInUser != null) {
                 if (loggedInUser.getAlreadyLoggedIn()) {
                     if (loggedInUser.getSystemRole().equals(SystemRole.ADMIN)) {
-                        return "admin";
+                        return "registerationcounts";
                     } else if (loggedInUser.getSystemRole().equals(SystemRole.ORGANIZER)) {
                         return "registerationcounts";
                     } else if (loggedInUser.getSystemRole().equals(SystemRole.RETREAT_USER)) {

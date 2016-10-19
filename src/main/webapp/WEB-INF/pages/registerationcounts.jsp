@@ -14,8 +14,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <spring:url value="/resources/css/style.css" var="stylecss"/>
+    <spring:url value="/resources/css/leftslider.css" var="slidercss"/>
 
     <link href="${stylecss} " rel="stylesheet">
+    <link href="${slidercss} " rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
@@ -59,8 +61,8 @@
                 allowHtml: true, showRowNumber: false,
                 width: 'auto',
                 height: 'auto',
-                alternatingRowStyle:true,
-                cssClassNames:cssClassNames
+                alternatingRowStyle: true,
+                cssClassNames: cssClassNames
             };
 
             table.draw(data, options);
@@ -75,7 +77,11 @@
 </head>
 <body>
 <%@ include file="headerTemplate.jsp" %>
-<div id="table_div" style="margin: 65px;"></div>
+<div style="width: 100%;height: 90%;">
+    <%@ include file="leftmenupanel.jsp" %>
+    <div id="table_div" style="float:right;width: 85%"></div>
+</div>
+
 <%@include file="footer.jsp" %>
 
 </body>

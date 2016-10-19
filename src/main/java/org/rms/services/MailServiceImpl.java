@@ -2,6 +2,7 @@ package org.rms.services;
 
 import org.apache.velocity.app.VelocityEngine;
 import org.rms.models.ParentNode;
+import org.rms.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -58,5 +59,21 @@ public class MailServiceImpl implements MailService {
         }
         return true;
 
+    }
+
+    @Override
+    public Boolean sendNewUserPassword(User user) {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper mailMsg = new MimeMessageHelper(mimeMessage);
+        try {
+            mailMsg.setTo(user.getEmail());
+            mailMsg.setSubject("Welcome to Retreat");
+            mailMsg.setText("Password: " + user.getPassword());
+            mailSender.send(mimeMessage);
+            return true;
+        } catch (Exception e) {
+            System.out.println("---Errorrr from Mail Sending---");
+            return false;
+        }
     }
 }
