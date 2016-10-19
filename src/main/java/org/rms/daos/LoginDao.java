@@ -8,5 +8,5 @@ import org.rms.models.User;
  */
 public interface LoginDao {
 
-    public User getUserByUserEmail(String loginUserEmail);
+    User getUserByUserEmail(String loginUserEmail);
 }

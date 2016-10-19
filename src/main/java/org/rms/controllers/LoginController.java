@@ -4,6 +4,7 @@ import org.rms.enums.SystemRole;
 import org.rms.models.ParentNode;
 import org.rms.models.User;
 import org.rms.services.LoginService;
+import org.rms.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 
@@ -25,6 +27,9 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "login.action", method = RequestMethod.GET)
     public String loginPageDisplay(Model model) {
@@ -48,6 +53,7 @@ public class LoginController {
 
                     }
                 } else {
+                    model.addAttribute("changePasswordUser", loggedInUser);
                     return "changepassword";
                 }
 
@@ -60,5 +66,20 @@ public class LoginController {
         }
 
         return "login";
+    }
+
+    @RequestMapping(value = "changepassword.action", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Object changePassword(@ModelAttribute("changePasswordUser") User user) {
+        if (user.getNewPassword() != null && user.getConfirmPassword() != null && user.getNewPassword().equals(user.getConfirmPassword())) {
+            User currentUserToUpdate = loginService.getUserByEmail(user.getEmail());
+            currentUserToUpdate.setAlreadyLoggedIn(Boolean.TRUE);
+            currentUserToUpdate.setPassword(user.getNewPassword());
+            userService.addUserSM(currentUserToUpdate);
+        } else {
+            return "fail";
+        }
+        return "success";
     }
 }
