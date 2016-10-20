@@ -113,7 +113,14 @@
         </div>
     </form:form>
 </div>
+<div style="font-size: 15px;text-align: center;color: #a94442;padding: 1px;margin: 8px auto;display:block"
+     class="alert alert-danger" id="passwordMismatchContainer">Passwords are mismatching.
+</div>
 
+<div class="alert alert-success" role="alert" id="successContainer">
+    Password is updated successfully.<br/>
+    Please <a href="login.action"> re-login</a> to continue the system use.
+</div>
 <%@include file="footer.jsp" %>
 </body>
 </html>
