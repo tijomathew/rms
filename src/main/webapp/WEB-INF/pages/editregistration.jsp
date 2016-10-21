@@ -141,15 +141,16 @@
     </script>
     <script type="text/javascript">
         function generateStudentTemplate() {
-            var i = ($('.childRows').length + 1);
+            var i = ($('.prevChildRows').length + 1);
 
             if (i < 7) {
-                var $template = $('#studentInfoTemplate'),
+                var $template = $('#studentInfoParentTemplate'),
                         $clone = $template
                                 .clone()
                                 .attr('studentNodes-index', i)
                                 .attr('id', 'child' + i)
                                 .attr('class', 'panel-body form-group childRows')
+                                .removeAttr("hidden")
                                 .appendTo($('#studentInfo'));
 
                 // Update the name attributes
@@ -207,12 +208,12 @@
 <body>
 <%@ include file="headerTemplate.jsp" %>
 <form:form role="form" id="registration-form" modelAttribute="parentNodeForm"
-           action="${pageContext.request.contextPath}/createregistration.action"
+           action="${pageContext.request.contextPath}/editregistration.action"
            method="post">
     <div class="mainWrapper">
         <div class="row row-offcanvas row-offcanvas-right">
             <div class="col-xs-12 col-sm-12">
-                <h3 class="defaultBold">Retreat Registration Form</h3>
+                <h3 class="defaultBold">Edit Retreat Registration Form</h3>
 
                 <div class="panel panel-default">
                     <div class="panel-heading headerColor">Parent/Guardian Details</div>
@@ -244,6 +245,7 @@
                                     <label for="firstName">First Name:<span style="color: red">*</span></label>
                                     <form:input path="firstName" id="firstName" class="form-control" required="true"
                                                 placeholder="First Name"/>
+                                    <form:hidden path="id" class="form-control" id="id" value = "${parentNodeForm.id}"/>
                                 </div>
 
                             </div>
@@ -289,7 +291,7 @@
                                 <div class="form-group">
                                     <label for="confirmEmail">Confirm Email:<span style="color: red">*</span></label>
                                     <form:input path="confirmEmail" class="form-control" required="true" type="email"
-                                                id="confirmEmail" placeholder="Confirm Email"/>
+                                                id="confirmEmail" placeholder="Confirm Email" value = "${parentNodeForm.email}"/>
                                 </div>
 
                             </div>
@@ -341,78 +343,167 @@
 
                 <div class="panel panel-default" id="studentInfo">
                     <div class="panel-heading headerColor">Child Details</div>
+
+
+                    <div class="panel-body" id="studentInfoParentTemplate" hidden="hidden">
+
+                            <div class="row generalFormLayout">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="firstName">First Name:<span style="color: red">*</span></label>
+                                        <form:input path="studentNodeList[0].firstName" class="form-control" id="firstName0"
+                                                    required="true" placeholder="First Name" />
+                                        <form:hidden path="studentNodeList[0].id" class="form-control" id="id0" value = ""/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="lastName"> Last Name:<span style="color: red">*</span></label>
+                                        <form:input class="form-control"
+                                                    path="studentNodeList[0].lastName" id="lastName0" required="true"
+                                                    placeholder="Last Name" value = "0"/>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="studentNodeList[0].classDivision">Age Range:<span
+                                                style="color: red">*</span></label>
+                                        <form:select class="form-control" path="studentNodeList[0].classDivision"
+                                                     id="classDivision-1" onchange="callSectionUpdate($(this).attr('id'))">
+                                            <form:option value="0">--Select--</form:option>
+                                            <form:option value="8-12">8 - 12</form:option>
+                                            <form:option value="13-17">13 - 17</form:option>
+                                            <form:option value="18+">18+</form:option>
+                                        </form:select>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="studentNodeList[0].retreatSection">Section:<span
+                                                style="color: red">*</span></label>
+                                        <form:input class="form-control" path="studentNodeList[0].retreatSection"
+                                                    id="retreatSection0" readonly="true"/>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="col-md-3 text-center">
+                                            <label>Oct-29</label><br/>
+                                            <form:checkbox path="studentNodeList[0].dayOne"
+                                                           id="dayOne0" value="dayOne"/>
+
+                                        </div>
+                                        <div class="col-md-3 text-center">
+                                            <label>Oct-30</label><br/>
+                                            <form:checkbox path="studentNodeList[0].dayTwo"
+                                                           id="dayTwo0" value="dayTwo"/>
+
+                                        </div>
+                                        <div class="col-md-3 text-center">
+                                            <label>Oct-31</label><br/>
+                                            <form:checkbox path="studentNodeList[0].dayThree"
+                                                           id="dayThree0" value="dayThree"/>
+
+                                        </div>
+                                        <div class="col-md-3 text-center" style="display: none;">
+                                            <label>Nov-1</label><br/>
+                                            <form:checkbox path="studentNodeList[0].dayFour"
+                                                           id="dayFour0" value="dayFour"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <button type="button" class="btn btn-primary addButton commonGreenBtn" id="actionButton" name="actionButton">
+                            Add Child
+                        </button>
+
+                    </div>
+
+
+
+
                     <div class="panel-body" id="studentInfoTemplate">
 
-                        <div class="row generalFormLayout">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="firstName">First Name:<span style="color: red">*</span></label>
-                                    <form:input path="studentNodeList[0].firstName" class="form-control" id="firstName0"
-                                                required="true" placeholder="First Name"/>
-                                    <form:hidden path="studentNodeList[0].id" class="form-control" id="id0"/>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="lastName"> Last Name:<span style="color: red">*</span></label>
-                                    <form:input class="form-control"
-                                                path="studentNodeList[0].lastName" id="lastName0" required="true"
-                                                placeholder="Last Name"/>
-                                </div>
-
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="studentNodeList[0].classDivision">Age Range:<span
-                                            style="color: red">*</span></label>
-                                    <form:select class="form-control" path="studentNodeList[0].classDivision"
-                                                 id="classDivision0" onchange="callSectionUpdate($(this).attr('id'))">
-                                        <form:option value="0">--Select--</form:option>
-                                        <form:option value="8-12">8 - 12</form:option>
-                                        <form:option value="13-17">13 - 17</form:option>
-                                        <form:option value="18+">18+</form:option>
-                                    </form:select>
-                                </div>
-
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="studentNodeList[0].retreatSection">Section:<span
-                                            style="color: red">*</span></label>
-                                    <form:input class="form-control" path="studentNodeList[0].retreatSection"
-                                                id="retreatSection0" readonly="true"/>
-                                </div>
-
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <div class="col-md-3 text-center">
-                                        <label>Oct-29</label><br/>
-                                        <form:checkbox path="studentNodeList[0].dayOne"
-                                                       id="dayOne0" value="Oct-29"/>
-
-                                    </div>
-                                    <div class="col-md-3 text-center">
-                                        <label>Oct-30</label><br/>
-                                        <form:checkbox path="studentNodeList[0].dayTwo"
-                                                       id="dayTwo0" value="Oct-30"/>
-
-                                    </div>
-                                    <div class="col-md-3 text-center">
-                                        <label>Oct-31</label><br/>
-                                        <form:checkbox path="studentNodeList[0].dayThree"
-                                                       id="dayThree0" value="Oct-31"/>
-
-                                    </div>
-                                    <div class="col-md-3 text-center" style="display: none;">
-                                        <label>Nov-1</label><br/>
-                                        <form:checkbox path="studentNodeList[0].dayFour"
-                                                       id="dayFour0" value="Nov-1"/>
-
+                        <c:forEach items="${parentNodeForm.studentNodeList}" var="element" varStatus="count">
+                            <div class="row generalFormLayout prevChildRows">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="firstName">First Name:<span style="color: red">*</span></label>
+                                        <form:input path="studentNodeList[${count.index}].firstName" class="form-control" id="firstName${count.index}"
+                                                    required="true" placeholder="First Name" value = "${element.firstName}"/>
+                                        <form:hidden path="studentNodeList[${count.index}].id" class="form-control" id="id${count.index}" value = "${element.id}"/>
                                     </div>
                                 </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="lastName"> Last Name:<span style="color: red">*</span></label>
+                                        <form:input class="form-control"
+                                                    path="studentNodeList[${count.index}].lastName" id="lastName${count.index}" required="true"
+                                                    placeholder="Last Name" value = "${element.lastName}"/>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="studentNodeList[${count.index}].classDivision">Age Range:<span
+                                                style="color: red">*</span></label>
+                                        <form:select class="form-control" path="studentNodeList[${count.index}].classDivision"
+                                                     id="classDivision${count.index}" onchange="callSectionUpdate($(this).attr('id'))" value = "${element.classDivision}">
+                                            <form:option value="0">--Select--</form:option>
+                                            <form:option value="8-12">8 - 12</form:option>
+                                            <form:option value="13-17">13 - 17</form:option>
+                                            <form:option value="18+">18+</form:option>
+                                        </form:select>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="studentNodeList[${count.index}].retreatSection">Section:<span
+                                                style="color: red">*</span></label>
+                                        <form:input class="form-control" path="studentNodeList[${count.index}].retreatSection"
+                                                    id="retreatSection${count.index}" readonly="true" value = "${element.retreatSection}"/>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="col-md-3 text-center">
+                                            <label>Oct-29</label><br/>
+                                            <form:checkbox path="studentNodeList[${count.index}].dayOne"
+                                                           id="dayOne${count.index}" value="${element.dayOne}"/>
+
+                                        </div>
+                                        <div class="col-md-3 text-center">
+                                            <label>Oct-30</label><br/>
+                                            <form:checkbox path="studentNodeList[${count.index}].dayTwo"
+                                                           id="dayTwo${count.index}" value="${element.dayTwo}"/>
+
+                                        </div>
+                                        <div class="col-md-3 text-center">
+                                            <label>Oct-31</label><br/>
+                                            <form:checkbox path="studentNodeList[${count.index}].dayThree"
+                                                           id="dayThree${count.index}" value="${element.dayThree}"/>
+
+                                        </div>
+                                        <div class="col-md-3 text-center" style="display: none;">
+                                            <label>Nov-1</label><br/>
+                                            <form:checkbox path="studentNodeList[${count.index}].dayFour"
+                                                           id="dayFour${count.index}" value="dayFour"/>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+
+                        </c:forEach>
+
+
 
 
                         <button type="button" class="btn btn-primary addButton commonGreenBtn" id=""

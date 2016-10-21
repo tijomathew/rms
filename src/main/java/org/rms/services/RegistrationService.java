@@ -10,4 +10,6 @@ public interface RegistrationService {
     ParentNode saveRegistrationEntry(ParentNode parentNode);
 
     Boolean checkEmailAlreadyRegistered(String email);
+
+    ParentNode getRegisteredEntry(String email);
 }

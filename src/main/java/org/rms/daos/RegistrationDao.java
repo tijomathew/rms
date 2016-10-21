@@ -10,4 +10,6 @@ public interface RegistrationDao {
     ParentNode saveRegistrationEntry(ParentNode parentNode);
 
     Boolean alreadyRegisteredEmail(String email);
+
+    ParentNode getRegisteredEntry(String email);
 }
