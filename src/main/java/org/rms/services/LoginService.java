@@ -10,4 +10,6 @@ public interface LoginService {
 
     User verifyLoggedInUser(String loginUserEmail, String loginUserPassword);
 
+    User getUserByEmail(String userEmail);
+
 }
