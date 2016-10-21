@@ -59,66 +59,90 @@
             });
 
             $("#saveButton").click(function () {
+                var alertMessage = '';
                 $("#registration-form").find(':input').removeClass('borderColor');
                 $("#saveButton").html('Loading');
                 var submitFlag = true;
                 if ($("#massCentreName").val() == '0') {
                     submitFlag = false;
+                    alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#massCentreName").addClass('borderColor');
                 }
 
                 if ($("#email").val() != $("#confirmEmail").val() || $("#email").val() == '' || $("#confirmEmail").val() == '') {
                     submitFlag = false;
+                    alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#email").addClass('borderColor');
                     $("#confirmEmail").addClass('borderColor');
                 }
 
                 if ($("#phoneNumber").val() == "") {
+                    submitFlag = false;
+                    alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#phoneNumber").addClass('borderColor');
                 } else {
                     var value = $('#phoneNumber').val()
                     var regex = new RegExp(/^\+?[0-9]+$/);
                     if (!value.match(regex)) {
                         submitFlag = false;
+                        alertMessage = 'Please correct errors in the red highlighted fields and save again';
                         $("#phoneNumber").addClass('borderColor');
                     }
                 }
 
                 if ($("#alternativePhoneNumber").val() == "") {
+                    submitFlag = false;
+                    alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#alternativePhoneNumber").addClass('borderColor');
                 } else {
                     var value = $('#alternativePhoneNumber').val()
                     var regex = new RegExp(/^\+?[0-9]+$/);
                     if (!value.match(regex)) {
                         submitFlag = false;
+                        alertMessage = 'Please correct errors in the red highlighted fields and save again';
                         $("#alternativePhoneNumber").addClass('borderColor');
                     }
                 }
 
                 if ($("#houseNo").val() == "") {
+                    submitFlag = false;
+                    alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#houseNo").addClass('borderColor');
                 }
 
                 if ($("#firstName").val() == "") {
+                    submitFlag = false;
+                    alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#firstName").addClass('borderColor');
                 }
 
                 if ($("#lastName").val() == "") {
+                    submitFlag = false;
+                    alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#lastName").addClass('borderColor');
                 }
 
                 if ($("#addressLineOne").val() == "") {
+                    submitFlag = false;
+                    alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#addressLineOne").addClass('borderColor');
                 }
 
                 if ($("#addressLineTwo").val() == "") {
+                    submitFlag = false;
+                    alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#addressLineTwo").addClass('borderColor');
+                }
+
+                if (!validateChildData()) {
+                    alertMessage = 'Please fill the Child Data in the provided box';
+                    submitFlag = false;
                 }
 
                 if (submitFlag) {
                     $("#registration-form").submit();
                 } else {
-                    alert('Please correct errors in the red highlighted fields and save again');
+                    alert(alertMessage);
                     $("#saveButton").html('Save');
                 }
             });
@@ -155,24 +179,24 @@
                                 $(this).attr('name', 'studentNodeList[' + idx + '].' + $prop).attr('id', 'studentNodeList[' + idx + '].' + $prop);
                             });
                         });
-                        if(showAddChildbutton())
+                        if (validateChildData())
                             $("button.addButton").show();
 
                     })
                     .on("change", "div.generalFormLayout :input:visible", function (e) {
-                       e.stopImmediatePropagation();
+                        e.stopImmediatePropagation();
                         var $this = $(this);
 
-                        if (showAddChildbutton()) {
+                        if (validateChildData()) {
                             $("button.addButton").show();
                         } else {
                             $("button.addButton").hide();
                         }
                     });
 
-                });
+        });
 
-        function showAddChildbutton() {
+        function validateChildData() {
             var showAddButton = true
             $('#studentInfo div.generalFormLayout').each(function (idx) { //Evalues all inputs to check whether to show Add row button or not.
                 var $parent = $(this), $inputs = $parent.find(":input:visible:not(:button)");
@@ -213,7 +237,7 @@
                         .find('[name="studentNodeList[0].dayThree"]').val('Oct-31').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayThree').attr('id', 'dayThree' + i).end()
                         .find('[name="studentNodeList[0].dayFour"]').val('Nov-1').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayFour').attr('id', 'dayFour' + i).end()
                         .find("button.deleteChildRow").closest("div.hidden").removeClass("hidden").end()
-                       // .find('[name = actionButton]').removeAttr('class').attr('class', 'btn btn-primary removeButton commonGreenBtn').text("Remove Child").find('.fa-plus').removeAttr('class').attr('class', 'fa fa-minus');
+                // .find('[name = actionButton]').removeAttr('class').attr('class', 'btn btn-primary removeButton commonGreenBtn').text("Remove Child").find('.fa-plus').removeAttr('class').attr('class', 'fa fa-minus');
 
             }
 
@@ -266,12 +290,16 @@
             <div class="col-xs-12 col-sm-12">
                 <h3 class="defaultBold">Retreat Registration Form</h3>
 
-                <%--<a style="text-align: right" href="${pageContext.request.contextPath}/login.action">Login</a>
-
-                <a style="text-align: right" href="${pageContext.request.contextPath}/editregisteration.action">Manage
+                <a style="text-align: right" href="${pageContext.request.contextPath}/email.action">Manage
                     My Registeration</a>
 
-                <a style="text-align: right" href="${pageContext.request.contextPath}/showcounts.action">Show Counts</a>--%>
+                <%--<a style="text-align: right" href="${pageContext.request.contextPath}/login.action">Login</a>
+                    <%--<a style="text-align: right" href="${pageContext.request.contextPath}/login.action">Login</a>
+
+                    <a style="text-align: right" href="${pageContext.request.contextPath}/editregisteration.action">Manage
+                        My Registeration</a>
+
+                    <a style="text-align: right" href="${pageContext.request.contextPath}/showcounts.action">Show Counts</a>--%>
 
                 <div class="panel panel-default">
                     <div class="panel-heading headerColor">Parent/Guardian Details</div>
@@ -474,7 +502,8 @@
                             <div class="col-md-1 hidden">
                                 <div class="form-group vcenter">
                                     <label>Delete</label>
-                                    <button type="button" class="btn btn-danger deleteChildRow" data-type="minus"><span class="glyphicon glyphicon-minus"></span></button>
+                                    <button type="button" class="btn btn-danger deleteChildRow" data-type="minus"><span
+                                            class="glyphicon glyphicon-minus"></span></button>
                                 </div>
                             </div>
                         </div>

@@ -33,4 +33,9 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
         return registrationDao.alreadyRegisteredEmail(email);
     }
+
+    @Override
+    public ParentNode getRegisteredEntry(String email) {
+        return registrationDao.getRegisteredEntry(email);
+    }
 }

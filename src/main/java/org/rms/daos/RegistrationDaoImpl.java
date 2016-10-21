@@ -32,4 +32,9 @@ public class RegistrationDaoImpl implements RegistrationDao {
         Long countOfEmail = (Long) sessionFactory.getCurrentSession().createCriteria(ParentNode.class, "parentNode").add(Restrictions.eq("parentNode.email", email)).setProjection(Projections.rowCount()).uniqueResult();
         return countOfEmail > 0;
     }
+
+    @Override
+    public ParentNode getRegisteredEntry(String email) {
+       return (ParentNode) sessionFactory.getCurrentSession().createCriteria(ParentNode.class).add(Restrictions.eq("email", email)).uniqueResult();
+    }
 }
