@@ -1,5 +1,6 @@
 package org.rms.daos;
 
+import com.sun.org.apache.xerces.internal.dom.ChildNode;
 import org.rms.models.StudentNode;
 
 import java.util.List;
@@ -17,4 +18,5 @@ public interface ChildDao {
 
     Long getAllRegisteredStudentsOnCategoryAndNov1Wise();
 
+    List<StudentNode> getChildDetails(Long parentId);
 }

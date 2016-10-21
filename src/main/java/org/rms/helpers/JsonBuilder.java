@@ -3,6 +3,7 @@ package org.rms.helpers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.rms.serializers.ChartResultRowSerializer;
+import org.rms.serializers.ResultSerializer;
 import org.rms.visualizations.ChartResultRow;
 
 import java.util.List;
@@ -32,5 +33,13 @@ public final class JsonBuilder {
             toIndex = totalRecords;
         }
         return recordList.subList(fromIndex, toIndex);
+    }
+
+    public static String convertToJson(Integer rowsCount, Integer currentPage, Integer totalRecords, List<? extends GridRow> rowResult) {
+        gson = new GsonBuilder().registerTypeAdapter(GridRow.class,
+                new ResultSerializer()).create();
+        GridGenerator gridGenerator = new GridGenerator();
+        GridContainer resultContainer = gridGenerator.createGridContainer(rowsCount, currentPage, totalRecords, rowResult);
+        return gson.toJson(resultContainer);
     }
 }

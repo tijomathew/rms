@@ -1,5 +1,6 @@
 package org.rms.daos;
 
+import com.sun.org.apache.xerces.internal.dom.ChildNode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Projections;
@@ -7,6 +8,8 @@ import org.hibernate.criterion.Restrictions;
 import org.rms.models.StudentNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Created by bibin on 13/10/16.
@@ -58,5 +61,10 @@ public class ChildDaoImpl implements ChildDao {
             registeredStudentCounts = 0l;
         }
         return registeredStudentCounts;
+    }
+
+    @Override
+    public List<StudentNode> getChildDetails(Long parentId) {
+        return sessionFactory.getCurrentSession().createCriteria(StudentNode.class, "studentNode").add(Restrictions.eq("parentNode.id", parentId)).list();
     }
 }

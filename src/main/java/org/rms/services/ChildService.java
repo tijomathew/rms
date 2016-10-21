@@ -1,6 +1,11 @@
 package org.rms.services;
 
+import com.sun.org.apache.xerces.internal.dom.ChildNode;
+import org.rms.models.ParentNode;
+import org.rms.models.StudentNode;
 import org.rms.visualizations.ChartResultContainer;
+
+import java.util.List;
 
 /**
  * Created by bibin on 13/10/16.
@@ -16,4 +21,6 @@ public interface ChildService {
     Long getAllRegisteredStudentsOnCategoryAndNov1Wise();
 
     ChartResultContainer getChartResultContainer(String tqx);
+
+    List<StudentNode> getChildDetails(Long parentId);
 }

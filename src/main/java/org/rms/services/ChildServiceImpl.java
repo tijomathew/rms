@@ -1,6 +1,8 @@
 package org.rms.services;
 
+import com.sun.org.apache.xerces.internal.dom.ChildNode;
 import org.rms.daos.ChildDao;
+import org.rms.models.StudentNode;
 import org.rms.visualizations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -146,5 +148,10 @@ public class ChildServiceImpl implements ChildService {
         chartRowList.add(new ChartRow(chartCellList));
 
         return chartRowList;
+    }
+
+    @Override
+    public List<StudentNode> getChildDetails(Long parentId) {
+        return childDao.getChildDetails(parentId);
     }
 }
