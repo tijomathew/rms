@@ -154,4 +154,9 @@ public class ChildServiceImpl implements ChildService {
     public List<StudentNode> getChildDetails(Long parentId) {
         return childDao.getChildDetails(parentId);
     }
+
+    @Override
+    public List<StudentNode> getChildsByIds(List<Long> childIds) {
+        return childDao.getChildsByIds(childIds);
+    }
 }

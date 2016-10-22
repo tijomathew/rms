@@ -2,6 +2,7 @@ package org.rms.services;
 
 import org.rms.daos.RegistrationDao;
 import org.rms.models.ParentNode;
+import org.rms.models.StudentNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +38,13 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public ParentNode getRegisteredEntry(String email) {
         return registrationDao.getRegisteredEntry(email);
+    }
+
+    @Override
+    public StudentNode deleteStudentNode(StudentNode studentNode) {
+        if (studentNode == null) {
+            throw new IllegalArgumentException("Student Node cannot be null!!..");
+        }
+        return registrationDao.deleteStudentNode(studentNode);
     }
 }

@@ -19,4 +19,6 @@ public interface ChildDao {
     Long getAllRegisteredStudentsOnCategoryAndNov1Wise();
 
     List<StudentNode> getChildDetails(Long parentId);
+
+    List<StudentNode> getChildsByIds(List<Long> childIds);
 }

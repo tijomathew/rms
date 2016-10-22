@@ -23,4 +23,6 @@ public interface ChildService {
     ChartResultContainer getChartResultContainer(String tqx);
 
     List<StudentNode> getChildDetails(Long parentId);
+
+    List<StudentNode> getChildsByIds(List<Long> childIds);
 }

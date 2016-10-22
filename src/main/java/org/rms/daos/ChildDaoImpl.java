@@ -67,4 +67,9 @@ public class ChildDaoImpl implements ChildDao {
     public List<StudentNode> getChildDetails(Long parentId) {
         return sessionFactory.getCurrentSession().createCriteria(StudentNode.class, "studentNode").add(Restrictions.eq("parentNode.id", parentId)).list();
     }
+
+    @Override
+    public List<StudentNode> getChildsByIds(List<Long> childIds) {
+        return sessionFactory.getCurrentSession().createCriteria(StudentNode.class, "studentNode").add(Restrictions.in("studentNode.id", childIds)).list();
+    }
 }

@@ -20,7 +20,7 @@
     <script type="text/javascript">
 
         jQuery(document).ready(function () {
-            $("#saveButton").attr('disabled', 'disabled');
+
             $("button.addButton").hide();
 
             $(function () {
@@ -69,11 +69,10 @@
                     $("#massCentreName").addClass('borderColor');
                 }
 
-                if ($("#email").val() != $("#confirmEmail").val() || $("#email").val() == '' || $("#confirmEmail").val() == '') {
+                if ($("#email").val() == '') {
                     submitFlag = false;
                     alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#email").addClass('borderColor');
-                    $("#confirmEmail").addClass('borderColor');
                 }
 
                 if ($("#phoneNumber").val() == "") {
@@ -223,7 +222,6 @@
                                 .attr('studentNodes-index', i)
                                 .attr('id', 'child' + i)
                                 .attr('class', 'panel-body form-group childRows')
-                            //  .find(':checkbox').removeAttr('checked').end()
                                 .appendTo($('#studentInfo'));
 
                 // Update the name attributes
@@ -238,8 +236,6 @@
                         .find('[name="studentNodeList[0].dayThree"]').val('Oct-31').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayThree').attr('id', 'dayThree' + i).end()
                         .find('[name="studentNodeList[0].dayFour"]').val('Nov-1').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayFour').attr('id', 'dayFour' + i).end()
                         .find("button.deleteChildRow").closest("div.hidden").removeClass("hidden").end()
-                // .find('[name = actionButton]').removeAttr('class').attr('class', 'btn btn-primary removeButton commonGreenBtn').text("Remove Child").find('.fa-plus').removeAttr('class').attr('class', 'fa fa-minus');
-
             }
 
             $("button.addButton").hide();
@@ -288,10 +284,10 @@
             $("#lastName${count.index}").val("${element.lastName}");
             $("#classDivision${count.index}").val("${element.classDivision}");
             $("#retreatSection${count.index}").val("${element.retreatSection}");
-            $("#dayOne${count.index}").removeProp("checked").prop("checked", ${element.dayOne eq 'Oct-29'});
-            $("#dayTwo${count.index}").removeProp("checked").prop("checked", ${element.dayTwo eq 'Oct-30'});
-            $("#dayThree${count.index}").removeProp("checked").prop("checked", ${element.dayThree eq 'Oct-31'});
-            $("#dayFour${count.index}").removeProp("checked").prop("checked", ${element.dayFour eq 'Nov-1'});
+            $("#dayOne${count.index}").prop("checked", ${element.dayOne eq 'Oct-29'});
+            $("#dayTwo${count.index}").prop("checked", ${element.dayTwo eq 'Oct-30'});
+            $("#dayThree${count.index}").prop("checked", ${element.dayThree eq 'Oct-31'});
+            $("#dayFour${count.index}").prop("checked", ${element.dayFour eq 'Nov-1'});
 
             </c:forEach>
             if(validateChildData())
@@ -303,18 +299,7 @@
 
 
 <body>
-<c:forEach items="${parentNodeForm.studentNodeList}" var="element" varStatus="count">
 
-    ${element.id}
-    ${element.firstName}
-    ${element.lastName}
-    ${element.classDivision}
-    ${element.retreatSection}
-    ${element.dayOne }
-    ${element.dayTwo}
-    ${element.dayThree}
-
-</c:forEach>
 <%@ include file="headerTemplate.jsp" %>
 <form:form role="form" id="registration-form" modelAttribute="parentNodeForm"
            action="${pageContext.request.contextPath}/editregistration.action"
@@ -388,19 +373,11 @@
                                 </div>
 
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="email">Email:<span style="color: red">*</span></label>
                                     <form:input path="email" class="form-control" required="true" type="email"
-                                                id="email" placeholder="Email"/>
-                                </div>
-
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="confirmEmail">Confirm Email:<span style="color: red">*</span></label>
-                                    <form:input path="confirmEmail" class="form-control" required="true" type="email"
-                                                id="confirmEmail" placeholder="Confirm Email" value = "${parentNodeForm.email}"/>
+                                                id="email" placeholder="Email" readonly="true"/>
                                 </div>
 
                             </div>

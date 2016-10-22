@@ -4,6 +4,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.rms.models.ParentNode;
+import org.rms.models.StudentNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -35,6 +36,16 @@ public class RegistrationDaoImpl implements RegistrationDao {
 
     @Override
     public ParentNode getRegisteredEntry(String email) {
-       return (ParentNode) sessionFactory.getCurrentSession().createCriteria(ParentNode.class).add(Restrictions.eq("email", email)).uniqueResult();
+        return (ParentNode) sessionFactory.getCurrentSession().createCriteria(ParentNode.class).add(Restrictions.eq("email", email)).uniqueResult();
+    }
+
+    @Override
+    public StudentNode deleteStudentNode(StudentNode studentNode) {
+        try {
+            sessionFactory.getCurrentSession().delete(studentNode);
+            return studentNode;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

@@ -3,6 +3,7 @@ package org.rms.controllers;
 import org.rms.models.ParentNode;
 import org.rms.models.StudentNode;
 import org.rms.models.User;
+import org.rms.services.ChildService;
 import org.rms.services.MailService;
 import org.rms.services.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +32,46 @@ public class EditRegistrationController {
     @Autowired
     private MailService mailService;
 
+    @Autowired
+    private ChildService childService;
+
     @RequestMapping(value = "editregistration.action", method = RequestMethod.POST)
     public String registerationProcess(@ModelAttribute("parentNodeForm") ParentNode parentNode, HttpServletRequest httpServletRequest) {
-        List<StudentNode> studentNodeList = parentNode.getStudentNodeList();
+        List<StudentNode> updatedStudentNodeList = parentNode.getStudentNodeList();
+
+        ParentNode retrievedParentNode = registrationService.getRegisteredEntry(parentNode.getEmail());
+
+        List<Long> retrievedStudentNodeIDs = new ArrayList<>();
+
+        for (StudentNode retrievedStudentNode : retrievedParentNode.getStudentNodeList()) {
+            retrievedStudentNodeIDs.add(retrievedStudentNode.getId());
+        }
+
+        List<StudentNode> removeStudentNodeFromDB = new ArrayList<>();
+
+        if (!retrievedStudentNodeIDs.isEmpty()) {
+            for (StudentNode studentNode : updatedStudentNodeList) {
+                if (studentNode.getId() != null) {
+                    if (retrievedStudentNodeIDs.contains(studentNode.getId())) {
+                        retrievedStudentNodeIDs.remove(studentNode.getId());
+                    }
+                }
+            }
+        }
+
+        if (!retrievedStudentNodeIDs.isEmpty()) {
+            removeStudentNodeFromDB = childService.getChildsByIds(retrievedStudentNodeIDs);
+        }
+
+        if (!removeStudentNodeFromDB.isEmpty()) {
+            for (StudentNode studentNode : removeStudentNodeFromDB) {
+                registrationService.deleteStudentNode(studentNode);
+            }
+        }
+
         List<StudentNode> removeEmptyStudentList = new ArrayList<>();
-        for (StudentNode studentNode : studentNodeList) {
+
+        for (StudentNode studentNode : updatedStudentNodeList) {
             if (studentNode.getFirstName() != null && studentNode.getLastName() != null) {
                 if (!studentNode.getFirstName().isEmpty() && !studentNode.getLastName().isEmpty()) {
                     studentNode.setParentNode(parentNode);
@@ -48,44 +84,40 @@ public class EditRegistrationController {
         }
 
         for (StudentNode studentNode : removeEmptyStudentList) {
-            if (studentNodeList.contains(studentNode)) {
-                studentNodeList.remove(studentNode);
+            if (updatedStudentNodeList.contains(studentNode)) {
+                updatedStudentNodeList.remove(studentNode);
             }
         }
 
-       // if (!registrationService.checkEmailAlreadyRegistered(parentNode.getEmail())) {
-            ParentNode savedParentNode = registrationService.saveRegistrationEntry(parentNode);
-            List<StudentNode> studentNodesToUpdateWithBandCode = savedParentNode.getStudentNodeList();
+        ParentNode savedParentNode = registrationService.saveRegistrationEntry(parentNode);
+        List<StudentNode> studentNodesToUpdateWithBandCode = savedParentNode.getStudentNodeList();
 
-            List<StudentNode> updatedStudentNodes = new ArrayList<>();
+        List<StudentNode> updatedStudentNodes = new ArrayList<>();
 
-            Integer lengthOfMassCentreName = savedParentNode.getMassCentreName().length();
-            String concatMassCentreCode = lengthOfMassCentreName >= 3 ? savedParentNode.getMassCentreName().substring(0, 3) : savedParentNode.getMassCentreName();
+        Integer lengthOfMassCentreName = savedParentNode.getMassCentreName().length();
+        String concatMassCentreCode = lengthOfMassCentreName >= 3 ? savedParentNode.getMassCentreName().substring(0, 3) : savedParentNode.getMassCentreName();
 
-            for (StudentNode studentNode : studentNodesToUpdateWithBandCode) {
-                String bandCode = concatMassCentreCode.toUpperCase() + "-" + savedParentNode.getId() + "-" + studentNode.getId();
-                studentNode.setBandCode(bandCode);
-                updatedStudentNodes.add(studentNode);
-            }
-            savedParentNode.setStudentNodeList(updatedStudentNodes);
+        for (StudentNode studentNode : studentNodesToUpdateWithBandCode) {
+            String bandCode = concatMassCentreCode.toUpperCase() + "-" + savedParentNode.getId() + "-" + studentNode.getId();
+            studentNode.setBandCode(bandCode);
+            updatedStudentNodes.add(studentNode);
+        }
+        savedParentNode.setStudentNodeList(updatedStudentNodes);
 
-           //Boolean emailSentForRegisteredParent = mailService.sendRegistrationDetailsWithConsentForm(savedParentNode);
+        Boolean emailSentForRegisteredParent = mailService.sendRegistrationDetailsWithConsentForm(savedParentNode);
 
-            Boolean emailSentForRegisteredParent = true;
+        if (emailSentForRegisteredParent) {
+            savedParentNode.setEmailSent(true);
+        } else {
+            savedParentNode.setEmailSent(false);
+        }
 
-            if (emailSentForRegisteredParent) {
-                savedParentNode.setEmailSent(true);
-            } else {
-                savedParentNode.setEmailSent(false);
-            }
+        registrationService.saveRegistrationEntry(savedParentNode);
 
-            registrationService.saveRegistrationEntry(savedParentNode);
+        HttpSession session = httpServletRequest.getSession();
+        session.setAttribute("parentNodeEntry", savedParentNode);
 
-            HttpSession session = httpServletRequest.getSession();
-            session.setAttribute("parentNodeEntry", savedParentNode);
-
-            return "registrationsuccess";
-       // }
+        return "registrationsuccess";
 
     }
 }
