@@ -1,9 +1,11 @@
 package org.rms.models;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,8 +75,9 @@ public class ParentNode implements Serializable {
 
     private transient String confirmEmail;
 
-    @LazyCollection(value = LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "parentNode", cascade = CascadeType.ALL)
+    //    @LazyCollection(value = LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "parentNode", targetEntity = StudentNode.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    //@Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private List<StudentNode> studentNodeList = new ArrayList<>();
 
     public ParentNode() {
@@ -230,5 +233,26 @@ public class ParentNode implements Serializable {
 
     public void setStudentNodeList(List<StudentNode> studentNodeList) {
         this.studentNodeList = studentNodeList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ParentNode that = (ParentNode) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (studentNodeList != null ? !studentNodeList.equals(that.studentNodeList) : that.studentNodeList != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (studentNodeList != null ? studentNodeList.hashCode() : 0);
+        return result;
     }
 }

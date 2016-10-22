@@ -46,7 +46,7 @@ public class StudentNode implements Serializable {
     @Column(name = "band_code")
     private String bandCode;
 
-    @ManyToOne(targetEntity = ParentNode.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = ParentNode.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "parent_student_id", referencedColumnName = "id")
     private ParentNode parentNode;
 
@@ -139,5 +139,25 @@ public class StudentNode implements Serializable {
 
     public void setParentNode(ParentNode parentNode) {
         this.parentNode = parentNode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        StudentNode that = (StudentNode) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (parentNode != null ? !parentNode.equals(that.parentNode) : that.parentNode != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (parentNode != null ? parentNode.hashCode() : 0);
+        return result;
     }
 }

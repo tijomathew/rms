@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <spring:url value="/resources/css/style.css" var="stylecss"/>
+
     <link href="${stylecss} " rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -20,6 +21,7 @@
 
         jQuery(document).ready(function () {
             $("#saveButton").attr('disabled', 'disabled');
+            $("button.addButton").hide();
 
             $(function () {
                 $(document).tooltip();
@@ -57,66 +59,90 @@
             });
 
             $("#saveButton").click(function () {
+                var alertMessage = '';
                 $("#registration-form").find(':input').removeClass('borderColor');
                 $("#saveButton").html('Loading');
                 var submitFlag = true;
                 if ($("#massCentreName").val() == '0') {
                     submitFlag = false;
+                    alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#massCentreName").addClass('borderColor');
                 }
 
                 if ($("#email").val() != $("#confirmEmail").val() || $("#email").val() == '' || $("#confirmEmail").val() == '') {
                     submitFlag = false;
+                    alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#email").addClass('borderColor');
                     $("#confirmEmail").addClass('borderColor');
                 }
 
                 if ($("#phoneNumber").val() == "") {
+                    submitFlag = false;
+                    alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#phoneNumber").addClass('borderColor');
                 } else {
                     var value = $('#phoneNumber').val()
                     var regex = new RegExp(/^\+?[0-9]+$/);
                     if (!value.match(regex)) {
                         submitFlag = false;
+                        alertMessage = 'Please correct errors in the red highlighted fields and save again';
                         $("#phoneNumber").addClass('borderColor');
                     }
                 }
 
                 if ($("#alternativePhoneNumber").val() == "") {
+                    submitFlag = false;
+                    alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#alternativePhoneNumber").addClass('borderColor');
                 } else {
                     var value = $('#alternativePhoneNumber').val()
                     var regex = new RegExp(/^\+?[0-9]+$/);
                     if (!value.match(regex)) {
                         submitFlag = false;
+                        alertMessage = 'Please correct errors in the red highlighted fields and save again';
                         $("#alternativePhoneNumber").addClass('borderColor');
                     }
                 }
 
                 if ($("#houseNo").val() == "") {
+                    submitFlag = false;
+                    alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#houseNo").addClass('borderColor');
                 }
 
                 if ($("#firstName").val() == "") {
+                    submitFlag = false;
+                    alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#firstName").addClass('borderColor');
                 }
 
                 if ($("#lastName").val() == "") {
+                    submitFlag = false;
+                    alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#lastName").addClass('borderColor');
                 }
 
                 if ($("#addressLineOne").val() == "") {
+                    submitFlag = false;
+                    alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#addressLineOne").addClass('borderColor');
                 }
 
                 if ($("#addressLineTwo").val() == "") {
+                    submitFlag = false;
+                    alertMessage = 'Please correct errors in the red highlighted fields and save again';
                     $("#addressLineTwo").addClass('borderColor');
+                }
+
+                if (!validateChildData()) {
+                    alertMessage = 'Please fill the Child Data in the provided box';
+                    submitFlag = false;
                 }
 
                 if (submitFlag) {
                     $("#registration-form").submit();
                 } else {
-                    alert('Please correct errors in the red highlighted fields and save again');
+                    alert(alertMessage);
                     $("#saveButton").html('Save');
                 }
             });
@@ -135,22 +161,69 @@
                         // Remove element containing the fields
                         $row.remove();
 
+                        $("button.addButton").show();
+
+                    }).on('click', '.deleteChildRow', function (e) {
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                        var $row = $(this).parents('.form-group'),
+                                index = $row.attr('studentNodes-index');
+
+                        // Remove element containing the fields
+                        $row.remove();
+                        $('div.form-group.childRows').each(function (idx) {
+                            var $inputs = $(this).find(':input:not(button)');
+                            idx = idx + 1;
+                            $inputs.each(function () {
+                                var $prop = $(this).attr('name').split(".")[1];
+                                $(this).attr('name', 'studentNodeList[' + idx + '].' + $prop).attr('id', 'studentNodeList[' + idx + '].' + $prop);
+                            });
+                        });
+                        if (validateChildData())
+                            $("button.addButton").show();
+
+                    })
+                    .on("change", "div.generalFormLayout :input:visible", function (e) {
+                        e.stopImmediatePropagation();
+                        var $this = $(this);
+
+                        if (validateChildData()) {
+                            $("button.addButton").show();
+                        } else {
+                            $("button.addButton").hide();
+                        }
                     });
 
         });
+
+        function validateChildData() {
+            var showAddButton = true
+            $('#studentInfo div.generalFormLayout').each(function (idx) { //Evalues all inputs to check whether to show Add row button or not.
+                var $parent = $(this), $inputs = $parent.find(":input:visible:not(:button)");
+                if ($inputs.filter(function () { //filters any input without value
+                            var hasValue = $(this).is(":checkbox") ? $parent.find(":checkbox").is(":checked") : ($(this).is("select") ? $(this).val() != '0' : $(this).val());
+                            return !hasValue;
+                        }).length) {
+                    showAddButton = false;
+                    return false;
+                }
+            });
+            return showAddButton;
+        }
+
     </script>
     <script type="text/javascript">
         function generateStudentTemplate() {
-            var i = ($('.prevChildRows').length + 1);
 
+            var i = ($('.childRows').length + 1);
             if (i < 7) {
-                var $template = $('#studentInfoParentTemplate'),
+                var $template = $('#studentInfoTemplate'),
                         $clone = $template
                                 .clone()
                                 .attr('studentNodes-index', i)
                                 .attr('id', 'child' + i)
                                 .attr('class', 'panel-body form-group childRows')
-                                .removeAttr("hidden")
+                            //  .find(':checkbox').removeAttr('checked').end()
                                 .appendTo($('#studentInfo'));
 
                 // Update the name attributes
@@ -158,15 +231,18 @@
                         .find('[name="studentNodeList[0].id"]').val('').attr('name', 'studentNodeList[' + i + '].id').attr('id', 'id' + i).end()
                         .find('[name="studentNodeList[0].firstName"]').val('').attr('name', 'studentNodeList[' + i + '].firstName').attr('id', 'firstName' + i).end()
                         .find('[name="studentNodeList[0].lastName"]').val('').attr('name', 'studentNodeList[' + i + '].lastName').attr('id', 'lastName' + i).end()
-                        .find('[name="studentNodeList[0].classDivision"]').attr('name', 'studentNodeList[' + i + '].classDivision').attr('id', 'classDivision' + i).end()
+                        .find('[name="studentNodeList[0].classDivision"]').val('0').attr('name', 'studentNodeList[' + i + '].classDivision').attr('id', 'classDivision' + i).end()
                         .find('[name="studentNodeList[0].retreatSection"]').val('').attr('name', 'studentNodeList[' + i + '].retreatSection').attr('id', 'retreatSection' + i).end()
                         .find('[name="studentNodeList[0].dayOne"]').val('Oct-29').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayOne').attr('id', 'dayOne' + i).end()
                         .find('[name="studentNodeList[0].dayTwo"]').val('Oct-30').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayTwo').attr('id', 'dayTwo' + i).end()
                         .find('[name="studentNodeList[0].dayThree"]').val('Oct-31').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayThree').attr('id', 'dayThree' + i).end()
                         .find('[name="studentNodeList[0].dayFour"]').val('Nov-1').attr('checked', false).attr('name', 'studentNodeList[' + i + '].dayFour').attr('id', 'dayFour' + i).end()
-                        .find('[name = actionButton]').removeAttr('class').attr('class', 'btn btn-primary removeButton commonGreenBtn').text("Remove Child").find('.fa-plus').removeAttr('class').attr('class', 'fa fa-minus');
+                        .find("button.deleteChildRow").closest("div.hidden").removeClass("hidden").end()
+                // .find('[name = actionButton]').removeAttr('class').attr('class', 'btn btn-primary removeButton commonGreenBtn').text("Remove Child").find('.fa-plus').removeAttr('class').attr('class', 'fa fa-minus');
 
             }
+
+            $("button.addButton").hide();
 
         }
 
@@ -201,11 +277,44 @@
 
         }
 
+        $(document).ready(function(){
+            <c:forEach items="${parentNodeForm.studentNodeList}" var="element" varStatus="count">
+
+            <c:if test="${count.index gt 0}">
+            generateStudentTemplate();
+            </c:if>
+            $("#id${count.index}").val("${element.id}");
+            $("#firstName${count.index}").val("${element.firstName}");
+            $("#lastName${count.index}").val("${element.lastName}");
+            $("#classDivision${count.index}").val("${element.classDivision}");
+            $("#retreatSection${count.index}").val("${element.retreatSection}");
+            $("#dayOne${count.index}").removeProp("checked").prop("checked", ${element.dayOne eq 'Oct-29'});
+            $("#dayTwo${count.index}").removeProp("checked").prop("checked", ${element.dayTwo eq 'Oct-30'});
+            $("#dayThree${count.index}").removeProp("checked").prop("checked", ${element.dayThree eq 'Oct-31'});
+            $("#dayFour${count.index}").removeProp("checked").prop("checked", ${element.dayFour eq 'Nov-1'});
+
+            </c:forEach>
+            if(validateChildData())
+                $(".addButton").show();
+        });
+
     </script>
 </head>
 
 
 <body>
+<c:forEach items="${parentNodeForm.studentNodeList}" var="element" varStatus="count">
+
+    ${element.id}
+    ${element.firstName}
+    ${element.lastName}
+    ${element.classDivision}
+    ${element.retreatSection}
+    ${element.dayOne }
+    ${element.dayTwo}
+    ${element.dayThree}
+
+</c:forEach>
 <%@ include file="headerTemplate.jsp" %>
 <form:form role="form" id="registration-form" modelAttribute="parentNodeForm"
            action="${pageContext.request.contextPath}/editregistration.action"
@@ -345,173 +454,91 @@
                     <div class="panel-heading headerColor">Child Details</div>
 
 
-                    <div class="panel-body" id="studentInfoParentTemplate" hidden="hidden">
-
-                            <div class="row generalFormLayout">
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="firstName">First Name:<span style="color: red">*</span></label>
-                                        <form:input path="studentNodeList[0].firstName" class="form-control" id="firstName0"
-                                                    required="true" placeholder="First Name" />
-                                        <form:hidden path="studentNodeList[0].id" class="form-control" id="id0" value = ""/>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="lastName"> Last Name:<span style="color: red">*</span></label>
-                                        <form:input class="form-control"
-                                                    path="studentNodeList[0].lastName" id="lastName0" required="true"
-                                                    placeholder="Last Name" value = "0"/>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="studentNodeList[0].classDivision">Age Range:<span
-                                                style="color: red">*</span></label>
-                                        <form:select class="form-control" path="studentNodeList[0].classDivision"
-                                                     id="classDivision-1" onchange="callSectionUpdate($(this).attr('id'))">
-                                            <form:option value="0">--Select--</form:option>
-                                            <form:option value="8-12">8 - 12</form:option>
-                                            <form:option value="13-17">13 - 17</form:option>
-                                            <form:option value="18+">18+</form:option>
-                                        </form:select>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="studentNodeList[0].retreatSection">Section:<span
-                                                style="color: red">*</span></label>
-                                        <form:input class="form-control" path="studentNodeList[0].retreatSection"
-                                                    id="retreatSection0" readonly="true"/>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <div class="col-md-3 text-center">
-                                            <label>Oct-29</label><br/>
-                                            <form:checkbox path="studentNodeList[0].dayOne"
-                                                           id="dayOne0" value="dayOne"/>
-
-                                        </div>
-                                        <div class="col-md-3 text-center">
-                                            <label>Oct-30</label><br/>
-                                            <form:checkbox path="studentNodeList[0].dayTwo"
-                                                           id="dayTwo0" value="dayTwo"/>
-
-                                        </div>
-                                        <div class="col-md-3 text-center">
-                                            <label>Oct-31</label><br/>
-                                            <form:checkbox path="studentNodeList[0].dayThree"
-                                                           id="dayThree0" value="dayThree"/>
-
-                                        </div>
-                                        <div class="col-md-3 text-center" style="display: none;">
-                                            <label>Nov-1</label><br/>
-                                            <form:checkbox path="studentNodeList[0].dayFour"
-                                                           id="dayFour0" value="dayFour"/>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        <button type="button" class="btn btn-primary addButton commonGreenBtn" id="actionButton" name="actionButton">
-                            Add Child
-                        </button>
-
-                    </div>
-
-
-
-
                     <div class="panel-body" id="studentInfoTemplate">
 
-                        <c:forEach items="${parentNodeForm.studentNodeList}" var="element" varStatus="count">
-                            <div class="row generalFormLayout prevChildRows">
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="firstName">First Name:<span style="color: red">*</span></label>
-                                        <form:input path="studentNodeList[${count.index}].firstName" class="form-control" id="firstName${count.index}"
-                                                    required="true" placeholder="First Name" value = "${element.firstName}"/>
-                                        <form:hidden path="studentNodeList[${count.index}].id" class="form-control" id="id${count.index}" value = "${element.id}"/>
-                                    </div>
+                        <div class="row generalFormLayout">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="firstName">First Name:<span style="color: red">*</span></label>
+                                    <form:input path="studentNodeList[0].firstName" class="form-control" id="firstName0"
+                                                required="true" placeholder="First Name" />
+                                    <form:hidden path="studentNodeList[0].id" class="form-control" id="id0" value = ""/>
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="lastName"> Last Name:<span style="color: red">*</span></label>
-                                        <form:input class="form-control"
-                                                    path="studentNodeList[${count.index}].lastName" id="lastName${count.index}" required="true"
-                                                    placeholder="Last Name" value = "${element.lastName}"/>
-                                    </div>
-
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="lastName"> Last Name:<span style="color: red">*</span></label>
+                                    <form:input class="form-control"
+                                                path="studentNodeList[0].lastName" id="lastName0" required="true"
+                                                placeholder="Last Name" value = "0"/>
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="studentNodeList[${count.index}].classDivision">Age Range:<span
-                                                style="color: red">*</span></label>
-                                        <form:select class="form-control" path="studentNodeList[${count.index}].classDivision"
-                                                     id="classDivision${count.index}" onchange="callSectionUpdate($(this).attr('id'))" value = "${element.classDivision}">
-                                            <form:option value="0">--Select--</form:option>
-                                            <form:option value="8-12">8 - 12</form:option>
-                                            <form:option value="13-17">13 - 17</form:option>
-                                            <form:option value="18+">18+</form:option>
-                                        </form:select>
-                                    </div>
 
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="studentNodeList[0].classDivision">Age Range:<span
+                                            style="color: red">*</span></label>
+                                    <form:select class="form-control" path="studentNodeList[0].classDivision"
+                                                 id="classDivision0" onchange="callSectionUpdate($(this).attr('id'))">
+                                        <form:option value="0">--Select--</form:option>
+                                        <form:option value="8-12">8 - 12</form:option>
+                                        <form:option value="13-17">13 - 17</form:option>
+                                        <form:option value="18+">18+</form:option>
+                                    </form:select>
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="studentNodeList[${count.index}].retreatSection">Section:<span
-                                                style="color: red">*</span></label>
-                                        <form:input class="form-control" path="studentNodeList[${count.index}].retreatSection"
-                                                    id="retreatSection${count.index}" readonly="true" value = "${element.retreatSection}"/>
-                                    </div>
 
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="studentNodeList[0].retreatSection">Section:<span
+                                            style="color: red">*</span></label>
+                                    <form:input class="form-control" path="studentNodeList[0].retreatSection"
+                                                id="retreatSection0" readonly="true"/>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <div class="col-md-3 text-center">
-                                            <label>Oct-29</label><br/>
-                                            <form:checkbox path="studentNodeList[${count.index}].dayOne"
-                                                           id="dayOne${count.index}" value="${element.dayOne}"/>
 
-                                        </div>
-                                        <div class="col-md-3 text-center">
-                                            <label>Oct-30</label><br/>
-                                            <form:checkbox path="studentNodeList[${count.index}].dayTwo"
-                                                           id="dayTwo${count.index}" value="${element.dayTwo}"/>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="col-md-3 text-center">
+                                        <label>Oct-29</label><br/>
+                                        <form:checkbox path="studentNodeList[0].dayOne"
+                                                       id="dayOne0" value="Oct-29"/>
 
-                                        </div>
-                                        <div class="col-md-3 text-center">
-                                            <label>Oct-31</label><br/>
-                                            <form:checkbox path="studentNodeList[${count.index}].dayThree"
-                                                           id="dayThree${count.index}" value="${element.dayThree}"/>
+                                    </div>
+                                    <div class="col-md-3 text-center">
+                                        <label>Oct-30</label><br/>
+                                        <form:checkbox path="studentNodeList[0].dayTwo"
+                                                       id="dayTwo0" value="Oct-30"/>
 
-                                        </div>
-                                        <div class="col-md-3 text-center" style="display: none;">
-                                            <label>Nov-1</label><br/>
-                                            <form:checkbox path="studentNodeList[${count.index}].dayFour"
-                                                           id="dayFour${count.index}" value="dayFour"/>
+                                    </div>
+                                    <div class="col-md-3 text-center">
+                                        <label>Oct-31</label><br/>
+                                        <form:checkbox path="studentNodeList[0].dayThree"
+                                                       id="dayThree0" value="Oct-31"/>
 
-                                        </div>
+                                    </div>
+                                    <div class="col-md-3 text-center" style="display: none;">
+                                        <label>Nov-1</label><br/>
+                                        <form:checkbox path="studentNodeList[0].dayFour"
+                                                       id="dayFour0" value="Nov-1"/>
+
                                     </div>
                                 </div>
                             </div>
-
-                        </c:forEach>
-
-
-
-
-                        <button type="button" class="btn btn-primary addButton commonGreenBtn" id=""
-                                name="actionButton">
-                            Add Child
-                        </button>
+                            <div class="col-md-1 hidden">
+                                <div class="form-group vcenter">
+                                    <label>Delete</label>
+                                    <button type="button" class="btn btn-danger deleteChildRow" data-type="minus"><span
+                                            class="glyphicon glyphicon-minus"></span></button>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
+                    <button type="button" class="btn btn-primary addButton commonGreenBtn" id=""
+                            name="actionButton">
+                        Add Child
+                    </button>
                 </div>
 
                 <div class="panel panel-default">
@@ -584,9 +611,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
