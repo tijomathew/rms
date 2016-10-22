@@ -286,20 +286,11 @@
            action="${pageContext.request.contextPath}/createregistration.action"
            method="post">
     <div class="mainWrapper">
+        <div style="float:right;font-weight:bold"><a style="text-align: right" href="${pageContext.request.contextPath}/email.action"><h5 style="font-weight:bold">Manage
+            My Registration</h5></a></div>
         <div class="row row-offcanvas row-offcanvas-right">
             <div class="col-xs-12 col-sm-12">
                 <h3 class="defaultBold">Retreat Registration Form</h3>
-
-                <a style="text-align: right" href="${pageContext.request.contextPath}/email.action">Manage
-                    My Registeration</a>
-
-                <%--<a style="text-align: right" href="${pageContext.request.contextPath}/login.action">Login</a>
-                    <%--<a style="text-align: right" href="${pageContext.request.contextPath}/login.action">Login</a>
-
-                    <a style="text-align: right" href="${pageContext.request.contextPath}/editregisteration.action">Manage
-                        My Registeration</a>
-
-                    <a style="text-align: right" href="${pageContext.request.contextPath}/showcounts.action">Show Counts</a>--%>
 
                 <div class="panel panel-default">
                     <div class="panel-heading headerColor">Parent/Guardian Details</div>

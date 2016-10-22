@@ -46,7 +46,7 @@ public class StudentNode implements Serializable {
     @Column(name = "band_code")
     private String bandCode;
 
-    @ManyToOne(targetEntity = ParentNode.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = ParentNode.class)
     @JoinColumn(name = "parent_student_id", referencedColumnName = "id")
     private ParentNode parentNode;
 

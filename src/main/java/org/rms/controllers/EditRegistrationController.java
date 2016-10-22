@@ -65,6 +65,7 @@ public class EditRegistrationController {
 
         if (!removeStudentNodeFromDB.isEmpty()) {
             for (StudentNode studentNode : removeStudentNodeFromDB) {
+                studentNode.setParentNode(null);
                 registrationService.deleteStudentNode(studentNode);
             }
         }

@@ -23,6 +23,10 @@
 
             $("button.addButton").hide();
 
+            if ($("#medicalInfoChecked").prop('checked')) {
+                $("#medicalInformation").css('display', 'block');
+            }
+
             $(function () {
                 $(document).tooltip();
             });
@@ -273,7 +277,7 @@
 
         }
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             <c:forEach items="${parentNodeForm.studentNodeList}" var="element" varStatus="count">
 
             <c:if test="${count.index gt 0}">
@@ -290,7 +294,7 @@
             $("#dayFour${count.index}").prop("checked", ${element.dayFour eq 'Nov-1'});
 
             </c:forEach>
-            if(validateChildData())
+            if (validateChildData())
                 $(".addButton").show();
         });
 
@@ -307,7 +311,7 @@
     <div class="mainWrapper">
         <div class="row row-offcanvas row-offcanvas-right">
             <div class="col-xs-12 col-sm-12">
-                <h3 class="defaultBold">Edit Retreat Registration Form</h3>
+                <h3 class="defaultBold">Retreat Registration Form</h3>
 
                 <div class="panel panel-default">
                     <div class="panel-heading headerColor">Parent/Guardian Details</div>
@@ -339,7 +343,7 @@
                                     <label for="firstName">First Name:<span style="color: red">*</span></label>
                                     <form:input path="firstName" id="firstName" class="form-control" required="true"
                                                 placeholder="First Name"/>
-                                    <form:hidden path="id" class="form-control" id="id" value = "${parentNodeForm.id}"/>
+                                    <form:hidden path="id" class="form-control" id="id" value="${parentNodeForm.id}"/>
                                 </div>
 
                             </div>
@@ -438,8 +442,8 @@
                                 <div class="form-group">
                                     <label for="firstName">First Name:<span style="color: red">*</span></label>
                                     <form:input path="studentNodeList[0].firstName" class="form-control" id="firstName0"
-                                                required="true" placeholder="First Name" />
-                                    <form:hidden path="studentNodeList[0].id" class="form-control" id="id0" value = ""/>
+                                                required="true" placeholder="First Name"/>
+                                    <form:hidden path="studentNodeList[0].id" class="form-control" id="id0" value=""/>
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -447,7 +451,7 @@
                                     <label for="lastName"> Last Name:<span style="color: red">*</span></label>
                                     <form:input class="form-control"
                                                 path="studentNodeList[0].lastName" id="lastName0" required="true"
-                                                placeholder="Last Name" value = "0"/>
+                                                placeholder="Last Name" value="0"/>
                                 </div>
 
                             </div>

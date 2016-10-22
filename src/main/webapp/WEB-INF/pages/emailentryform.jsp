@@ -32,10 +32,8 @@
 <div class="mainWrapper">
     <div class="row row-offcanvas row-offcanvas-right">
         <div class="col-xs-12 col-sm-12">
-            <h3 class="defaultBold">Email Form</h3>
-
             <div class="panel panel-default">
-                <div class="panel-heading headerColor">Enter Email Details</div>
+                <div class="panel-heading headerColor">Enter Email</div>
                 <div class="panel-body">
                     <form:form role="form" id="email-form"
                                action="${pageContext.request.contextPath}/getEmail.action"
@@ -48,11 +46,11 @@
                                     <form:input path="email" id="registeredEmail" class="form-control" required="true"
                                                 placeholder="Registered Email"/>
                                 </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="submit" value="Submit" id="email-submit"/>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="submit" value="Submit" id="email-submit"
+                                               class="btn btn-primary commonGreenBtn"/>
+                                    </div>
                                 </div>
                             </div>
 

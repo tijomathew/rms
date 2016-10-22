@@ -24,10 +24,9 @@
 <div class="mainWrapper">
     <div class="row row-offcanvas row-offcanvas-right">
         <div class="col-xs-12 col-sm-12">
-            <h3 class="defaultBold">Password Form</h3>
 
             <div class="panel panel-default">
-                <div class="panel-heading headerColor">Enter Password Received in registered email</div>
+                <div class="panel-heading headerColor">Enter Password Received in Registered E-mail</div>
                 <div class="panel-body">
                     <form:form role="form" id="email-form"
                                action="${pageContext.request.contextPath}/getRegisteredFamilyDetails.action"
@@ -40,13 +39,12 @@
                                     <form:hidden path="email"/>
                                     <form:hidden path="password"/>
                                     <form:password path="newPassword" id="newPassword" class="form-control"
-                                                required="true" placeholder="Password"/>
+                                                   required="true" placeholder="Password"/>
                                 </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="submit" value="Submit"/>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="submit" value="Submit" class="btn btn-primary commonGreenBtn"/>
+                                    </div>
                                 </div>
                             </div>
 
