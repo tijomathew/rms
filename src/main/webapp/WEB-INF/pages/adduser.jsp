@@ -13,19 +13,17 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <spring:url value="/resources/css/style.css" var="stylecss"/>
-    <spring:url value="/resources/css/leftslider.css" var="slidercss"/>
 
     <link href="${stylecss} " rel="stylesheet">
-    <link href="${slidercss} " rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
         jQuery(document).ready(function () {
 
-
             $('#addUserButton').click(function () {
-
+                $("#addUserButton").html('Loading');
                 var $form = $('#userForm');
                 var data = $('#userForm').serialize();
 
@@ -35,17 +33,21 @@
                     data: data,
                     success: function (response) {
                         if (response == 'success') {
-                            $('#changePasswordContainer').show();
-                            $('#passwordMismatchContainer').show();
+                            $('#passwordSendFailure').hide();
+                            $('#userFailureContainer').hide();
+                            $('#successContainer').show();
+                            $("#addUserButton").html('Create User');
                         }
                         else if (response == 'mailfail') {
-                            $('#changePasswordContainer').hide();
-                            $('#passwordMismatchContainer').hide();
-                            $('#successContainer').show();
+                            $('#successContainer').hide();
+                            $('#userFailureContainer').hide();
+                            $('#passwordSendFailure').show();
+                            $("#addUserButton").html('Create User');
                         } else if (response == 'fail') {
-                            $('#changePasswordContainer').hide();
-                            $('#passwordMismatchContainer').hide();
-                            $('#successContainer').show();
+                            $('#successContainer').hide();
+                            $('#passwordSendFailure').hide();
+                            $('#userFailureContainer').show();
+                            $("#addUserButton").html('Create User');
                         }
 
                     }
@@ -58,68 +60,45 @@
 <body>
 <%@ include file="headerTemplate.jsp" %>
 <div style="width: 100%;height: 90%;">
-    <%@ include file="leftmenupanel.jsp" %>
-    <form:form modelAttribute="newUser"
-               action="${pageContext.request.contextPath}/addnewuser.action"
-               method="post" id="userForm"
-               class="form-horizontal nomargin">
-
-        <div class="tab-content">
-
-            <div class="tab-pane active" id="user1">
-
-                <div class="col-md-12">
-                    <div class="panel">
-
-                        <div class="form-group">
-                            <label for="systemRole"
-                                   class="col-sm-2 control-label required">System
-                                Role</label>
-
-                            <div class="col-sm-3">
-                                <form:select
-                                        path="systemRole"
-                                        id="systemRole"
-                                        class="form-control toaddUnderScore">
-                                    <form:option value="ORGANIZER">ORGANIZER</form:option>
-                                    <form:option value="RETREAT_USER">RETREAT USER</form:option>
-                                </form:select>
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="email"
-                                   class="col-sm-2 control-label required">Email</label>
-
-                            <div class="col-sm-3"
-                                 id="email">
-                                <form:input
-                                        path="email"
-                                        id="email"
-                                        class="form-control"/>
-                            </div>
-                            <div style="margin-top:10px" class="row">
-                                <div class="col-sm-12 controls text-center">
-                                    <input class="btn btn-lg btn-success btn-block" type="button" value="Add User"
-                                           id="addUserButton"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="container">
+        <ul class="nav nav-pills">
+            <li><a href="showcounts.action">Show Counts</a></li>
+            <li class="active"><a href="adduser.action">Add Users</a></li>
+            <li><a href="#">Check In</a></li>
+            <li><a href="#">Check Out</a></li>
+            <li><a href="#">Edit</a></li>
+            <li><a href="#">Report</a></li>
+            <li><a href="logout.action">Logout</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <form:form modelAttribute="newUser"
+                   action="${pageContext.request.contextPath}/addnewuser.action"
+                   method="post" id="userForm">
+            <div class="form-group">
+                <label for="systemRole">System Role:</label>
+                <form:select path="systemRole" id="systemRole" class="form-control">
+                    <form:option value="ORGANIZER">Organizer</form:option>
+                </form:select>
             </div>
-        </div>
-    </form:form>
-</div>
-<div style="font-size: 15px;text-align: center;color: #a94442;padding: 1px;margin: 8px auto;display:block"
-     class="alert alert-danger" id="passwordMismatchContainer">Passwords are mismatching.
-</div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <form:input path="email" id="email" class="form-control"/>
+            </div>
+            <button class="btn btn-lg btn-success btn-block" type="button" id="addUserButton">Create User</button>
+        </form:form>
+    </div>
 
-<div class="alert alert-success" role="alert" id="successContainer">
-    Password is updated successfully.<br/>
-    Please <a href="login.action"> re-login</a> to continue the system use.
+    <div style="font-size: 15px;text-align: center;color: #a94442;padding: 1px;margin: 8px auto;display:none"
+         class="alert alert-danger" id="passwordSendFailure">Password did not send by mail. Please send it
+        manually!!
+    </div>
+    <div class="alert alert-danger" role="alert" id="userFailureContainer" style="display:none">
+        User cannot be created as it exists in the system!! Please use another mail-ID!!<br/>
+    </div>
+    <div class="alert alert-success" role="alert" id="successContainer" style="display:none">
+        User is created successfully!! Password is sent by mail!!<br/>
+    </div>
 </div>
 <%@include file="footer.jsp" %>
 </body>

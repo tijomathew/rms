@@ -14,12 +14,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <spring:url value="/resources/css/style.css" var="stylecss"/>
-    <spring:url value="/resources/css/leftslider.css" var="slidercss"/>
+
 
     <link href="${stylecss} " rel="stylesheet">
-    <link href="${slidercss} " rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
     <script type="text/javascript">
@@ -78,7 +78,17 @@
 <body>
 <%@ include file="headerTemplate.jsp" %>
 <div style="width: 100%;height: 90%;">
-    <%@ include file="leftmenupanel.jsp" %>
+    <div class="container">
+        <ul class="nav nav-pills">
+            <li class="active"><a href="showcounts.action">Show Counts</a></li>
+            <li><a href="adduser.action">Add Users</a></li>
+            <li><a href="#">Check In</a></li>
+            <li><a href="#">Check Out</a></li>
+            <li><a href="#">Edit</a></li>
+            <li><a href="#">Report</a></li>
+            <li><a href="logout.action">Logout</a></li>
+        </ul>
+    </div>
     <div id="table_div" style="float:right;width: 85%"></div>
 </div>
 

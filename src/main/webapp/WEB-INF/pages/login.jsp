@@ -22,33 +22,36 @@
 </head>
 <body>
 <%@ include file="headerTemplate.jsp" %>
-<section id="login" style="height: 98%">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="form-wrap">
-                    <h1>Log in with your account</h1>
-                    <form:form role="form" action="${pageContext.request.contextPath}/loggedin.action"
-                               modelAttribute="loginUser" id="login-form">
-                        <div class="form-group">
-                            <label for="email" class="sr-only">Email</label>
-                            <form:input path="email" class="form-control" placeholder="email" required="true"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="password" class="sr-only">Password</label>
-                            <form:password path="password" class="form-control" placeholder="Password" required="true"/>
-                        </div>
-                        <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Log in"
-                               style="font-weight: bold">
-                        <form:errors class="alert alert-danger" role="alert" id="loginErrorDisplay"></form:errors>
-                    </form:form>
-                </div>
+<section id="login" style="height: 98%;margin-top: 74px;">
+    <form:form class="form-horizontal" action="${pageContext.request.contextPath}/loggedin.action"
+               modelAttribute="loginUser" id="login-form">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Email:</label>
+
+            <div class="col-sm-10">
+                <form:input path="email" class="form-control" id="email" placeholder="email" required="true"/>
             </div>
-            <!-- /.col-xs-12 -->
         </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container -->
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="pwd">Password:</label>
+
+            <div class="col-sm-10">
+                <form:password path="password" class="form-control" id="pwd" placeholder="Password"
+                               required="true"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <form:errors class="alert alert-danger" role="alert" id="loginErrorDisplay"></form:errors>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10" style="text-align: center;">
+                <input type="submit" class="btn btn-primary addButton commonGreenBtn" style="position: absolute;
+    top: 50%;width: 215px;" value="Log in"/>
+            </div>
+        </div>
+    </form:form>
 </section>
 <%@include file="footer.jsp" %>
 </body>
