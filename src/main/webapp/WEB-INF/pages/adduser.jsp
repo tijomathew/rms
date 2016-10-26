@@ -64,8 +64,8 @@
         <ul class="nav nav-pills">
             <li><a href="showcounts.action">Show Counts</a></li>
             <li class="active"><a href="adduser.action">Add Users</a></li>
-            <li><a href="#">Check In</a></li>
-            <li><a href="#">Check Out</a></li>
+            <li><a href="checkinsearch.action">Check In</a></li>
+            <li><a href="checkoutsearch.action">Check Out</a></li>
             <li><a href="#">Edit</a></li>
             <li><a href="#">Report</a></li>
             <li><a href="logout.action">Logout</a></li>
