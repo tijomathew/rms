@@ -1,6 +1,7 @@
 package org.rms.controllers;
 
 import org.rms.enums.SystemRole;
+import org.rms.helpers.RequestResponseHolder;
 import org.rms.models.ParentNode;
 import org.rms.models.User;
 import org.rms.services.LoginService;
@@ -31,6 +32,9 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RequestResponseHolder requestResponseHolder;
+
     @RequestMapping(value = "login.action", method = RequestMethod.GET)
     public String loginPageDisplay(Model model) {
         model.addAttribute("loginUser", new User());
@@ -53,6 +57,7 @@ public class LoginController {
                     } else if (loggedInUser.getSystemRole().equals(SystemRole.RETREAT_USER)) {
 
                     }
+                    requestResponseHolder.setAttributeToSession(SystemRole.RMS_CURRENT_USER.toString(), User.class);
                 } else {
                     model.addAttribute("changePasswordUser", loggedInUser);
                     return "changepassword";

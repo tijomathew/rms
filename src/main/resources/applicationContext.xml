@@ -29,6 +29,10 @@
 
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
+    <mvc:interceptors>
+        <bean class="org.rms.interceptor.RMSInterceptor"/>
+    </mvc:interceptors>
+
     <mvc:annotation-driven/>
 
     <bean id="sessionFactory"

@@ -7,11 +7,14 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:applicationContext.xml,classpath:mailConfigContext.xml</param-value>
+        <param-value>
+            classpath:applicationContext.xml,classpath:mailConfigContext.xml,classpath:pageaccesspermissions.xml
+        </param-value>
     </context-param>
 
     <listener>
-        <description>This class loads the spring web application context for Retreat Management application.</description>
+        <description>This class loads the spring web application context for Retreat Management application.
+        </description>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
