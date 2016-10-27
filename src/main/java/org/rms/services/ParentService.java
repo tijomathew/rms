@@ -10,4 +10,8 @@ import java.util.List;
 public interface ParentService {
 
     List<ParentNode> getParentNodes();
+
+    ParentNode getCheckInOutParentNodeDetails(ParentNode parentNode);
+
+    ParentNode getParentNode(Long parentId);
 }

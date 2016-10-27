@@ -1,9 +1,14 @@
 package org.rms.models;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -50,6 +55,14 @@ public class StudentNode implements Serializable {
     @ManyToOne(targetEntity = ParentNode.class)
     @JoinColumn(name = "parent_student_id", referencedColumnName = "id")
     private ParentNode parentNode;
+
+    @LazyCollection(value = LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "studentNode", targetEntity = InOutInformer.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InOutInformer> inOutInformerList = new ArrayList<>();
+
+    private transient Boolean checkIn;
+
+    private transient Boolean checkOut;
 
     public StudentNode() {
     }
@@ -140,6 +153,71 @@ public class StudentNode implements Serializable {
 
     public void setParentNode(ParentNode parentNode) {
         this.parentNode = parentNode;
+    }
+
+    public List<InOutInformer> getInOutInformerList() {
+        return inOutInformerList;
+    }
+
+    public void setInOutInformerList(List<InOutInformer> inOutInformerList) {
+        this.inOutInformerList = inOutInformerList;
+    }
+
+    public Boolean getCheckIn() {
+        return checkIn;
+    }
+
+    public void setCheckIn(Boolean checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public Boolean getCheckOut() {
+        return checkOut;
+    }
+
+    public void setCheckOut(Boolean checkOut) {
+        this.checkOut = checkOut;
+    }
+
+    public Boolean getHasInEntryOnDate() {
+        String currentDateInStringFormat = getDateAsString();
+        Boolean inFlag = false;
+        if (!inOutInformerList.isEmpty()) {
+            for (InOutInformer inOutInformer : inOutInformerList) {
+                if (inOutInformer.getDate().equals(currentDateInStringFormat)) {
+                    if (inOutInformer.getInTime() != null && !inOutInformer.getInTime().toString().isEmpty()) {
+                        inFlag = true;
+                    }
+                }
+            }
+        }
+        return inFlag;
+    }
+
+    public Boolean getHasOutEntryOnDate() {
+        String currentDateInStringFormat = getDateAsString();
+        Boolean outFlag = false;
+        if (!inOutInformerList.isEmpty()) {
+            for (InOutInformer inOutInformer : inOutInformerList) {
+                if (inOutInformer.getDate().equals(currentDateInStringFormat)) {
+                    if (inOutInformer.getOutTime() != null && !inOutInformer.getOutTime().toString().isEmpty()) {
+                        outFlag = true;
+                    }
+                }
+            }
+        }
+        return outFlag;
+    }
+
+    public void addInOutInformer(InOutInformer inOutInformer) {
+        this.inOutInformerList.add(inOutInformer);
+    }
+
+    private String getDateAsString() {
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("MMM-dd");
+        String currentDateInStringFormat = dateFormatter.format(currentDate);
+        return currentDateInStringFormat;
     }
 
     @Override

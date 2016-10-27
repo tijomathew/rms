@@ -10,4 +10,8 @@ import java.util.List;
 public interface ParentDao {
 
     List<ParentNode> getParentNodes();
+
+    ParentNode getCheckInOutParentNodeDetails(ParentNode parentNode);
+
+    ParentNode getParentNode(Long parentId);
 }

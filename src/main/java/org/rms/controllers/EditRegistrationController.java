@@ -121,4 +121,27 @@ public class EditRegistrationController {
         return "registrationsuccess";
 
     }
+
+    @RequestMapping(value = "getEditParentEntryForm.action", method = RequestMethod.GET)
+    public String emailPageDisplay(Model model, HttpServletRequest httpServletRequest) {
+        model.addAttribute("searchEditParent", new ParentNode());
+        HttpSession httpSession = httpServletRequest.getSession();
+        httpSession.setAttribute("hideErrorMessageDiv", true);
+        return "editsearchformentry";
+    }
+
+    @RequestMapping(value = "getRegisteredEntry.action", method = {RequestMethod.POST})
+    public String getRegisteredFamilyDetails(@ModelAttribute("searchEditParent") ParentNode registeredParent, Model model, HttpServletRequest httpServletRequest) {
+        ParentNode parentNode = registrationService.getRegisteredEntry(registeredParent.getEmail());
+        if (parentNode != null) {
+            HttpSession httpSession = httpServletRequest.getSession();
+            httpSession.setAttribute("selectedParentNode", parentNode);
+            model.addAttribute("parentNodeForm", parentNode);
+            return "editregistration";
+        } else {
+            HttpSession httpSession = httpServletRequest.getSession();
+            httpSession.setAttribute("hideErrorMessageDiv", false);
+            return "editsearchformentry";
+        }
+    }
 }

@@ -75,9 +75,14 @@ public class ParentNode implements Serializable {
 
     private transient String confirmEmail;
 
-    //    @LazyCollection(value = LazyCollectionOption.FALSE)
+    private transient String childFirstName;
+
+    private transient String childLastName;
+
+    private transient String childBandCode;
+
+    @LazyCollection(value = LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "parentNode", targetEntity = StudentNode.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    //@Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private List<StudentNode> studentNodeList = new ArrayList<>();
 
     public ParentNode() {
@@ -225,6 +230,30 @@ public class ParentNode implements Serializable {
 
     public void setConfirmEmail(String confirmEmail) {
         this.confirmEmail = confirmEmail;
+    }
+
+    public String getChildLastName() {
+        return childLastName;
+    }
+
+    public void setChildLastName(String childLastName) {
+        this.childLastName = childLastName;
+    }
+
+    public String getChildFirstName() {
+        return childFirstName;
+    }
+
+    public void setChildFirstName(String childFirstName) {
+        this.childFirstName = childFirstName;
+    }
+
+    public String getChildBandCode() {
+        return childBandCode;
+    }
+
+    public void setChildBandCode(String childBandCode) {
+        this.childBandCode = childBandCode;
     }
 
     public List<StudentNode> getStudentNodeList() {

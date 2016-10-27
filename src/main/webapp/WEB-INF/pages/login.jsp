@@ -22,37 +22,29 @@
 </head>
 <body>
 <%@ include file="headerTemplate.jsp" %>
-<section id="login" style="height: 98%;margin-top: 74px;">
-    <form:form class="form-horizontal" action="${pageContext.request.contextPath}/loggedin.action"
-               modelAttribute="loginUser" id="login-form">
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="email">Email:</label>
 
-            <div class="col-sm-10">
-                <form:input path="email" class="form-control" id="email" placeholder="email" required="true"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="pwd">Password:</label>
+<div style="width: 100%;height: 90%;">
 
-            <div class="col-sm-10">
-                <form:password path="password" class="form-control" id="pwd" placeholder="Password"
-                               required="true"/>
+    <div class="container" style="margin-top: 50px;">
+        <form:form modelAttribute="loginUser" id="login-form"
+                   action="${pageContext.request.contextPath}/loggedin.action"
+                   method="post">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <form:input path="email" id="email" class="form-control" required="true" placeholder="email"/>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
+            <div class="form-group">
+                <label for="email">Password:</label>
+                <form:password path="password" id="pwd" class="form-control" placeholder="Password" required="true"/>
+            </div>
+            <div class="form-group">
                 <form:errors class="alert alert-danger" role="alert" id="loginErrorDisplay"></form:errors>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10" style="text-align: center;">
-                <input type="submit" class="btn btn-primary addButton commonGreenBtn" style="position: absolute;
-    top: 50%;width: 215px;" value="Log in"/>
-            </div>
-        </div>
-    </form:form>
-</section>
+            <input class="btn btn-lg btn-success btn-block" type="submit" id="addUserButton" value="Log in"/>
+        </form:form>
+    </div>
+</div>
+
 <%@include file="footer.jsp" %>
 </body>
 </html>
