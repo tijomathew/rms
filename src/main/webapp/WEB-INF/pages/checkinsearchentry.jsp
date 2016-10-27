@@ -53,26 +53,7 @@
                             <div class="row generalFormLayout">
                                 <div class="col-md-12">
                                     <div class="col-md-6">
-                                        <label for="firstName">Parent/Guardian First Name:</label>
-                                        <form:input path="firstName" id="firstName" class="form-control"
-                                                    placeholder="Parent/Guardian First Name"/>
-                                    </div>
-                                    OR
-                                    <div class="col-md-6">
-                                        <label for="lastName">Parent/Guardian Last Name:</label>
-                                        <form:input path="lastName" id="lastName" class="form-control"
-                                                    placeholder="Parent/Guardian Last Name"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <label for="id">Family ID:</label>
-                                        <form:input path="id" id="id" class="form-control"
-                                                    placeholder="Family ID"/>
-                                    </div>
-                                    OR
-                                    <div class="col-md-6">
-                                        <label for="childBandCode">Child Band Code:</label>
+                                        <label for="childBandCode">Child ID:</label>
                                         <form:input path="childBandCode" id="childBandCode"
                                                     class="form-control"
                                                     placeholder="Child Band Code"/>
@@ -84,11 +65,29 @@
                                         <form:input path="childFirstName" id="childFirstName" class="form-control"
                                                     placeholder="Child First Name"/>
                                     </div>
-                                    OR
                                     <div class="col-md-6">
                                         <label for="childLastName">Child Last Name:</label>
                                         <form:input path="childLastName" id="childLastName"
                                                     class="form-control" placeholder="Child Last Name"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="id">Family ID:</label>
+                                        <form:input path="id" id="id" class="form-control"
+                                                    placeholder="Family ID"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="firstName">Parent/Guardian First Name:</label>
+                                        <form:input path="firstName" id="firstName" class="form-control"
+                                                    placeholder="Parent/Guardian First Name"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastName">Parent/Guardian Last Name:</label>
+                                        <form:input path="lastName" id="lastName" class="form-control"
+                                                    placeholder="Parent/Guardian Last Name"/>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -104,9 +103,8 @@
                     </div>
                 </div>
                 <c:if test="${not hideErrorMessageDiv}">
-                    <div style="font-size: 15px;text-align: center;color: #a94442;padding: 1px;margin: 8px auto;display:block"
-                         class="alert alert-danger">Check-In cannot be done as you
-                        entered wrong details for Search Criteria.
+                    <div style="font-size: 15px;text-align: center;color: #a94442;padding: 1px;margin: 8px auto;display:block;font-weight: bold"
+                         class="alert alert-danger">Search not Found.
                     </div>
                 </c:if>
                 <c:if test="${not hideSuccessMessageDiv}">

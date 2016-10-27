@@ -28,7 +28,7 @@ public class RMSInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        boolean indicatorToProceed = false;
+        /*boolean indicatorToProceed = false;
         boolean indicatorToShowSessionTimedOut = false;
         String urlAction = httpServletRequest.getRequestURI().replace(httpServletRequest.getContextPath() + "/", "");
         if (urlAction.contains("resources")) {
@@ -54,8 +54,8 @@ public class RMSInterceptor implements HandlerInterceptor {
                 httpServletResponse.sendRedirect("login.action");
                 httpServletResponse.flushBuffer();
             }
-        }
-        return indicatorToProceed;
+        }*/
+        return true;
     }
 
     @Override

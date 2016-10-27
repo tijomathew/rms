@@ -104,9 +104,8 @@
                     </div>
                 </div>
                 <c:if test="${not hideErrorMessageDiv}">
-                    <div style="font-size: 15px;text-align: center;color: #a94442;padding: 1px;margin: 8px auto;display:block"
-                         class="alert alert-danger">Check-Out cannot be done as you
-                        entered wrong details for Search Criteria.
+                    <div style="font-size: 15px;text-align: center;color: #a94442;padding: 1px;margin: 8px auto;display:block;font-weight: bold"
+                         class="alert alert-danger">Search not Found.
                     </div>
                 </c:if>
                 <c:if test="${not hideSuccessMessageDiv}">
