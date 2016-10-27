@@ -53,25 +53,6 @@
                             <div class="row generalFormLayout">
                                 <div class="col-md-12">
                                     <div class="col-md-6">
-                                        <label for="firstName">Parent/Guardian First Name:</label>
-                                        <form:input path="firstName" id="firstName" class="form-control"
-                                                    placeholder="Parent/Guardian First Name"/>
-                                    </div>
-                                    OR
-                                    <div class="col-md-6">
-                                        <label for="lastName">Parent/Guardian Last Name:</label>
-                                        <form:input path="lastName" id="lastName" class="form-control"
-                                                    placeholder="Parent/Guardian Last Name"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <label for="id">Family ID:</label>
-                                        <form:input path="id" id="id" class="form-control"
-                                                    placeholder="Family ID"/>
-                                    </div>
-                                    OR
-                                    <div class="col-md-6">
                                         <label for="childBandCode">Child Band Code:</label>
                                         <form:input path="childBandCode" id="childBandCode"
                                                     class="form-control"
@@ -84,11 +65,29 @@
                                         <form:input path="childFirstName" id="childFirstName" class="form-control"
                                                     placeholder="Child First Name"/>
                                     </div>
-                                    OR
                                     <div class="col-md-6">
                                         <label for="childLastName">Child Last Name:</label>
                                         <form:input path="childLastName" id="childLastName"
                                                     class="form-control" placeholder="Child Last Name"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="id">Family ID:</label>
+                                        <form:input path="id" id="id" class="form-control"
+                                                    placeholder="Family ID"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="firstName">Parent/Guardian First Name:</label>
+                                        <form:input path="firstName" id="firstName" class="form-control"
+                                                    placeholder="Parent/Guardian First Name"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastName">Parent/Guardian Last Name:</label>
+                                        <form:input path="lastName" id="lastName" class="form-control"
+                                                    placeholder="Parent/Guardian Last Name"/>
                                     </div>
                                 </div>
                                 <div class="col-md-12">

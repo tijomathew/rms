@@ -111,8 +111,14 @@ public class RegistrationController {
 
     @RequestMapping(value = "viewcounts.action", method = RequestMethod.GET)
     @ResponseBody
-    public Object showRegisterationCounts(@RequestParam(value = "tqx") String tqx) {
-        ChartResultContainer chartResultContainer = childService.getChartResultContainer(tqx.substring(6));
+    public Object showRegisterationCounts(@RequestParam(value = "tqx") String tqx, @RequestParam(value = "type") String type) {
+        String inOutFlag = "All";
+        if (type.equals("checkin")) {
+            inOutFlag = "In";
+        } else if (type.equals("checkout")) {
+            inOutFlag = "Out";
+        }
+        ChartResultContainer chartResultContainer = childService.getChartResultContainer(tqx.substring(6), inOutFlag);
         return JsonBuilder.convertToJson(chartResultContainer);
     }
 

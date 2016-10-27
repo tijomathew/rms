@@ -25,12 +25,12 @@
     <script type="text/javascript">
         google.load("visualization", "1", {packages: ["table"]});
 
-        function runCountQuery(contextPath) {
+        function runCountQuery(contextPath, type) {
 
             var opts = {sendMethod: 'auto'};
             var url = "/viewcounts.action";
 
-            var query = new google.visualization.Query(contextPath + url + '?tqx=reqId:1', opts);
+            var query = new google.visualization.Query(contextPath + url + '?tqx=reqId:1&type=' + type, opts);
 
             // Send the query with a callback function.
             query.send(handleCountsQueryResponse);
@@ -70,7 +70,14 @@
         }
 
         $(document).ready(function () {
-            runCountQuery("${pageContext.request.contextPath}");
+            runCountQuery("${pageContext.request.contextPath}", "All");
+
+            $('#countsButton').click(function () {
+                $("#countsButton").html('Loading');
+                var day = $('input[name=day]:checked', '#countsForm').val();
+                var type = $('select[name=type]').val();
+                runCountQuery("${pageContext.request.contextPath}", type);
+            });
         });
     </script>
 
@@ -89,7 +96,27 @@
             <li><a href="logout.action">Logout</a></li>
         </ul>
     </div>
-    <div id="table_div" style="float:right;width: 85%"></div>
+    <div class="mainWrapper">
+        <div class="row row-offcanvas row-offcanvas-right">
+            <div class="col-xs-12 col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading headerColor">Counts</div>
+                    <div class="panel-body">
+                        <form id="countsForm" class="form-inline">
+                            <div class="form-group"><select name="type" id="type" class="form-control">
+                                <option value="All">--Select--</option>
+                                <option value="checkin">Check-In</option>
+                                <option value="checkout">Check-Out</option>
+                            </select></div>
+                            <input type="button" id="countsButton" value="Show Counts"
+                                   class="btn btn-primary commonGreenBtn"/>
+                        </form>
+                        <div id="table_div" style="float:right;width: 85%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <%@include file="footer.jsp" %>

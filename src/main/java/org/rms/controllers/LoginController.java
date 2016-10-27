@@ -54,8 +54,6 @@ public class LoginController {
                         return "adduser";
                     } else if (loggedInUser.getSystemRole().equals(SystemRole.ORGANIZER)) {
                         return "registerationcounts";
-                    } else if (loggedInUser.getSystemRole().equals(SystemRole.RETREAT_USER)) {
-
                     }
                     requestResponseHolder.setAttributeToSession(SystemRole.RMS_CURRENT_USER.toString(), User.class);
                 } else {
