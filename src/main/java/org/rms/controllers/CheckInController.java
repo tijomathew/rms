@@ -50,6 +50,27 @@ public class CheckInController {
     public String checkInSearchProcess(@ModelAttribute("searchCheckInParentNode") ParentNode parentNode, HttpServletRequest httpServletRequest, Model model) {
         ParentNode retrievedParentNode = parentService.getCheckInOutParentNodeDetails(parentNode);
 
+        //Remove other dates registered Child
+
+        for (StudentNode studentNode : retrievedParentNode.getStudentNodeList()) {
+            if (getCurrentDateAsString().equals("Oct-29")) {
+                if (studentNode.getDayOne() == null)
+                    retrievedParentNode.getStudentNodeList().remove(studentNode);
+            }
+            if (getCurrentDateAsString().equals("Oct-30")) {
+                if (studentNode.getDayTwo() == null)
+                    retrievedParentNode.getStudentNodeList().remove(studentNode);
+            }
+            if (getCurrentDateAsString().equals("Oct-31")) {
+                if (studentNode.getDayThree() == null)
+                    retrievedParentNode.getStudentNodeList().remove(studentNode);
+            }
+            if (getCurrentDateAsString().equals("Nov-1")) {
+                if (studentNode.getDayFour() == null)
+                    retrievedParentNode.getStudentNodeList().remove(studentNode);
+            }
+        }
+
         if (retrievedParentNode != null) {
             HttpSession httpSession = httpServletRequest.getSession();
             httpSession.setAttribute("checkInParent", retrievedParentNode);
@@ -73,8 +94,8 @@ public class CheckInController {
                             InOutInformer inOutInformer = new InOutInformer();
                             inOutInformer.setDate(getCurrentDateAsString());
                             inOutInformer.setInTime(new Date());
-                        /*User userFromCurrentSession = requestResponseHolder.getAttributeFromSession(SystemRole.RMS_CURRENT_USER.toString(), User.class);
-                        inOutInformer.setDoneInBy(userFromCurrentSession.getId());*/
+                            User userFromCurrentSession = requestResponseHolder.getAttributeFromSession(SystemRole.RMS_CURRENT_USER.toString(), User.class);
+                            inOutInformer.setDoneInBy(userFromCurrentSession.getId());
                             inOutInformer.setStudentNode(studentNode);
                             studentNode.addInOutInformer(inOutInformer);
                         }

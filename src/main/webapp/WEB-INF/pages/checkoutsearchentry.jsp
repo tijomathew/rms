@@ -33,9 +33,12 @@
     <div class="container">
         <ul class="nav nav-pills">
             <li><a href="showcounts.action">Show Counts</a></li>
-            <li><a href="adduser.action">Add Users</a></li>
+            <c:if test="${currentUser.systemRole == 'ADMIN'}">
+                <li><a href="adduser.action">Add Users</a></li>
+            </c:if>
             <li><a href="checkinsearch.action">Check In</a></li>
             <li class="active"><a href="checkoutsearch.action">Check Out</a></li>
+            <li><a href="registration.action">Registration</a></li>
             <li><a href="getEditParentEntryForm.action">Edit</a></li>
             <li><a href="reportpage.action">Report</a></li>
             <li><a href="logout.action">Logout</a></li>
@@ -53,29 +56,10 @@
                             <div class="row generalFormLayout">
                                 <div class="col-md-12">
                                     <div class="col-md-6">
-                                        <label for="firstName">Parent/Guardian First Name:</label>
-                                        <form:input path="firstName" id="firstName" class="form-control"
-                                                    placeholder="Parent/Guardian First Name"/>
-                                    </div>
-                                    OR
-                                    <div class="col-md-6">
-                                        <label for="lastName">Parent/Guardian Last Name:</label>
-                                        <form:input path="lastName" id="lastName" class="form-control"
-                                                    placeholder="Parent/Guardian Last Name"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <label for="id">Family ID:</label>
-                                        <form:input path="id" id="id" class="form-control"
-                                                    placeholder="Family ID"/>
-                                    </div>
-                                    OR
-                                    <div class="col-md-6">
-                                        <label for="childBandCode">Child Band Code:</label>
-                                        <form:input path="childBandCode" id="childBandCode"
+                                        <label for="childId">Child ID:</label>
+                                        <form:input path="childId" id="childId"
                                                     class="form-control"
-                                                    placeholder="Child Band Code"/>
+                                                    placeholder="Child ID"/>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -84,11 +68,29 @@
                                         <form:input path="childFirstName" id="childFirstName" class="form-control"
                                                     placeholder="Child First Name"/>
                                     </div>
-                                    OR
                                     <div class="col-md-6">
                                         <label for="childLastName">Child Last Name:</label>
                                         <form:input path="childLastName" id="childLastName"
                                                     class="form-control" placeholder="Child Last Name"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="id">Family ID:</label>
+                                        <form:input path="id" id="id" class="form-control"
+                                                    placeholder="Family ID"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="firstName">Parent/Guardian First Name:</label>
+                                        <form:input path="firstName" id="firstName" class="form-control"
+                                                    placeholder="Parent/Guardian First Name"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastName">Parent/Guardian Last Name:</label>
+                                        <form:input path="lastName" id="lastName" class="form-control"
+                                                    placeholder="Parent/Guardian Last Name"/>
                                     </div>
                                 </div>
                                 <div class="col-md-12">

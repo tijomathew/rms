@@ -12,15 +12,11 @@ import java.util.List;
  */
 public interface ChildService {
 
-    Long getAllRegisteredStudentsOnCategoryAndOct29Wise(String category, String date, String property);
+    Long getAllRegisteredStudentsOnCategoryAndOct29Wise(String category, String date, String property, String inOutFlag);
 
-    Long getAllRegisteredStudentsOnCategoryAndOct30Wise(String category);
+    Long getAllRegisteredStudentsOnCategoryAndNov1Wise(String inOutFlag);
 
-    Long getAllRegisteredStudentsOnCategoryAndOct31Wise(String category);
-
-    Long getAllRegisteredStudentsOnCategoryAndNov1Wise();
-
-    ChartResultContainer getChartResultContainer(String tqx);
+    ChartResultContainer getChartResultContainer(String tqx, String inOutFlag);
 
     List<StudentNode> getChildDetails(Long parentId);
 

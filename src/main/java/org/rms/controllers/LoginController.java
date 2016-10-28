@@ -51,13 +51,12 @@ public class LoginController {
                 if (loggedInUser.getAlreadyLoggedIn()) {
                     if (loggedInUser.getSystemRole().equals(SystemRole.ADMIN)) {
                         model.addAttribute("newUser", new User());
+                        requestResponseHolder.setAttributeToSession(SystemRole.RMS_CURRENT_USER.toString(), loggedInUser);
                         return "adduser";
                     } else if (loggedInUser.getSystemRole().equals(SystemRole.ORGANIZER)) {
+                        requestResponseHolder.setAttributeToSession(SystemRole.RMS_CURRENT_USER.toString(), loggedInUser);
                         return "registerationcounts";
-                    } else if (loggedInUser.getSystemRole().equals(SystemRole.RETREAT_USER)) {
-
                     }
-                    requestResponseHolder.setAttributeToSession(SystemRole.RMS_CURRENT_USER.toString(), User.class);
                 } else {
                     model.addAttribute("changePasswordUser", loggedInUser);
                     return "changepassword";

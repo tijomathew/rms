@@ -1,6 +1,5 @@
 package org.rms.services;
 
-import com.sun.org.apache.xerces.internal.dom.ChildNode;
 import org.rms.daos.ChildDao;
 import org.rms.models.StudentNode;
 import org.rms.visualizations.*;
@@ -29,7 +28,7 @@ public class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public Long getAllRegisteredStudentsOnCategoryAndOct29Wise(String category, String date, String property) {
+    public Long getAllRegisteredStudentsOnCategoryAndOct29Wise(String category, String date, String property, String inOutFlag) {
         if (category == null) {
             throw new IllegalArgumentException("category cannot be null!!..");
         }
@@ -40,35 +39,17 @@ public class ChildServiceImpl implements ChildService {
             throw new IllegalArgumentException("property cannot be null!!..");
         }
 
-        return childDao.getAllRegisteredStudentsOnCategoryAndOct29Wise(category, date, property);
+        return childDao.getAllRegisteredStudentsOnCategoryAndOct29Wise(category, date, property, inOutFlag);
     }
 
     @Override
-    public Long getAllRegisteredStudentsOnCategoryAndOct30Wise(String category) {
-        if (category == null) {
-            throw new IllegalArgumentException("category cannot be null!!..");
-        }
+    public Long getAllRegisteredStudentsOnCategoryAndNov1Wise(String inOutFlag) {
 
-        return childDao.getAllRegisteredStudentsOnCategoryAndOct30Wise(category);
+        return childDao.getAllRegisteredStudentsOnCategoryAndNov1Wise(inOutFlag);
     }
 
     @Override
-    public Long getAllRegisteredStudentsOnCategoryAndOct31Wise(String category) {
-        if (category == null) {
-            throw new IllegalArgumentException("category cannot be null!!..");
-        }
-
-        return childDao.getAllRegisteredStudentsOnCategoryAndOct31Wise(category);
-    }
-
-    @Override
-    public Long getAllRegisteredStudentsOnCategoryAndNov1Wise() {
-
-        return childDao.getAllRegisteredStudentsOnCategoryAndNov1Wise();
-    }
-
-    @Override
-    public ChartResultContainer getChartResultContainer(String tqx) {
+    public ChartResultContainer getChartResultContainer(String tqx, String inOutFlag) {
 
         ChartResultContainer chartResultContainer = new ChartResultContainer();
         chartResultContainer.setVersion("0.6");
@@ -80,7 +61,7 @@ public class ChildServiceImpl implements ChildService {
         chartTable.setCol(getChartColumns());
 
         chartResultContainer.setTable(chartTable);
-        chartTable.setRows(getChartRows());
+        chartTable.setRows(getChartRows(inOutFlag));
 
         return chartResultContainer;
     }
@@ -103,7 +84,7 @@ public class ChildServiceImpl implements ChildService {
         return chartColList;
     }
 
-    private List<ChartRow> getChartRows() {
+    private List<ChartRow> getChartRows(String inOutFlag) {
         List<ChartRow> chartRowList = new ArrayList<>();
 
         String[] date = new String[]{"Oct-29", "Oct-30", "Oct-31"};
@@ -114,9 +95,9 @@ public class ChildServiceImpl implements ChildService {
             List<ChartCell> chartCellList = new ArrayList<>();
 
             ChartCell<String> chartCellDate = new ChartCell<>(date[i], date[i]);
-            ChartCell<Long> chartCellJuniorCount = new ChartCell<>(getAllRegisteredStudentsOnCategoryAndOct29Wise("Junior", date[i], property[i]), getAllRegisteredStudentsOnCategoryAndOct29Wise("Junior", date[i], property[i]).toString());
-            ChartCell<Long> chartCellSeniorCount = new ChartCell<>(getAllRegisteredStudentsOnCategoryAndOct29Wise("Senior", date[i], property[i]), getAllRegisteredStudentsOnCategoryAndOct29Wise("Senior", date[i], property[i]).toString());
-            ChartCell<Long> chartCellSuperSeniorCount = new ChartCell<>(getAllRegisteredStudentsOnCategoryAndOct29Wise("SuperSenior", date[i], property[i]), getAllRegisteredStudentsOnCategoryAndOct29Wise("SuperSenior", date[i], property[i]).toString());
+            ChartCell<Long> chartCellJuniorCount = new ChartCell<>(getAllRegisteredStudentsOnCategoryAndOct29Wise("Junior", date[i], property[i], inOutFlag), getAllRegisteredStudentsOnCategoryAndOct29Wise("Junior", date[i], property[i], inOutFlag).toString());
+            ChartCell<Long> chartCellSeniorCount = new ChartCell<>(getAllRegisteredStudentsOnCategoryAndOct29Wise("Senior", date[i], property[i], inOutFlag), getAllRegisteredStudentsOnCategoryAndOct29Wise("Senior", date[i], property[i], inOutFlag).toString());
+            ChartCell<Long> chartCellSuperSeniorCount = new ChartCell<>(getAllRegisteredStudentsOnCategoryAndOct29Wise("SuperSenior", date[i], property[i], inOutFlag), getAllRegisteredStudentsOnCategoryAndOct29Wise("SuperSenior", date[i], property[i], inOutFlag).toString());
 
 
             ChartCell<Long> chartCellYouthCount = new ChartCell<>(0l, String.valueOf(0));
@@ -132,10 +113,10 @@ public class ChildServiceImpl implements ChildService {
 
         ChartCell<String> chartCellDate = new ChartCell<>("Nov-1", "Nov-1");
         ChartCell<Long> chartCellJuniorCount = new ChartCell<>(0l, String.valueOf(0));
-        ChartCell<Long> chartCellSeniorCount = new ChartCell<>(getAllRegisteredStudentsOnCategoryAndOct29Wise("Senior", "Nov-1", "dayFour"), getAllRegisteredStudentsOnCategoryAndOct29Wise("Senior", "Nov-1", "dayFour").toString());
-        ChartCell<Long> chartCellSuperSeniorCount = new ChartCell<>(getAllRegisteredStudentsOnCategoryAndOct29Wise("SuperSenior", "Nov-1", "dayFour"), getAllRegisteredStudentsOnCategoryAndOct29Wise("SuperSenior", "Nov-1", "dayFour").toString());
+        ChartCell<Long> chartCellSeniorCount = new ChartCell<>(0l, String.valueOf(0));
+        ChartCell<Long> chartCellSuperSeniorCount = new ChartCell<>(0l, String.valueOf(0));
 
-        ChartCell<Long> chartCellYouthCount = new ChartCell<>(getAllRegisteredStudentsOnCategoryAndNov1Wise(), getAllRegisteredStudentsOnCategoryAndNov1Wise().toString());
+        ChartCell<Long> chartCellYouthCount = new ChartCell<>(getAllRegisteredStudentsOnCategoryAndNov1Wise(inOutFlag), getAllRegisteredStudentsOnCategoryAndNov1Wise(inOutFlag).toString());
 
         List<ChartCell> chartCellList = new ArrayList<>();
 

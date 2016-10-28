@@ -1,6 +1,6 @@
 package org.rms.daos;
 
-import com.sun.org.apache.xerces.internal.dom.ChildNode;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Projections;
@@ -22,9 +22,15 @@ public class ChildDaoImpl implements ChildDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public Long getAllRegisteredStudentsOnCategoryAndOct29Wise(String category, String date, String property) {
+    public Long getAllRegisteredStudentsOnCategoryAndOct29Wise(String category, String date, String property, String inOutFlag) {
         Long registeredStudentCounts = 0l;
-        registeredStudentCounts = (Long) sessionFactory.getCurrentSession().createCriteria(StudentNode.class, "studentNode").add(Restrictions.eq("studentNode.retreatSection", category)).add(Restrictions.eq("studentNode." + property, date)).setProjection(Projections.rowCount()).uniqueResult();
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(StudentNode.class, "studentNode").add(Restrictions.eq("studentNode.retreatSection", category)).add(Restrictions.eq("studentNode." + property, date));
+        if (inOutFlag.equals("In")) {
+            criteria.createAlias("studentNode.inOutInformerList", "inoutinfo").add(Restrictions.isNotNull("inoutinfo.inTime")).add(Restrictions.eq("inoutinfo.date", date));
+        } else if (inOutFlag.equals("Out")) {
+            criteria.createAlias("studentNode.inOutInformerList", "inoutinfo").add(Restrictions.isNotNull("inoutinfo.outTime")).add(Restrictions.eq("inoutinfo.date", date));
+        }
+        registeredStudentCounts = (Long) criteria.setProjection(Projections.rowCount()).uniqueResult();
         if (registeredStudentCounts == null) {
             registeredStudentCounts = 0l;
         }
@@ -32,31 +38,20 @@ public class ChildDaoImpl implements ChildDao {
     }
 
     @Override
-    public Long getAllRegisteredStudentsOnCategoryAndOct30Wise(String category) {
-        Long registeredStudentCounts = 0l;
-        registeredStudentCounts = (Long) sessionFactory.getCurrentSession().createCriteria(StudentNode.class, "studentNode").add(Restrictions.eq("studentNode.retreatSection", category)).add(Restrictions.eq("studentNode.dayTwo", "Oct-30")).setProjection(Projections.rowCount()).uniqueResult();
-        if (registeredStudentCounts == null) {
-            registeredStudentCounts = 0l;
-        }
-        return registeredStudentCounts;
-    }
-
-    @Override
-    public Long getAllRegisteredStudentsOnCategoryAndOct31Wise(String category) {
-        Long registeredStudentCounts = 0l;
-        registeredStudentCounts = (Long) sessionFactory.getCurrentSession().createCriteria(StudentNode.class, "studentNode").add(Restrictions.eq("studentNode.retreatSection", category)).add(Restrictions.eq("studentNode.dayThree", "Oct-31")).setProjection(Projections.rowCount()).uniqueResult();
-        if (registeredStudentCounts == null) {
-            registeredStudentCounts = 0l;
-        }
-        return registeredStudentCounts;
-    }
-
-    @Override
-    public Long getAllRegisteredStudentsOnCategoryAndNov1Wise() {
+    public Long getAllRegisteredStudentsOnCategoryAndNov1Wise(String inOutFlag) {
         Long registeredStudentCounts = 0l;
         Criterion retreatSelectionSenior = Restrictions.eq("studentNode.retreatSection", "Senior");
         Criterion retreatSelectionSuperSenior = Restrictions.eq("studentNode.retreatSection", "SuperSenior");
-        registeredStudentCounts = (Long) sessionFactory.getCurrentSession().createCriteria(StudentNode.class, "studentNode").add(Restrictions.or(retreatSelectionSenior, retreatSelectionSuperSenior)).add(Restrictions.eq("studentNode.dayFour", "Nov-1")).setProjection(Projections.rowCount()).uniqueResult();
+
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(StudentNode.class, "studentNode").add(Restrictions.or(retreatSelectionSenior, retreatSelectionSuperSenior)).add(Restrictions.eq("studentNode.dayFour", "Nov-1"));
+
+        if (inOutFlag.equals("In")) {
+            criteria.createAlias("studentNode.inOutInformerList", "inoutinfo").add(Restrictions.isNotNull("inoutinfo.inTime")).add(Restrictions.eq("inoutinfo.date", "Nov-1"));
+        } else if (inOutFlag.equals("Out")) {
+            criteria.createAlias("studentNode.inOutInformerList", "inoutinfo").add(Restrictions.isNotNull("inoutinfo.outTime")).add(Restrictions.eq("inoutinfo.date", "Nov-1"));
+        }
+
+        registeredStudentCounts = (Long) criteria.setProjection(Projections.rowCount()).uniqueResult();
         if (registeredStudentCounts == null) {
             registeredStudentCounts = 0l;
         }

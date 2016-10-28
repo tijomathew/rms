@@ -39,6 +39,9 @@
             </div>
             <div class="form-group">
                 <form:errors class="alert alert-danger" role="alert" id="loginErrorDisplay"></form:errors>
+                <c:if test="${not empty showURLAccessDenied}">
+                    <span class="alert alert-danger accessDenied" id="customErrorSpan">${showURLAccessDenied}</span>
+                </c:if>
             </div>
             <input class="btn btn-lg btn-success btn-block" type="submit" id="addUserButton" value="Log in"/>
         </form:form>

@@ -79,7 +79,7 @@ public class ParentNode implements Serializable {
 
     private transient String childLastName;
 
-    private transient String childBandCode;
+    private transient Long childId;
 
     @LazyCollection(value = LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "parentNode", targetEntity = StudentNode.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -252,12 +252,12 @@ public class ParentNode implements Serializable {
         this.childFirstName = childFirstName;
     }
 
-    public String getChildBandCode() {
-        return childBandCode;
+    public Long getChildId() {
+        return childId;
     }
 
-    public void setChildBandCode(String childBandCode) {
-        this.childBandCode = childBandCode;
+    public void setChildId(Long childId) {
+        this.childId = childId;
     }
 
     public List<StudentNode> getStudentNodeList() {

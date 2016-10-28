@@ -32,9 +32,12 @@
 <div class="container">
     <ul class="nav nav-pills">
         <li><a href="showcounts.action">Show Counts</a></li>
-        <li><a href="adduser.action">Add Users</a></li>
+        <c:if test="${currentUser.systemRole == 'ADMIN'}">
+            <li><a href="adduser.action">Add Users</a></li>
+        </c:if>
         <li><a href="checkinsearch.action">Check In</a></li>
         <li><a href="checkoutsearch.action">Check Out</a></li>
+        <li><a href="registration.action">Registration</a></li>
         <li class="active"><a href="getEditParentEntryForm.action">Edit</a></li>
         <li><a href="reportpage.action">Report</a></li>
         <li><a href="logout.action">Logout</a></li>

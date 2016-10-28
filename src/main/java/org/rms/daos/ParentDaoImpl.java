@@ -46,8 +46,8 @@ public class ParentDaoImpl implements ParentDao {
         } else if (parentNode.getId() != null && parentNode.getId() > 0) {
             Criterion familyIdCriteria = Restrictions.eq("parentNode.id", parentNode.getId());
             criteria.add(Restrictions.or(familyIdCriteria));
-        } else if (parentNode.getChildBandCode() != null && !parentNode.getChildBandCode().isEmpty()) {
-            Criterion childBandCodeCriteria = Restrictions.eq("studentNode.bandCode", parentNode.getChildBandCode()).ignoreCase();
+        } else if (parentNode.getChildId() != null && parentNode.getChildId() > 0) {
+            Criterion childBandCodeCriteria = Restrictions.eq("studentNode.id", parentNode.getChildId());
             criteria.add(Restrictions.or(childBandCodeCriteria));
         } else if (parentNode.getChildFirstName() != null && !parentNode.getChildFirstName().isEmpty()) {
             Criterion childFirstNameCriteria = Restrictions.eq("studentNode.firstName", parentNode.getChildFirstName()).ignoreCase();
