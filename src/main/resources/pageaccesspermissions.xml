@@ -32,6 +32,10 @@
 
         <value>adduser.action</value>
         <value>addnewuser.action</value>
+
+        <value>reportpage.action</value>
+        <value>viewchildreport.action</value>
+        <value>pdfreport.action</value>
     </util:list>
 
     <util:list id="organizersLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
@@ -58,6 +62,10 @@
 
         <value>showcounts.action</value>
         <value>viewcounts.action</value>
+
+        <value>reportpage.action</value>
+        <value>viewchildreport.action</value>
+        <value>pdfreport.action</value>
 
     </util:list>
 

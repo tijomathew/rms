@@ -50,9 +50,9 @@ public class ReportController {
     @RequestMapping(value = "/viewchildreport.action", method = RequestMethod.GET)
     @ResponseBody
     public Object getChildDetails(@RequestParam(value = "page") Integer page, @RequestParam(value = "rows") Integer rows, HttpServletResponse response,
-                              Model model, @RequestParam(value = "sord") String sortOrder, @RequestParam(value = "sidx") String sortName,
-                              @RequestParam(value = "filters", required = false) String filter,
-                              @RequestParam(value = "parentId") Long parentId) {
+                                  Model model, @RequestParam(value = "sord") String sortOrder, @RequestParam(value = "sidx") String sortName,
+                                  @RequestParam(value = "filters", required = false) String filter,
+                                  @RequestParam(value = "parentId") Long parentId) {
         List<StudentNode> childNodes = childService.getChildDetails(parentId);
         Integer childNodesCount = childNodes.size();
         List<StudentNode> ChildNodeSubList = new ArrayList<StudentNode>();
@@ -70,7 +70,7 @@ public class ReportController {
 
     @RequestMapping(value = "/pdfreport.action", method = RequestMethod.POST)
     @ResponseBody
-    public Object pdfCustomLogReport(HttpServletRequest request,HttpServletResponse response,
+    public Object pdfCustomLogReport(HttpServletRequest request, HttpServletResponse response,
                                      @RequestParam(value = "massCentre", required = false) String massCentre,
                                      @RequestParam(value = "date", required = false) String date) {
 
@@ -79,7 +79,7 @@ public class ReportController {
             File pdfFile = reportService.getReport(massCentre, date);
             if (null != pdfFile) {
                 response.setContentType("application/pdf");
-                response.setHeader("Content-disposition", "attachment; filename=Syro_Malabar_Catholic_Church.pdf");
+                response.setHeader("Content-disposition", "attachment; filename=Syro_Malabar_Catholic_Church_Retreat_Report.pdf");
                 FileInputStream in = new FileInputStream(pdfFile);
                 OutputStream out = response.getOutputStream();
                 byte[] buffer = new byte[8192];
@@ -94,7 +94,7 @@ public class ReportController {
                 return null;
             }
 
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println("ERROR: " + e);
         }
 
