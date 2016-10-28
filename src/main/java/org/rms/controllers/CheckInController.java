@@ -73,8 +73,8 @@ public class CheckInController {
                             InOutInformer inOutInformer = new InOutInformer();
                             inOutInformer.setDate(getCurrentDateAsString());
                             inOutInformer.setInTime(new Date());
-                        /*User userFromCurrentSession = requestResponseHolder.getAttributeFromSession(SystemRole.RMS_CURRENT_USER.toString(), User.class);
-                        inOutInformer.setDoneInBy(userFromCurrentSession.getId());*/
+                            User userFromCurrentSession = requestResponseHolder.getAttributeFromSession(SystemRole.RMS_CURRENT_USER.toString(), User.class);
+                            inOutInformer.setDoneInBy(userFromCurrentSession.getId());
                             inOutInformer.setStudentNode(studentNode);
                             studentNode.addInOutInformer(inOutInformer);
                         }

@@ -10,15 +10,15 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
-  <title>Event Manager</title>
-  <spring:url value="/resources/js/jquery-1.11.0.min.js" var="jqueryURL"/>
-  <script src="${jqueryURL}" type="text/javascript"
-          language="javascript"></script>
-  <script type="text/javascript">
-    $(document).ready(function () {
-      window.location.replace('registration.action');
-    });
-  </script>
+    <title>Event Manager</title>
+    <spring:url value="/resources/js/jquery-1.11.0.min.js" var="jqueryURL"/>
+    <script src="${jqueryURL}" type="text/javascript"
+            language="javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            window.location.replace('login.action');
+        });
+    </script>
 </head>
 <body>
 

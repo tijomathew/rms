@@ -144,4 +144,10 @@ public class EditRegistrationController {
             return "editsearchformentry";
         }
     }
+
+    @RequestMapping(value = "editregisteration.action", method = RequestMethod.GET)
+    public String editRegistrationPage(Model model) {
+        model.addAttribute("parentNodeForm", new ParentNode());
+        return "editregistration";
+    }
 }

@@ -28,14 +28,13 @@ public class RMSInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        /*boolean indicatorToProceed = false;
-        boolean indicatorToShowSessionTimedOut = false;
+        boolean indicatorToProceed = false;
         String urlAction = httpServletRequest.getRequestURI().replace(httpServletRequest.getContextPath() + "/", "");
         if (urlAction.contains("resources")) {
             indicatorToProceed = true;
         }
         if (!indicatorToProceed) {
-            if (urlAction.equalsIgnoreCase("login.action") || urlAction.equalsIgnoreCase("logout.action") || urlAction.equalsIgnoreCase("loggedin.action") || urlAction.equalsIgnoreCase("changepassword.action") || urlAction.equalsIgnoreCase("registration.action")) {
+            if (urlAction.equalsIgnoreCase("login.action") || urlAction.equalsIgnoreCase("logout.action") || urlAction.equalsIgnoreCase("loggedin.action") || urlAction.equalsIgnoreCase("changepassword.action")) {
                 indicatorToProceed = true;
             } else {
                 User userFromCurrentSession = requestResponseHolder.getAttributeFromSession(SystemRole.RMS_CURRENT_USER.toString(), User.class);
@@ -51,11 +50,12 @@ public class RMSInterceptor implements HandlerInterceptor {
                 }
             }
             if (!indicatorToProceed) {
+                requestResponseHolder.setAttributeToSession("showURLAccessDenied", new String("This URL cannot be accessed by this User Role"));
                 httpServletResponse.sendRedirect("login.action");
                 httpServletResponse.flushBuffer();
             }
-        }*/
-        return true;
+        }
+        return indicatorToProceed;
     }
 
     @Override

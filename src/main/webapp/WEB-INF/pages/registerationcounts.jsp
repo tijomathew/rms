@@ -64,8 +64,12 @@
                 alternatingRowStyle: true,
                 cssClassNames: cssClassNames
             };
-
+            google.visualization.events.addListener(table, 'ready', function(){
+                $(".google-visualization-table-table").attr('class', 'table');
+                $("table").addClass( 'table table-striped table-bordered table-condensed"' );
+            });
             table.draw(data, options);
+
 
         }
 
@@ -88,7 +92,9 @@
     <div class="container">
         <ul class="nav nav-pills">
             <li class="active"><a href="showcounts.action">Show Counts</a></li>
-            <li><a href="adduser.action">Add Users</a></li>
+            <c:if test="${currentUser.systemRole == 'ADMIN'}">
+                <li><a href="adduser.action">Add Users</a></li>
+            </c:if>
             <li><a href="checkinsearch.action">Check In</a></li>
             <li><a href="checkoutsearch.action">Check Out</a></li>
             <li><a href="getEditParentEntryForm.action">Edit</a></li>

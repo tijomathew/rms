@@ -74,8 +74,8 @@ public class CheckOutController {
                             for (InOutInformer inOutInformer : studentNode.getInOutInformerList()) {
                                 if (inOutInformer.getDate().equals(getCurrentDateAsString())) {
                                     inOutInformer.setOutTime(new Date());
-                                    //User userFromCurrentSession = requestResponseHolder.getAttributeFromSession(SystemRole.RMS_CURRENT_USER.toString(), User.class);
-                                    //inOutInformer.setDoneOutBy(userFromCurrentSession.getId());
+                                    User userFromCurrentSession = requestResponseHolder.getAttributeFromSession(SystemRole.RMS_CURRENT_USER.toString(), User.class);
+                                    inOutInformer.setDoneOutBy(userFromCurrentSession.getId());
                                 }
                             }
                         }

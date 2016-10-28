@@ -98,12 +98,6 @@ public class RegistrationController {
         return "registrationfailure";
     }
 
-    @RequestMapping(value = "editregisteration.action", method = RequestMethod.GET)
-    public String editRegistrationPage(Model model) {
-        model.addAttribute("parentNodeForm", new ParentNode());
-        return "editregistration";
-    }
-
     @RequestMapping(value = "showcounts.action", method = RequestMethod.GET)
     public String showRegisterationCountsonPage() {
         return "registerationcounts";

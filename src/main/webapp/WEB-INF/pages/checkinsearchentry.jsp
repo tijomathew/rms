@@ -33,7 +33,11 @@
     <div class="container">
         <ul class="nav nav-pills">
             <li><a href="showcounts.action">Show Counts</a></li>
-            <li><a href="adduser.action">Add Users</a></li>
+
+            <c:if test="${currentUser.systemRole == 'ADMIN'}">
+                <li><a href="adduser.action">Add Users</a></li>
+            </c:if>
+
             <li class="active"><a href="checkinsearch.action">Check In</a></li>
             <li><a href="checkoutsearch.action">Check Out</a></li>
             <li><a href="getEditParentEntryForm.action">Edit</a></li>
@@ -53,10 +57,10 @@
                             <div class="row generalFormLayout">
                                 <div class="col-md-12">
                                     <div class="col-md-6">
-                                        <label for="childBandCode">Child ID:</label>
-                                        <form:input path="childBandCode" id="childBandCode"
+                                        <label for="childId">Child ID:</label>
+                                        <form:input path="childId" id="childId"
                                                     class="form-control"
-                                                    placeholder="Child Band Code"/>
+                                                    placeholder="Child ID"/>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
