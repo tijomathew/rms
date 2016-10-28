@@ -43,12 +43,12 @@ public class ChildDaoImpl implements ChildDao {
         Criterion retreatSelectionSenior = Restrictions.eq("studentNode.retreatSection", "Senior");
         Criterion retreatSelectionSuperSenior = Restrictions.eq("studentNode.retreatSection", "SuperSenior");
 
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(StudentNode.class, "studentNode").add(Restrictions.or(retreatSelectionSenior, retreatSelectionSuperSenior)).add(Restrictions.eq("studentNode.dayFour", "Nov-1"));
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(StudentNode.class, "studentNode").add(Restrictions.or(retreatSelectionSenior, retreatSelectionSuperSenior)).add(Restrictions.eq("studentNode.dayFour", "Oct-29"));
 
         if (inOutFlag.equals("In")) {
-            criteria.createAlias("studentNode.inOutInformerList", "inoutinfo").add(Restrictions.isNotNull("inoutinfo.inTime")).add(Restrictions.eq("inoutinfo.date", "Nov-1"));
+            criteria.createAlias("studentNode.inOutInformerList", "inoutinfo").add(Restrictions.isNotNull("inoutinfo.inTime")).add(Restrictions.eq("inoutinfo.date", "Oct-29"));
         } else if (inOutFlag.equals("Out")) {
-            criteria.createAlias("studentNode.inOutInformerList", "inoutinfo").add(Restrictions.isNotNull("inoutinfo.outTime")).add(Restrictions.eq("inoutinfo.date", "Nov-1"));
+            criteria.createAlias("studentNode.inOutInformerList", "inoutinfo").add(Restrictions.isNotNull("inoutinfo.outTime")).add(Restrictions.eq("inoutinfo.date", "Oct-29"));
         }
 
         registeredStudentCounts = (Long) criteria.setProjection(Projections.rowCount()).uniqueResult();

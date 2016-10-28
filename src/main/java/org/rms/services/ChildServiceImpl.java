@@ -87,7 +87,7 @@ public class ChildServiceImpl implements ChildService {
     private List<ChartRow> getChartRows(String inOutFlag) {
         List<ChartRow> chartRowList = new ArrayList<>();
 
-        String[] date = new String[]{"Oct-29", "Oct-30", "Oct-31"};
+        String[] date = new String[]{"Oct-26", "Oct-27", "Oct-28"};
         String[] property = new String[]{"dayOne", "dayTwo", "dayThree"};
 
         for (int i = 0; i < 3; i++) {
@@ -111,7 +111,7 @@ public class ChildServiceImpl implements ChildService {
             chartRowList.add(new ChartRow(chartCellList));
         }
 
-        ChartCell<String> chartCellDate = new ChartCell<>("Nov-1", "Nov-1");
+        ChartCell<String> chartCellDate = new ChartCell<>("Oct-29", "Oct-29");
         ChartCell<Long> chartCellJuniorCount = new ChartCell<>(0l, String.valueOf(0));
         ChartCell<Long> chartCellSeniorCount = new ChartCell<>(0l, String.valueOf(0));
         ChartCell<Long> chartCellSuperSeniorCount = new ChartCell<>(0l, String.valueOf(0));

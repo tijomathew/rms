@@ -38,7 +38,7 @@
         <li><a href="checkinsearch.action">Check In</a></li>
         <li><a href="checkoutsearch.action">Check Out</a></li>
         <li><a href="registration.action">Registration</a></li>
-        <li class="active"><a href="getEditParentEntryForm.action">Edit</a></li>
+        <li class="active"><a href="getEditParentEntryForm.action">Search</a></li>
         <li><a href="reportpage.action">Report</a></li>
         <li><a href="logout.action">Logout</a></li>
     </ul>
@@ -47,25 +47,59 @@
     <div class="row row-offcanvas row-offcanvas-right">
         <div class="col-xs-12 col-sm-12">
             <div class="panel panel-default">
-                <div class="panel-heading headerColor">Enter Email</div>
+                <div class="panel-heading headerColor">Search Criteria</div>
                 <div class="panel-body">
                     <form:form role="form" id="email-form"
                                action="${pageContext.request.contextPath}/getRegisteredEntry.action"
                                method="post" modelAttribute="searchEditParent">
                         <div class="row generalFormLayout">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="registeredEmail">Registered Email:<span
-                                            style="color: red">*</span></label>
-                                    <form:input path="email" id="registeredEmail" class="form-control" required="true"
-                                                placeholder="Registered Email"/>
+                            <div class="row generalFormLayout">
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="childId">Child ID:</label>
+                                        <form:input path="childId" id="childId"
+                                                    class="form-control"
+                                                    placeholder="Child ID"/>
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="submit" value="Submit" id="email-submit"
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="childFirstName">Child First Name:</label>
+                                        <form:input path="childFirstName" id="childFirstName" class="form-control"
+                                                    placeholder="Child First Name"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="childLastName">Child Last Name:</label>
+                                        <form:input path="childLastName" id="childLastName"
+                                                    class="form-control" placeholder="Child Last Name"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="id">Family ID:</label>
+                                        <form:input path="id" id="id" class="form-control"
+                                                    placeholder="Family ID"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="firstName">Parent/Guardian First Name:</label>
+                                        <form:input path="firstName" id="firstName" class="form-control"
+                                                    placeholder="Parent/Guardian First Name"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastName">Parent/Guardian Last Name:</label>
+                                        <form:input path="lastName" id="lastName" class="form-control"
+                                                    placeholder="Parent/Guardian Last Name"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div style="margin-top: 30px;">
+                                        <input type="submit" value="Search" id="email-submit"
                                                class="btn btn-primary commonGreenBtn"/>
                                     </div>
                                 </div>
+
                             </div>
 
                         </div>

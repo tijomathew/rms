@@ -308,6 +308,18 @@
 <form:form role="form" id="registration-form" modelAttribute="parentNodeForm"
            action="${pageContext.request.contextPath}/editregistration.action"
            method="post">
+    <div class="container">
+        <ul class="nav nav-pills">
+            <li><a href="showcounts.action">Show Counts</a></li>
+            <li><a href="adduser.action">Add Users</a></li>
+            <li><a href="checkinsearch.action">Check In</a></li>
+            <li><a href="checkoutsearch.action">Check Out</a></li>
+            <li><a href="registration.action">Registration</a></li>
+            <li class="active"><a href="getEditParentEntryForm.action">Search</a></li>
+            <li><a href="reportpage.action">Report</a></li>
+            <li><a href="logout.action">Logout</a></li>
+        </ul>
+    </div>
     <div class="mainWrapper">
         <div class="row row-offcanvas row-offcanvas-right">
             <div class="col-xs-12 col-sm-12">

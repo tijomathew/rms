@@ -285,9 +285,23 @@
 <form:form role="form" id="registration-form" modelAttribute="parentNodeForm"
            action="${pageContext.request.contextPath}/createregistration.action"
            method="post">
+    <div class="container">
+        <ul class="nav nav-pills">
+            <li><a href="showcounts.action">Show Counts</a></li>
+            <c:if test="${currentUser.systemRole == 'ADMIN'}">
+                <li><a href="adduser.action">Add Users</a></li>
+            </c:if>
+            <li><a href="checkinsearch.action">Check In</a></li>
+            <li><a href="checkoutsearch.action">Check Out</a></li>
+            <li class="active"><a href="registration.action">Registration</a></li>
+            <li><a href="getEditParentEntryForm.action">Search</a></li>
+            <li><a href="reportpage.action">Report</a></li>
+            <li><a href="logout.action">Logout</a></li>
+        </ul>
+    </div>
     <div class="mainWrapper">
-        <div style="float:right;font-weight:bold"><a style="text-align: right" href="${pageContext.request.contextPath}/email.action"><h5 style="font-weight:bold">Manage
-            My Registration</h5></a></div>
+            <%-- <div style="float:right;font-weight:bold"><a style="text-align: right" href="${pageContext.request.contextPath}/email.action"><h5 style="font-weight:bold">Manage
+                 My Registration</h5></a></div>--%>
         <div class="row row-offcanvas row-offcanvas-right">
             <div class="col-xs-12 col-sm-12">
                 <h3 class="defaultBold">Retreat Registration Form</h3>

@@ -37,7 +37,7 @@
             <li><a href="checkinsearch.action">Check In</a></li>
             <li class="active"><a href="checkoutsearch.action">Check Out</a></li>
             <li><a href="registration.action">Registration</a></li>
-            <li><a href="#">Edit</a></li>
+            <li><a href="getEditParentEntryForm.action">Search</a></li>
             <li><a href="reportpage.action">Report</a></li>
             <li><a href="logout.action">Logout</a></li>
         </ul>
@@ -48,6 +48,49 @@
                 <div class="panel panel-default">
                     <div class="panel-heading headerColor">Update Check-Out</div>
                     <div class="panel-body">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="firstName">Parent/Guardian's First Name:</label>
+                                    <input id="firstName" class="form-control" readonly="true"
+                                           value="${checkInParent.firstName}"/>
+                                </div>
+
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="lastName">Parent/Guardian's Last Name:</label>
+                                    <input id="lastName" class="form-control" readonly="true"
+                                           value="${checkInParent.lastName}"/>
+                                </div>
+
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="phoneNumber">Phone - 1:</label>
+                                    <input class="form-control" id="phoneNumber"
+                                           readonly="true" value="${checkInParent.phoneNumber}"/>
+                                </div>
+
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="alternativePhoneNumber">Phone - 2:</label>
+                                    <input class="form-control"
+                                           id="alternativePhoneNumber"
+                                           value="${checkInParent.alternativePhoneNumber}"/>
+                                </div>
+
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input class="form-control" type="email" id="email"
+                                           readonly="true" value="${checkInParent.email}"/>
+                                </div>
+
+                            </div>
+                        </div>
                         <form:form role="form" id="checkoutsearch-form"
                                    action="${pageContext.request.contextPath}/checkoutupdate.action"
                                    method="post" modelAttribute="checkOutViewParent">
@@ -57,13 +100,13 @@
                                     <form:hidden path="studentNodeList[${count.index}].id" value="${element.id}"/>
                                     <div class="col-md-12">
                                         <div class="col-md-3">
-                                            <label for="firstName">First Name:</label>
+                                            <label for="firstName">Child's First Name:</label>
                                             <form:input path="studentNodeList[${count.index}].firstName" id="firstName"
                                                         class="form-control"
                                                         value="${element.firstName}" readonly="true"/>
                                         </div>
                                         <div class="col-md-3">
-                                            <label for="lastName">Last Name:</label>
+                                            <label for="lastName">Child's Last Name:</label>
                                             <form:input path="studentNodeList[${count.index}].lastName" id="lastName"
                                                         class="form-control"
                                                         value="${element.lastName}" readonly="true"/>
@@ -81,12 +124,14 @@
                                                         value="${element.bandCode}" readonly="true"/>
                                         </div>
                                         <c:if test="${not element.hasOutEntryOnDate}">
-                                            <div class="col-md-2">
-                                                <label for="checkOut">Check-Out:</label>
-                                                <form:checkbox path="studentNodeList[${count.index}].checkOut"
-                                                               id="checkOut"
-                                                               class="form-control"/>
-                                            </div>
+                                            <c:if test="${element.hasInEntryOnDate}">
+                                                <div class="col-md-2">
+                                                    <label for="checkOut">Check-Out:</label>
+                                                    <form:checkbox path="studentNodeList[${count.index}].checkOut"
+                                                                   id="checkOut"
+                                                                   class="form-control"/>
+                                                </div>
+                                            </c:if>
                                         </c:if>
                                     </div>
                                 </c:forEach>

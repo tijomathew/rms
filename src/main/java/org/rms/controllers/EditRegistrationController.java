@@ -5,6 +5,7 @@ import org.rms.models.StudentNode;
 import org.rms.models.User;
 import org.rms.services.ChildService;
 import org.rms.services.MailService;
+import org.rms.services.ParentService;
 import org.rms.services.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,9 @@ public class EditRegistrationController {
 
     @Autowired
     private ChildService childService;
+
+    @Autowired
+    private ParentService parentService;
 
     @RequestMapping(value = "editregistration.action", method = RequestMethod.POST)
     public String registerationProcess(@ModelAttribute("parentNodeForm") ParentNode parentNode, HttpServletRequest httpServletRequest) {
@@ -132,7 +136,7 @@ public class EditRegistrationController {
 
     @RequestMapping(value = "getRegisteredEntry.action", method = {RequestMethod.POST})
     public String getRegisteredFamilyDetails(@ModelAttribute("searchEditParent") ParentNode registeredParent, Model model, HttpServletRequest httpServletRequest) {
-        ParentNode parentNode = registrationService.getRegisteredEntry(registeredParent.getEmail());
+        ParentNode parentNode = parentService.getCheckInOutParentNodeDetails(registeredParent);
         if (parentNode != null) {
             HttpSession httpSession = httpServletRequest.getSession();
             httpSession.setAttribute("selectedParentNode", parentNode);

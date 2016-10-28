@@ -54,19 +54,19 @@ public class CheckOutController {
         //Remove other dates registered Child
 
         for (StudentNode studentNode : retrievedParentNode.getStudentNodeList()) {
-            if (getCurrentDateAsString().equals("Oct-29")) {
+            if (getCurrentDateAsString().equals("Oct-26")) {
                 if (studentNode.getDayOne() == null)
                     retrievedParentNode.getStudentNodeList().remove(studentNode);
             }
-            if (getCurrentDateAsString().equals("Oct-30")) {
+            if (getCurrentDateAsString().equals("Oct-27")) {
                 if (studentNode.getDayTwo() == null)
                     retrievedParentNode.getStudentNodeList().remove(studentNode);
             }
-            if (getCurrentDateAsString().equals("Oct-31")) {
+            if (getCurrentDateAsString().equals("Oct-28")) {
                 if (studentNode.getDayThree() == null)
                     retrievedParentNode.getStudentNodeList().remove(studentNode);
             }
-            if (getCurrentDateAsString().equals("Nov-1")) {
+            if (getCurrentDateAsString().equals("Oct-29")) {
                 if (studentNode.getDayFour() == null)
                     retrievedParentNode.getStudentNodeList().remove(studentNode);
             }
