@@ -10,8 +10,9 @@
 <html>
 <head>
     <title>Event Manager</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <spring:url value="/resources/css/bootstrap.min.css" var="bootstrapcss"/>
+    <link href="${bootstrapcss} " rel="stylesheet">
+
     <spring:url value="/resources/css/style.css" var="stylecss"/>
     <link href="${stylecss} " rel="stylesheet">
 
@@ -114,7 +115,7 @@
                 </c:if>
                 <c:if test="${not hideSuccessMessageDiv}">
                     <div class="alert alert-success" role="alert">
-                        Successfully done Check-In.
+                        Successfully Checked-in!!!
                     </div>
                 </c:if>
 

@@ -50,28 +50,27 @@ public class CheckInController {
     public String checkInSearchProcess(@ModelAttribute("searchCheckInParentNode") ParentNode parentNode, HttpServletRequest httpServletRequest, Model model) {
         ParentNode retrievedParentNode = parentService.getCheckInOutParentNodeDetails(parentNode);
 
-        //Remove other dates registered Child
-
-        for (StudentNode studentNode : retrievedParentNode.getStudentNodeList()) {
-            if (getCurrentDateAsString().equals("Oct-26")) {
-                if (studentNode.getDayOne() == null)
-                    retrievedParentNode.getStudentNodeList().remove(studentNode);
-            }
-            if (getCurrentDateAsString().equals("Oct-27")) {
-                if (studentNode.getDayTwo() == null)
-                    retrievedParentNode.getStudentNodeList().remove(studentNode);
-            }
-            if (getCurrentDateAsString().equals("Oct-28")) {
-                if (studentNode.getDayThree() == null)
-                    retrievedParentNode.getStudentNodeList().remove(studentNode);
-            }
-            if (getCurrentDateAsString().equals("Oct-29")) {
-                if (studentNode.getDayFour() == null)
-                    retrievedParentNode.getStudentNodeList().remove(studentNode);
-            }
-        }
-
         if (retrievedParentNode != null) {
+            //Remove other dates registered Child
+
+            for (StudentNode studentNode : retrievedParentNode.getStudentNodeList()) {
+                if (getCurrentDateAsString().equals("Oct-26")) {
+                    if (studentNode.getDayOne() == null)
+                        retrievedParentNode.getStudentNodeList().remove(studentNode);
+                }
+                if (getCurrentDateAsString().equals("Oct-27")) {
+                    if (studentNode.getDayTwo() == null)
+                        retrievedParentNode.getStudentNodeList().remove(studentNode);
+                }
+                if (getCurrentDateAsString().equals("Oct-28")) {
+                    if (studentNode.getDayThree() == null)
+                        retrievedParentNode.getStudentNodeList().remove(studentNode);
+                }
+                if (getCurrentDateAsString().equals("Oct-29")) {
+                    if (studentNode.getDayFour() == null)
+                        retrievedParentNode.getStudentNodeList().remove(studentNode);
+                }
+            }
             HttpSession httpSession = httpServletRequest.getSession();
             httpSession.setAttribute("checkInParent", retrievedParentNode);
             model.addAttribute("checkInViewParent", new ParentNode());

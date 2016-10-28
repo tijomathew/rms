@@ -10,8 +10,9 @@
 <html>
 <head>
     <title>Event Manager</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <spring:url value="/resources/css/bootstrap.min.css" var="bootstrapcss"/>
+    <link href="${bootstrapcss} " rel="stylesheet">
+
     <spring:url value="/resources/css/style.css" var="stylecss"/>
     <link href="${stylecss} " rel="stylesheet">
 
@@ -20,7 +21,19 @@
         jQuery(document).ready(function () {
             $('#email-submit').click(function () {
                 $("#email-submit").val('Searching');
-                $("#email-form").submit();
+                var isValid = false;
+                $("input").each(function () {
+                    var element = $(this);
+                    if (element.val() != "") {
+                        isValid = true;
+                    }
+                });
+
+                if (isValid) {
+                    $('#email-form').submit();
+                } else {
+                    alert('atleast enter a value for single input');
+                }
             });
         });
     </script>
@@ -95,8 +108,8 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div style="margin-top: 30px;">
-                                        <input type="submit" value="Search" id="email-submit"
-                                               class="btn btn-primary commonGreenBtn"/>
+                                        <input type="submit" value="Edit" id="email-submit"
+                                               class="btn btn-primary commonGreenBtn" style="width: 124px;"/>
                                     </div>
                                 </div>
 
@@ -109,8 +122,7 @@
             </div>
             <c:if test="${not hideErrorMessageDiv}">
                 <div style="font-size: 15px;text-align: center;color: #a94442;padding: 1px;margin: 8px auto;display:block"
-                     class="alert alert-danger">The entered mailID do not registered with our system!!Please try with
-                    another emailID.
+                     class="alert alert-danger">Search not Found.
                 </div>
             </c:if>
 

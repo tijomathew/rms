@@ -10,8 +10,8 @@
 <html>
 <head>
     <title>Event Manager</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <spring:url value="/resources/css/bootstrap.min.css" var="bootstrapcss"/>
+    <link href="${bootstrapcss} " rel="stylesheet">
     <spring:url value="/resources/css/style.css" var="stylecss"/>
     <link href="${stylecss} " rel="stylesheet">
 
@@ -51,47 +51,27 @@
                     <div class="panel-heading headerColor">Update Check-In</div>
                     <div class="panel-body">
                         <div class="col-md-12">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="firstName">Parent/Guardian's First Name:</label>
-                                    <input id="firstName" class="form-control" readonly="true"
-                                           value="${checkInParent.firstName}"/>
-                                </div>
 
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="lastName">Parent/Guardian's Last Name:</label>
-                                    <input id="lastName" class="form-control" readonly="true"
-                                           value="${checkInParent.lastName}"/>
-                                </div>
+                                <label>Mass Centre
+                                    Name: </label>     <c:if
+                                            test="${not empty checkInParent.massCentreName}">${checkInParent.massCentreName}</c:if> </br>
+                                <label>Parent/Guardian's
+                                    Name: </label>     <c:if
+                                            test="${not empty checkInParent.firstName}">${checkInParent.firstName}</c:if><c:if
+                                            test="${not empty checkInParent.lastName}"> ${checkInParent.lastName}</c:if></br>
+                                <label>Phone - 1: </label>   <c:if test="${not empty checkInParent.phoneNumber}">${checkInParent.phoneNumber}</c:if></br>
+                                <label>Phone -2: </label>  <c:if test="${not empty checkInParent.alternativePhoneNumber}"> ${checkInParent.alternativePhoneNumber}</c:if></br>
+                                <label>Email: </label>   <c:if
+                                        test="${not empty checkInParent.email}">${checkInParent.email}</c:if></br>
+                                <label>Address:</label>
+                                        <c:if test="${not empty checkInParent.houseNo}"> ${checkInParent.houseNo}</c:if>
+                                    <c:if
+                                            test="${not empty checkInParent.addressLineOne}"> ${checkInParent.addressLineOne}</c:if>
+                                    <c:if
+                                            test="${not empty checkInParent.addressLineTwo}"> ${checkInParent.addressLineTwo}</c:if>
+                                    <c:if
+                                            test="${not empty checkInParent.addressLineThree}"> ${checkInParent.addressLineThree}</c:if></br>
 
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="phoneNumber">Phone - 1:</label>
-                                    <input class="form-control" id="phoneNumber"
-                                           readonly="true" value="${checkInParent.phoneNumber}"/>
-                                </div>
-
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="alternativePhoneNumber">Phone - 2:</label>
-                                    <input class="form-control"
-                                           id="alternativePhoneNumber"
-                                           value="${checkInParent.alternativePhoneNumber}"/>
-                                </div>
-
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="email">Email:</label>
-                                    <input class="form-control" type="email" id="email"
-                                           readonly="true" value="${checkInParent.email}"/>
-                                </div>
-
-                            </div>
                         </div>
                         <div class="col-md-12">
                             <form:form role="form" id="checkinsearch-form"
