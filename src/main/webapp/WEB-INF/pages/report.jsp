@@ -64,9 +64,9 @@
                           method="post">
                         <div class="row generalFormLayout">
                             <div class="col-md-12">
-                                <div class="col-md-3">
-                                    <label for="massCentre">Mass Centre:</label>
-                                    <select id='massCentre' name="massCentre">
+                                <div class="col-md-3 form-inline">
+                                    <label for="massCentre" class="control-label">Mass Centre:</label>
+                                    <select id='massCentre' name="massCentre" class="form-control">
                                         <option value="Beaumont" selected="true">Beaumont</option>
                                         <option value="Blanchardstown">Blanchardstown</option>
                                         <option value="Bray">Bray</option>
@@ -79,7 +79,7 @@
                                         <option value="Other">Other</option>
                                     </select>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-9 form-inline">
                                     <label>Select Date:</label>
                                     <label class="radio-inline"><input type="radio" name="date" value="all"> All</label>
                                     <label class="radio-inline"><input type="radio" name="date" value="dayOne" checked>
