@@ -21,19 +21,7 @@
         jQuery(document).ready(function () {
             $('#email-submit').click(function () {
                 $("#email-submit").val('Searching');
-                var isValid = false;
-                $("input").each(function () {
-                    var element = $(this);
-                    if (element.val() != "") {
-                        isValid = true;
-                    }
-                });
-
-                if (isValid) {
-                    $('#email-form').submit();
-                } else {
-                    alert('atleast enter a value for single input');
-                }
+                $('#email-form').submit();
             });
         });
     </script>
@@ -52,6 +40,7 @@
         <li><a href="checkoutsearch.action">Check Out</a></li>
         <li><a href="registration.action">Registration</a></li>
         <li class="active"><a href="getEditParentEntryForm.action">Edit</a></li>
+        <li><a href="searchviewentry.action">Search</a></li>
         <li><a href="reportpage.action">Report</a></li>
         <li><a href="logout.action">Logout</a></li>
     </ul>

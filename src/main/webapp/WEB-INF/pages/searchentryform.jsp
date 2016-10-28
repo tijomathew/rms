@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: cufa-01
-  Date: 19/10/16
-  Time: 5:05 PM
+  User: bibin
+  Date: 28/10/16
+  Time: 10:38 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@include file="tagLibraryTemplate.jsp" %>
@@ -39,11 +39,11 @@
                 <li><a href="adduser.action">Add Users</a></li>
             </c:if>
 
-            <li class="active"><a href="checkinsearch.action">Check In</a></li>
+            <li><a href="checkinsearch.action">Check In</a></li>
             <li><a href="checkoutsearch.action">Check Out</a></li>
             <li><a href="registration.action">Registration</a></li>
             <li><a href="getEditParentEntryForm.action">Edit</a></li>
-            <li><a href="searchviewentry.action">Search</a></li>
+            <li class="active"><a href="searchviewentry.action">Search</a></li>
             <li><a href="reportpage.action">Report</a></li>
             <li><a href="logout.action">Logout</a></li>
         </ul>
@@ -55,8 +55,8 @@
                     <div class="panel-heading headerColor">Search Criteria</div>
                     <div class="panel-body">
                         <form:form role="form" id="checkinsearch-form"
-                                   action="${pageContext.request.contextPath}/checkinview.action"
-                                   method="post" modelAttribute="searchCheckInParentNode">
+                                   action="${pageContext.request.contextPath}/searchview.action"
+                                   method="post" modelAttribute="searchParentNode">
                             <div class="row generalFormLayout">
                                 <div class="col-md-12">
                                     <div class="col-md-6">
@@ -114,12 +114,6 @@
                          class="alert alert-danger">Search not Found.
                     </div>
                 </c:if>
-                <c:if test="${not hideSuccessMessageDiv}">
-                    <div class="alert alert-success" role="alert">
-                        Successfully Checked-in!!!
-                    </div>
-                </c:if>
-
             </div>
         </div>
     </div>

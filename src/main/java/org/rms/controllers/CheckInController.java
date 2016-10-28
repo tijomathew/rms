@@ -77,6 +77,7 @@ public class CheckInController {
         } else {
             HttpSession httpSession = httpServletRequest.getSession();
             httpSession.setAttribute("hideErrorMessageDiv", false);
+            model.addAttribute("searchCheckInParentNode", new ParentNode());
             return "checkinsearchentry";
         }
         return "checkinview";
