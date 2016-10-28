@@ -51,6 +51,27 @@ public class CheckOutController {
     public String checkInSearchProcess(@ModelAttribute("searchCheckOutParentNode") ParentNode parentNode, HttpServletRequest httpServletRequest, Model model) {
         ParentNode retrievedParentNode = parentService.getCheckInOutParentNodeDetails(parentNode);
 
+        //Remove other dates registered Child
+
+        for (StudentNode studentNode : retrievedParentNode.getStudentNodeList()) {
+            if (getCurrentDateAsString().equals("Oct-29")) {
+                if (studentNode.getDayOne() == null)
+                    retrievedParentNode.getStudentNodeList().remove(studentNode);
+            }
+            if (getCurrentDateAsString().equals("Oct-30")) {
+                if (studentNode.getDayTwo() == null)
+                    retrievedParentNode.getStudentNodeList().remove(studentNode);
+            }
+            if (getCurrentDateAsString().equals("Oct-31")) {
+                if (studentNode.getDayThree() == null)
+                    retrievedParentNode.getStudentNodeList().remove(studentNode);
+            }
+            if (getCurrentDateAsString().equals("Nov-1")) {
+                if (studentNode.getDayFour() == null)
+                    retrievedParentNode.getStudentNodeList().remove(studentNode);
+            }
+        }
+
         if (retrievedParentNode != null) {
             HttpSession httpSession = httpServletRequest.getSession();
             httpSession.setAttribute("checkOutParent", retrievedParentNode);
