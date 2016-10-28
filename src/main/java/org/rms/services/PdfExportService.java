@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface PdfExportService {
 
-    File createPdfReport(List<ParentNode> parentNodes) throws DocumentException;
+    File createPdfReport(List<ParentNode> parentNodes, String massCentre, String date) throws DocumentException;
 }

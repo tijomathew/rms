@@ -37,7 +37,7 @@
             <li><a href="checkinsearch.action">Check In</a></li>
             <li class="active"><a href="checkoutsearch.action">Check Out</a></li>
             <li><a href="#">Edit</a></li>
-            <li><a href="#">Report</a></li>
+            <li><a href="reportpage.action">Report</a></li>
             <li><a href="logout.action">Logout</a></li>
         </ul>
     </div>

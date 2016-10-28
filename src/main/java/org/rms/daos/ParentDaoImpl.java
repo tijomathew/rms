@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.rms.models.ParentNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,9 +24,14 @@ public class ParentDaoImpl implements ParentDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public List<ParentNode> getParentNodes() {
-        return sessionFactory.getCurrentSession().createCriteria(ParentNode.class).
-                setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+    public List<ParentNode> getParentNodes(String massCentre, String date) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ParentNode.class, "parentNode").
+                add(Restrictions.eq("massCentreName", massCentre));
+        if(!date.equals("all")) {
+           criteria.createAlias("parentNode.studentNodeList", "studentNode", JoinType.INNER_JOIN);
+           criteria.add(Restrictions.isNotNull("studentNode.".concat(date)));
+        }
+        return criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override

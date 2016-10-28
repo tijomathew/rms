@@ -104,6 +104,10 @@ public class ParentNode implements Serializable {
         this.massCentreName = massCentreName;
     }
 
+    public String getFullName() {
+        return new StringBuilder(firstName).append(" ").append(lastName).toString();
+    }
+
     public String getFirstName() {
         return firstName;
     }

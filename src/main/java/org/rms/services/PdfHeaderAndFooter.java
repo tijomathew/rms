@@ -19,23 +19,12 @@ public class PdfHeaderAndFooter extends PdfPageEventHelper {
 
 
     protected Phrase footer;
-    protected Phrase header;
-    Image img = null;
-    private List<String> filtersToDisplay = null;
     private PdfContentByte pdfContentByte;
     private PdfTemplate pdfTemplate;
     private BaseFont baseFont;
     String reportName = null;
     String clientName = "";
-    String trendString = "";
-    String asOfDate = null;
-    String subTitle = StringUtils.EMPTY;
-    String drillDownCaption = StringUtils.EMPTY;
-    String categoryHeaders;
 
-    /*
-     * Font for header and footer part.
-     */
     private static Font fontBold = FontFactory.getFont("Verdana", 9, Font.BOLD);
     private static Font fontNormal = FontFactory.getFont("Verdana", 8, Font.NORMAL);
     /*
@@ -77,26 +66,13 @@ public class PdfHeaderAndFooter extends PdfPageEventHelper {
             PdfPCell cell = new PdfPCell();
             cell.setBorder(0);
             cell.setPadding(4);
-            cell.addElement(img);
             head.addCell(cell);
             Phrase phrase = new Phrase();
 
-            Chunk chunk = new Chunk(clientName.concat("\n\n"),fontNormal);
+            Chunk chunk = new Chunk("Syro Malabar Catholic Church Dublin, Ireland".concat("\n\n"),fontBold);
             phrase.add(chunk);
             chunk = new Chunk(reportName.toUpperCase().concat("\n\n"),fontBold);
             phrase.add(chunk);
-            if(!trendString.isEmpty()) {
-                chunk = new Chunk(trendString.concat("\n\n"), fontNormal);
-                phrase.add(chunk);
-            }
-            if(StringUtils.isNotEmpty(this.subTitle)) {
-                chunk = new Chunk(this.subTitle.concat("\n\n"),fontBold);
-                phrase.add(chunk);
-            }
-            if(StringUtils.isNotEmpty(this.drillDownCaption)) {
-                chunk = new Chunk(this.drillDownCaption.concat("\n\n"),fontNormal);
-                phrase.add(chunk);
-            }
             phrase.add(Chunk.NEWLINE);
             phrase.add(Chunk.NEWLINE);
 
@@ -145,19 +121,4 @@ public class PdfHeaderAndFooter extends PdfPageEventHelper {
             this.pdfTemplate = this.pdfContentByte.createTemplate(50, 50);
     }
 
-    public String getSubTitle() {
-        return subTitle;
-    }
-
-    public void setSubTitle(String subTitle) {
-        this.subTitle = subTitle;
-    }
-
-    public void setDrillDownCaption(String drillDownCaption) {
-        this.drillDownCaption = drillDownCaption;
-    }
-
-    public void setCategoryHeaders(String categoryHeaders) {
-        this.categoryHeaders = categoryHeaders;
-    }
 }

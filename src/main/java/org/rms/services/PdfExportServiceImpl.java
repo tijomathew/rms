@@ -5,7 +5,6 @@ import com.itextpdf.text.html.WebColors;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import org.apache.commons.lang.time.DurationFormatUtils;
 import org.rms.models.ParentNode;
 import org.rms.models.StudentNode;
 import org.springframework.stereotype.Service;
@@ -25,21 +24,15 @@ public class PdfExportServiceImpl implements PdfExportService {
     private Document document;
     private PdfWriter writer;
     private PdfPTable table;
-    private Integer columnSize;
-    private Map<Integer, String> header;
-    private String cellColour;
     Font fontBold;
     Font fontNormal;
-    String reportName;
-    BaseColor myColor;
 
     public PdfExportServiceImpl() {
         fontBold   = FontFactory.getFont("Verdana", 7, Font.BOLD);
         fontNormal = FontFactory.getFont("Verdana",7, Font.NORMAL);
     }
     @Override
-    public File createPdfReport(List<ParentNode> parentNodes) throws DocumentException{
-        this.cellColour = "#FFFFFF";
+    public File createPdfReport(List<ParentNode> parentNodes, String massCentre, String date) throws DocumentException{
         document = new Document(PageSize.A4_LANDSCAPE);
         File tempDestFile = createTempPdfFile();//create a temporary pdf file in the temp directory of web server
         try {
@@ -53,58 +46,67 @@ public class PdfExportServiceImpl implements PdfExportService {
         document.setMargins(75, 75, 100, 75);
 
         //A class to write the header and footer to the pdf
-        PdfHeaderAndFooter event = new PdfHeaderAndFooter("Report");
+        PdfHeaderAndFooter event = new PdfHeaderAndFooter(massCentre);
         //writer.setBoxSize("headerBox", headerBox);
         writer.setPageEvent(event);
 
         document.open();
+        table = new PdfPTable(8);//create a table with respective column size
 
+        table.setWidths(new int[]{3, 20, 10, 20, 10, 7, 15, 15});
+        table.setSpacingBefore(5);
+        table.setSpacingAfter(5);
+        addCellContentToPDFTable("No.", fontBold, Element.ALIGN_CENTER);
+        addCellContentToPDFTable("Parent Name", fontBold, Element.ALIGN_CENTER);
+        addCellContentToPDFTable("Phone Number", fontBold, Element.ALIGN_CENTER);
+        addCellContentToPDFTable("Child Name", fontBold, Element.ALIGN_CENTER);
+        addCellContentToPDFTable("Category", fontBold, Element.ALIGN_CENTER);
+        addCellContentToPDFTable("Band Code", fontBold, Element.ALIGN_CENTER);
+        addCellContentToPDFTable("Check In", fontBold, Element.ALIGN_CENTER);
+        addCellContentToPDFTable("Check Out", fontBold, Element.ALIGN_CENTER);
+        int i = 1;
+        PdfPCell cell;
         for (ParentNode parentNode: parentNodes){
 
-
-            table = new PdfPTable(4);//create a table with respective column size
-            table.setSpacingBefore(5);
-            table.setSpacingAfter(5);
-            PdfPCell cell;
-            //int rowSpan =data.get(user).get(log).size();
-            int rowSpan =parentNode.getStudentNodeList().size();
-            String heading = "Parent Name = " +  parentNode.getFirstName() + " " + parentNode.getLastName();
-            cell = new PdfPCell(new Phrase(new Chunk(heading, fontBold)));
-            cell.setRowspan(rowSpan + 1);
+            int rowSpan = parentNode.getStudentNodeList().size();
+            cell = new PdfPCell(new Phrase(new Chunk(String.valueOf(i), fontBold)));
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setRowspan(rowSpan > 0 ? rowSpan : 1);
             table.addCell(cell);
-
-            cell = new PdfPCell(new Phrase("Name", fontBold));// create cell
+            cell = new PdfPCell(new Phrase(new Chunk(parentNode.getFullName().toString(), fontBold)));
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setRowspan(rowSpan > 0 ? rowSpan : 1);
             table.addCell(cell);
-            cell = new PdfPCell(new Phrase("Class Division", fontBold));// create cell
+            cell = new PdfPCell(new Phrase(new Chunk(parentNode.getPhoneNumber().toString(), fontBold)));
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setRowspan(rowSpan > 0 ? rowSpan : 1);
             table.addCell(cell);
-            cell = new PdfPCell(new Phrase("Band Code", fontBold));// create cell
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(cell);
-            cell.setRowspan(rowSpan);
-
-            for (StudentNode studentNode: parentNode.getStudentNodeList()){
-                addCellContentToPDFTable(studentNode.getFirstName() + " " + studentNode.getLastName(), fontNormal, Element.ALIGN_RIGHT);
-                addCellContentToPDFTable(studentNode.getClassDivision() , fontNormal, Element.ALIGN_RIGHT);
-                addCellContentToPDFTable(studentNode.getBandCode(), fontNormal, Element.ALIGN_RIGHT);
+            if(rowSpan > 0) {
+                for (StudentNode studentNode: parentNode.getStudentNodeList()){
+                    addCellContentToPDFTable(studentNode.getFullName(), fontNormal, Element.ALIGN_LEFT);
+                    addCellContentToPDFTable(studentNode.getRetreatSection(), fontNormal, Element.ALIGN_LEFT);
+                    addCellContentToPDFTable(studentNode.getBandCode(), fontNormal, Element.ALIGN_LEFT);
+                    addCellContentToPDFTable(studentNode.getInTimes(), fontNormal, Element.ALIGN_LEFT);
+                    addCellContentToPDFTable(studentNode.getOutTimes(), fontNormal, Element.ALIGN_LEFT);
+                }
+            } else {
+                addCellContentToPDFTable("" , fontNormal, Element.ALIGN_LEFT);
+                addCellContentToPDFTable("" , fontNormal, Element.ALIGN_LEFT);
+                addCellContentToPDFTable("" , fontNormal, Element.ALIGN_LEFT);
+                addCellContentToPDFTable("" , fontNormal, Element.ALIGN_LEFT);
+                addCellContentToPDFTable("" , fontNormal, Element.ALIGN_LEFT);
             }
-            table.setWidthPercentage(100);  // set the width of the table to 100% of page
-            document.add(table);  // Now add all this to the document
+            i++;
 
         }
-
+        table.setWidthPercentage(100);  // set the width of the table to 100% of page
+        document.add(table);  // Now add all this to the document
         document.close();
 
         return tempDestFile;
     }
     public void addCellContentToPDFTable(Object obj, Font font,int alignment){
         PdfPCell cell = new PdfPCell(new Phrase(null != obj.toString()? obj.toString().replaceAll("[€|$] ", ""): "", font));
-        if(this.cellColour!= null){
-            myColor = WebColors.getRGBColor(this.cellColour);
-            cell.setBackgroundColor(myColor);//sets the background colour for the totals cell
-        }
         cell.setHorizontalAlignment(alignment);
         table.addCell(cell);//add the cell content to pdf
 
@@ -116,7 +118,7 @@ public class PdfExportServiceImpl implements PdfExportService {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(System.getProperty("java.io.tmpdir"));
         stringBuilder.append(System.getProperty("file.separator"));
-        stringBuilder.append("ecm_export" + uu_fileName.toString() + ".pdf");
+        stringBuilder.append("retreat_report" + uu_fileName.toString() + ".pdf");
         File tempFile = new File(stringBuilder.toString());
         return tempFile;
     }

@@ -21,9 +21,9 @@ public class ReportServiceImpl implements ReportService{
     private PdfExportService pdfExportService;
 
     @Override
-    public File getReport() throws DocumentException {
-        List<ParentNode> parentNodeList = parentService.getParentNodes();
-        File pdfFile = pdfExportService.createPdfReport(parentNodeList);
+    public File getReport(String massCentre, String date) throws DocumentException {
+        List<ParentNode> parentNodeList = parentService.getParentNodes(massCentre, date);
+        File pdfFile = pdfExportService.createPdfReport(parentNodeList, massCentre, date);
         return pdfFile;
     }
 }

@@ -79,6 +79,9 @@ public class StudentNode implements Serializable {
         return firstName;
     }
 
+    public String getFullName() {
+        return new StringBuilder(firstName).append(" ").append(lastName).toString();
+    }
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -207,6 +210,34 @@ public class StudentNode implements Serializable {
             }
         }
         return outFlag;
+    }
+
+    public String getInTimes() {
+        if (!inOutInformerList.isEmpty()) {
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy, HH:MM");
+            StringBuilder stringBuilder = new StringBuilder();
+            for (InOutInformer inOutInformer : inOutInformerList) {
+                if (null != inOutInformer.getInTime()) {
+                    stringBuilder.append(dateFormatter.format(inOutInformer.getInTime())).append("\n");
+                }
+            }
+            return stringBuilder.toString();
+        }
+        return org.apache.commons.lang.StringUtils.EMPTY;
+    }
+
+    public String getOutTimes() {
+        if (!inOutInformerList.isEmpty()) {
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy, HH:MM");
+            StringBuilder stringBuilder = new StringBuilder();
+            for (InOutInformer inOutInformer : inOutInformerList) {
+                if (null != inOutInformer.getOutTime()) {
+                    stringBuilder.append(dateFormatter.format(inOutInformer.getOutTime())).append("\n");
+                }
+            }
+            return stringBuilder.toString();
+        }
+        return org.apache.commons.lang.StringUtils.EMPTY;
     }
 
     public void addInOutInformer(InOutInformer inOutInformer) {

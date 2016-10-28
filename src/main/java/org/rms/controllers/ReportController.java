@@ -1,13 +1,11 @@
 package org.rms.controllers;
 
-import com.sun.org.apache.xerces.internal.dom.ChildNode;
 import org.rms.displaywrappers.ChildWrapper;
 import org.rms.displaywrappers.ParentWrapper;
 import org.rms.helpers.GridRow;
 import org.rms.helpers.JsonBuilder;
 import org.rms.models.ParentNode;
 import org.rms.models.StudentNode;
-import org.rms.models.User;
 import org.rms.services.ChildService;
 import org.rms.services.ParentService;
 import org.rms.services.ReportService;
@@ -49,26 +47,6 @@ public class ReportController {
         return "report";
     }
 
-    @RequestMapping(value = "/viewreport.action", method = RequestMethod.GET)
-    @ResponseBody
-    public Object getAllParents(@RequestParam(value = "page") Integer page, @RequestParam(value = "rows") Integer rows, HttpServletResponse response,
-                              Model model, @RequestParam(value = "sord") String sortOrder, @RequestParam(value = "sidx") String sortName,
-                              @RequestParam(value = "filters", required = false) String filter) {
-        List<ParentNode> parentNodes = parentService.getParentNodes();
-        Integer parentNodesCount = parentNodes.size();
-        List<ParentNode> parentNodesSubList = new ArrayList<ParentNode>();
-        if (parentNodesCount > 0) {
-            parentNodesSubList = JsonBuilder.generateSubList(page, rows, parentNodesCount, parentNodes);
-        }
-        List<GridRow> parentGridRows = new ArrayList<GridRow>(parentNodesSubList.size());
-        if (!parentNodesSubList.isEmpty()) {
-            for (ParentNode parentNode : parentNodesSubList) {
-                parentGridRows.add(new ParentWrapper(parentNode));
-            }
-        }
-        return JsonBuilder.convertToJson(rows, page, parentNodesCount, parentGridRows);
-    }
-
     @RequestMapping(value = "/viewchildreport.action", method = RequestMethod.GET)
     @ResponseBody
     public Object getChildDetails(@RequestParam(value = "page") Integer page, @RequestParam(value = "rows") Integer rows, HttpServletResponse response,
@@ -92,14 +70,16 @@ public class ReportController {
 
     @RequestMapping(value = "/pdfreport.action", method = RequestMethod.POST)
     @ResponseBody
-    public Object pdfCustomLogReport(HttpServletRequest request,HttpServletResponse response) {
+    public Object pdfCustomLogReport(HttpServletRequest request,HttpServletResponse response,
+                                     @RequestParam(value = "massCentre", required = false) String massCentre,
+                                     @RequestParam(value = "date", required = false) String date) {
 
 
         try {
-            File pdfFile = reportService.getReport();
+            File pdfFile = reportService.getReport(massCentre, date);
             if (null != pdfFile) {
                 response.setContentType("application/pdf");
-                response.setHeader("Content-disposition", "attachment; filename=REPORT.pdf");
+                response.setHeader("Content-disposition", "attachment; filename=Syro_Malabar_Catholic_Church.pdf");
                 FileInputStream in = new FileInputStream(pdfFile);
                 OutputStream out = response.getOutputStream();
                 byte[] buffer = new byte[8192];
