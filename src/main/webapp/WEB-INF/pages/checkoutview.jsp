@@ -36,6 +36,7 @@
             <li><a href="adduser.action">Add Users</a></li>
             <li><a href="checkinsearch.action">Check In</a></li>
             <li class="active"><a href="checkoutsearch.action">Check Out</a></li>
+            <li><a href="registration.action">Registration</a></li>
             <li><a href="#">Edit</a></li>
             <li><a href="#">Report</a></li>
             <li><a href="logout.action">Logout</a></li>

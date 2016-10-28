@@ -38,7 +38,6 @@ public class RegistrationController {
     @RequestMapping(value = "registration.action", method = RequestMethod.GET)
     public String registrationPageDisplay(Model model) {
         model.addAttribute("parentNodeForm", new ParentNode());
-        model.addAttribute("loginUser", new User());
         return "registration";
     }
 
