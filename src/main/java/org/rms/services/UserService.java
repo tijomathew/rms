@@ -1,6 +1,7 @@
 package org.rms.services;
 
 import org.rms.models.User;
+import org.rms.visualizations.ChartResultContainer;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -20,5 +21,7 @@ public interface UserService {
     List<User> getAllUsersForParishIds(List<Long> parishIds);
 
     List<User> getAllUsersForPrayerUnitIds(List<Long> prayerUnitIds);
+
+    ChartResultContainer getChartResultContainer(String tqx);
 
 }

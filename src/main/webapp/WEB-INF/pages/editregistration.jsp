@@ -316,7 +316,7 @@
             <li><a href="checkinsearch.action">Check In</a></li>
             <li><a href="checkoutsearch.action">Check Out</a></li>
             <li><a href="registration.action">Registration</a></li>
-            <li class="active"><a href="getEditParentEntryForm.action">Search</a></li>
+            <li class="active"><a href="getEditParentEntryForm.action">Edit</a></li>
             <li><a href="reportpage.action">Report</a></li>
             <li><a href="logout.action">Logout</a></li>
         </ul>

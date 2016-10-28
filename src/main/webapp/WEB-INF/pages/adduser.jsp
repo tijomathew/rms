@@ -18,9 +18,62 @@
 
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
     <script type="text/javascript">
-        jQuery(document).ready(function () {
+
+        google.load("visualization", "1", {packages: ["table"]});
+
+        function runUsersDisplayQuery(contextPath) {
+
+            var opts = {sendMethod: 'auto'};
+            var url = "/viewusers.action";
+
+            var query = new google.visualization.Query(contextPath + url + '?tqx=reqId:1', opts);
+
+            // Send the query with a callback function.
+            query.send(handleUsersDisplayQueryResponse);
+
+
+        }
+
+        function handleUsersDisplayQueryResponse(response) {
+            if (response.isError()) {
+                alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                return;
+            }
+            var data = response.getDataTable();
+            var table = new google.visualization.Table(document.getElementById('table_div'));
+
+            var cssClassNames = {
+                'headerRow': 'italic-darkblue-font large-font bold-font',
+                'tableRow': '',
+                'oddTableRow': 'beige-background',
+                'selectedTableRow': '',
+                'hoverTableRow': '',
+                'headerCell': 'gold-border',
+                'tableCell': '',
+                'rowNumberCell': ''
+            };
+
+            var options = {
+                allowHtml: true, showRowNumber: false,
+                width: 'auto',
+                height: 'auto',
+                alternatingRowStyle: true,
+                cssClassNames: cssClassNames
+            };
+            google.visualization.events.addListener(table, 'ready', function () {
+                $(".google-visualization-table-table").attr('class', 'table');
+                $("table").addClass('table table-striped table-bordered table-condensed"');
+            });
+
+            table.draw(data, options);
+        }
+
+        $(document).ready(function () {
+
+            runUsersDisplayQuery("${pageContext.request.contextPath}");
 
             $('#addUserButton').click(function () {
                 $("#addUserButton").html('Loading');
@@ -37,6 +90,7 @@
                             $('#userFailureContainer').hide();
                             $('#successContainer').show();
                             $("#addUserButton").html('Create User');
+                            runUsersDisplayQuery("${pageContext.request.contextPath}");
                         }
                         else if (response == 'mailfail') {
                             $('#successContainer').hide();
@@ -86,6 +140,10 @@
                 <label for="email">Email:</label>
                 <form:input path="email" id="email" class="form-control"/>
             </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <form:password path="password" id="password" class="form-control"/>
+            </div>
             <button class="btn btn-lg btn-success btn-block" type="button" id="addUserButton">Create User</button>
         </form:form>
     </div>
@@ -98,8 +156,9 @@
         User cannot be created as it exists in the system!! Please use another mail-ID!!<br/>
     </div>
     <div class="alert alert-success" role="alert" id="successContainer" style="display:none">
-        User is created successfully!! Password is sent by mail!!<br/>
+        User is created successfully!!<br/>
     </div>
+    <div id="table_div" style="float:right;width: 85%"></div>
 </div>
 <%@include file="footer.jsp" %>
 </body>

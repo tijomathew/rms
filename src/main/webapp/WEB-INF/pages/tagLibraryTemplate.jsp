@@ -12,6 +12,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <spring:url value="/resources/images/ico.png" var="favicon"/>
-<link rel="shortcut icon" href="${favicon}">
+<link rel="shortcut icon" href="${favicon}" />
 
 
