@@ -26,6 +26,8 @@
     </script>
 </head>
 
+<jsp:useBean id="date" class="java.util.Date"/>
+<fmt:formatDate value="${date}" pattern="MMM-dd" var="currentYear"/>
 
 <body>
 <%@ include file="headerTemplate.jsp" %>
@@ -126,7 +128,7 @@
                                         <c:if test="${not element.hasOutEntryOnDate}">
                                             <c:if test="${element.hasInEntryOnDate}">
                                                 <div class="col-md-2">
-                                                    <label for="checkOut">Check-Out:</label>
+                                                    <label for="checkOut">Check-Out:</label>${currentYear}
                                                     <form:checkbox path="studentNodeList[${count.index}].checkOut"
                                                                    id="checkOut"
                                                                    class="form-control"/>

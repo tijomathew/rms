@@ -50,12 +50,11 @@ public class LoginController {
             if (loggedInUser != null) {
                 if (loggedInUser.getAlreadyLoggedIn()) {
                     if (loggedInUser.getSystemRole().equals(SystemRole.ADMIN)) {
-                        model.addAttribute("newUser", new User());
-                        requestResponseHolder.setAttributeToSession(SystemRole.RMS_CURRENT_USER.toString(), loggedInUser);
-                        return "adduser";
-                    } else if (loggedInUser.getSystemRole().equals(SystemRole.ORGANIZER)) {
                         requestResponseHolder.setAttributeToSession(SystemRole.RMS_CURRENT_USER.toString(), loggedInUser);
                         return "registerationcounts";
+                    } else if (loggedInUser.getSystemRole().equals(SystemRole.ORGANIZER)) {
+                        requestResponseHolder.setAttributeToSession(SystemRole.RMS_CURRENT_USER.toString(), loggedInUser);
+                        return "redirect:/getEditParentEntryForm.action";
                     }
                 } else {
                     model.addAttribute("changePasswordUser", loggedInUser);
