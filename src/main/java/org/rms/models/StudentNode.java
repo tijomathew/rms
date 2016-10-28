@@ -82,6 +82,7 @@ public class StudentNode implements Serializable {
     public String getFullName() {
         return new StringBuilder(firstName).append(" ").append(lastName).toString();
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -242,6 +243,23 @@ public class StudentNode implements Serializable {
 
     public void addInOutInformer(InOutInformer inOutInformer) {
         this.inOutInformerList.add(inOutInformer);
+    }
+
+    public String getAllRegisteredDays() {
+        String dayNames = "";
+        if (getDayOne() != null) {
+            dayNames = getDayOne() + " ";
+        }
+        if (getDayTwo() != null) {
+            dayNames = getDayTwo() + " ";
+        }
+        if (getDayThree() != null) {
+            dayNames = getDayThree() + " ";
+        }
+        if (getDayFour() != null) {
+            dayNames = getDayFour();
+        }
+        return dayNames;
     }
 
     private String getDateAsString() {

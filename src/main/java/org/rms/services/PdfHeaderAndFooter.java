@@ -10,12 +10,10 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
 
 public class PdfHeaderAndFooter extends PdfPageEventHelper {
-
 
 
     protected Phrase footer;
@@ -23,18 +21,28 @@ public class PdfHeaderAndFooter extends PdfPageEventHelper {
     private PdfTemplate pdfTemplate;
     private BaseFont baseFont;
     String reportName = null;
-    String clientName = "";
+    String date = null;
+    private Map<String, String> lookUpMap;
 
     private static Font fontBold = FontFactory.getFont("Verdana", 9, Font.BOLD);
     private static Font fontNormal = FontFactory.getFont("Verdana", 8, Font.NORMAL);
+
     /*
      * constructor
      */
-    public PdfHeaderAndFooter(String reportName) {
-        this.reportName          = reportName;
-        this.baseFont            = fontNormal.getCalculatedBaseFont(BaseFont.NOT_EMBEDDED);
+    public PdfHeaderAndFooter(String reportName, String date) {
+        this.reportName = reportName;
+        this.date = date;
+        this.baseFont = fontNormal.getCalculatedBaseFont(BaseFont.NOT_EMBEDDED);
+        lookUpMap = new HashMap<>();
+        lookUpMap.put("all", "All");
+        lookUpMap.put("dayOne", "Oct-29");
+        lookUpMap.put("dayTwo", "Oct-30");
+        lookUpMap.put("dayThree", "Oct-31");
+        lookUpMap.put("dayFour", "Nov-1");
 
     }
+
     @Override
     public void onStartPage(PdfWriter writer, Document document) {
         super.onStartPage(writer, document);
@@ -42,6 +50,7 @@ public class PdfHeaderAndFooter extends PdfPageEventHelper {
         //pdfTemplate = writer.getDirectContent().createTemplate(50, 50);
         writer.addPageDictEntry(PdfName.ROTATE, PdfPage.LANDSCAPE);
     }
+
     @Override
     public void onEndPage(PdfWriter writer, Document document) {
         super.onEndPage(writer, document);
@@ -69,9 +78,11 @@ public class PdfHeaderAndFooter extends PdfPageEventHelper {
             head.addCell(cell);
             Phrase phrase = new Phrase();
 
-            Chunk chunk = new Chunk("Syro Malabar Catholic Church Dublin, Ireland".concat("\n\n"),fontBold);
+            Chunk chunk = new Chunk("Syro Malabar Catholic Church Dublin, Ireland".concat("\n\n"), fontBold);
             phrase.add(chunk);
-            chunk = new Chunk(reportName.toUpperCase().concat("\n\n"),fontBold);
+            chunk = new Chunk(reportName.toUpperCase().concat("\n\n"), fontBold);
+            phrase.add(chunk);
+            chunk = new Chunk(lookUpMap.get(date).concat("\n\n"), fontBold);
             phrase.add(chunk);
             phrase.add(Chunk.NEWLINE);
             phrase.add(Chunk.NEWLINE);
@@ -90,8 +101,8 @@ public class PdfHeaderAndFooter extends PdfPageEventHelper {
         //Footer
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
         String date = sdf.format(new Date());
-        ColumnText.showTextAligned(cb, Element.ALIGN_BOTTOM, new Phrase(date,fontNormal), document.left() , document.getPageSize().getBottom(30), 0);
-        ColumnText.showTextAligned(cb, Element.ALIGN_BOTTOM, new Phrase(reportName,fontNormal), document.right(400) , document.getPageSize().getBottom(30), 0);
+        ColumnText.showTextAligned(cb, Element.ALIGN_BOTTOM, new Phrase(date, fontNormal), document.left(), document.getPageSize().getBottom(30), 0);
+        ColumnText.showTextAligned(cb, Element.ALIGN_BOTTOM, new Phrase(reportName, fontNormal), document.right(400), document.getPageSize().getBottom(30), 0);
 
     }
 
@@ -102,22 +113,23 @@ public class PdfHeaderAndFooter extends PdfPageEventHelper {
     public void onCloseDocument(PdfWriter writer, Document document) {
         super.onCloseDocument(writer, document);
 
-        if(null != pdfTemplate) {
+        if (null != pdfTemplate) {
             pdfTemplate.beginText();
-            pdfTemplate.setFontAndSize(baseFont,8);
+            pdfTemplate.setFontAndSize(baseFont, 8);
             pdfTemplate.setTextMatrix(0, 0);
             pdfTemplate.showText((writer.getPageNumber() - 1) + "");
             pdfTemplate.endText();
         }
 
     }
+
     /*
         Method sets the PDFContentType and PDFTemplate for page number template generation, should be an one time process
      */
     public void setTypeAndTemplate(PdfWriter pdfWriter) {
-        if(null == this.pdfContentByte)
+        if (null == this.pdfContentByte)
             this.pdfContentByte = pdfWriter.getDirectContent();
-        if(null == this.pdfTemplate)
+        if (null == this.pdfTemplate)
             this.pdfTemplate = this.pdfContentByte.createTemplate(50, 50);
     }
 

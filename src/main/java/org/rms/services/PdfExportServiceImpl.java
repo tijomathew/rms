@@ -28,11 +28,12 @@ public class PdfExportServiceImpl implements PdfExportService {
     Font fontNormal;
 
     public PdfExportServiceImpl() {
-        fontBold   = FontFactory.getFont("Verdana", 7, Font.BOLD);
-        fontNormal = FontFactory.getFont("Verdana",7, Font.NORMAL);
+        fontBold = FontFactory.getFont("Verdana", 7, Font.BOLD);
+        fontNormal = FontFactory.getFont("Verdana", 7, Font.NORMAL);
     }
+
     @Override
-    public File createPdfReport(List<ParentNode> parentNodes, String massCentre, String date) throws DocumentException{
+    public File createPdfReport(List<ParentNode> parentNodes, String massCentre, String date) throws DocumentException {
         document = new Document(PageSize.A4_LANDSCAPE);
         File tempDestFile = createTempPdfFile();//create a temporary pdf file in the temp directory of web server
         try {
@@ -46,27 +47,29 @@ public class PdfExportServiceImpl implements PdfExportService {
         document.setMargins(75, 75, 100, 75);
 
         //A class to write the header and footer to the pdf
-        PdfHeaderAndFooter event = new PdfHeaderAndFooter(massCentre);
+        PdfHeaderAndFooter event = new PdfHeaderAndFooter(massCentre,date);
         //writer.setBoxSize("headerBox", headerBox);
         writer.setPageEvent(event);
 
         document.open();
-        table = new PdfPTable(8);//create a table with respective column size
+        table = new PdfPTable(10);//create a table with respective column size
 
-        table.setWidths(new int[]{3, 20, 10, 20, 10, 7, 15, 15});
+        table.setWidths(new int[]{2, 15, 7, 7, 15, 7, 7, 20, 10, 10});
         table.setSpacingBefore(5);
         table.setSpacingAfter(5);
         addCellContentToPDFTable("No.", fontBold, Element.ALIGN_CENTER);
         addCellContentToPDFTable("Parent Name", fontBold, Element.ALIGN_CENTER);
-        addCellContentToPDFTable("Phone Number", fontBold, Element.ALIGN_CENTER);
+        addCellContentToPDFTable("Phone No.1", fontBold, Element.ALIGN_CENTER);
+        addCellContentToPDFTable("Phone No.2", fontBold, Element.ALIGN_CENTER);
         addCellContentToPDFTable("Child Name", fontBold, Element.ALIGN_CENTER);
         addCellContentToPDFTable("Category", fontBold, Element.ALIGN_CENTER);
         addCellContentToPDFTable("Band Code", fontBold, Element.ALIGN_CENTER);
+        addCellContentToPDFTable("Days", fontBold, Element.ALIGN_CENTER);
         addCellContentToPDFTable("Check In", fontBold, Element.ALIGN_CENTER);
         addCellContentToPDFTable("Check Out", fontBold, Element.ALIGN_CENTER);
         int i = 1;
         PdfPCell cell;
-        for (ParentNode parentNode: parentNodes){
+        for (ParentNode parentNode : parentNodes) {
 
             int rowSpan = parentNode.getStudentNodeList().size();
             cell = new PdfPCell(new Phrase(new Chunk(String.valueOf(i), fontNormal)));
@@ -81,20 +84,25 @@ public class PdfExportServiceImpl implements PdfExportService {
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setRowspan(rowSpan > 0 ? rowSpan : 1);
             table.addCell(cell);
-            if(rowSpan > 0) {
-                for (StudentNode studentNode: parentNode.getStudentNodeList()){
+            cell = new PdfPCell(new Phrase(new Chunk(parentNode.getAlternativePhoneNumber().toString(), fontNormal)));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setRowspan(rowSpan > 0 ? rowSpan : 1);
+            table.addCell(cell);
+            if (rowSpan > 0) {
+                for (StudentNode studentNode : parentNode.getStudentNodeList()) {
                     addCellContentToPDFTable(studentNode.getFullName(), fontNormal, Element.ALIGN_LEFT);
                     addCellContentToPDFTable(studentNode.getRetreatSection(), fontNormal, Element.ALIGN_LEFT);
                     addCellContentToPDFTable(studentNode.getBandCode(), fontNormal, Element.ALIGN_LEFT);
+                    addCellContentToPDFTable(studentNode.getAllRegisteredDays(), fontNormal, Element.ALIGN_LEFT);
                     addCellContentToPDFTable(studentNode.getInTimes(), fontNormal, Element.ALIGN_LEFT);
                     addCellContentToPDFTable(studentNode.getOutTimes(), fontNormal, Element.ALIGN_LEFT);
                 }
             } else {
-                addCellContentToPDFTable("" , fontNormal, Element.ALIGN_LEFT);
-                addCellContentToPDFTable("" , fontNormal, Element.ALIGN_LEFT);
-                addCellContentToPDFTable("" , fontNormal, Element.ALIGN_LEFT);
-                addCellContentToPDFTable("" , fontNormal, Element.ALIGN_LEFT);
-                addCellContentToPDFTable("" , fontNormal, Element.ALIGN_LEFT);
+                addCellContentToPDFTable("", fontNormal, Element.ALIGN_LEFT);
+                addCellContentToPDFTable("", fontNormal, Element.ALIGN_LEFT);
+                addCellContentToPDFTable("", fontNormal, Element.ALIGN_LEFT);
+                addCellContentToPDFTable("", fontNormal, Element.ALIGN_LEFT);
+                addCellContentToPDFTable("", fontNormal, Element.ALIGN_LEFT);
             }
             i++;
 
@@ -105,8 +113,9 @@ public class PdfExportServiceImpl implements PdfExportService {
 
         return tempDestFile;
     }
-    public void addCellContentToPDFTable(Object obj, Font font,int alignment){
-        PdfPCell cell = new PdfPCell(new Phrase(null != obj.toString()? obj.toString().replaceAll("[€|$] ", ""): "", font));
+
+    public void addCellContentToPDFTable(Object obj, Font font, int alignment) {
+        PdfPCell cell = new PdfPCell(new Phrase(null != obj.toString() ? obj.toString().replaceAll("[€|$] ", "") : "", font));
         cell.setHorizontalAlignment(alignment);
         table.addCell(cell);//add the cell content to pdf
 
