@@ -69,16 +69,16 @@ public class PdfExportServiceImpl implements PdfExportService {
         for (ParentNode parentNode: parentNodes){
 
             int rowSpan = parentNode.getStudentNodeList().size();
-            cell = new PdfPCell(new Phrase(new Chunk(String.valueOf(i), fontBold)));
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell = new PdfPCell(new Phrase(new Chunk(String.valueOf(i), fontNormal)));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setRowspan(rowSpan > 0 ? rowSpan : 1);
             table.addCell(cell);
             cell = new PdfPCell(new Phrase(new Chunk(parentNode.getFullName().toString(), fontBold)));
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setRowspan(rowSpan > 0 ? rowSpan : 1);
             table.addCell(cell);
-            cell = new PdfPCell(new Phrase(new Chunk(parentNode.getPhoneNumber().toString(), fontBold)));
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell = new PdfPCell(new Phrase(new Chunk(parentNode.getPhoneNumber().toString(), fontNormal)));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setRowspan(rowSpan > 0 ? rowSpan : 1);
             table.addCell(cell);
             if(rowSpan > 0) {

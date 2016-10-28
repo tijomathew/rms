@@ -4,6 +4,7 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 import org.rms.models.ParentNode;
@@ -24,14 +25,18 @@ public class ParentDaoImpl implements ParentDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public List<ParentNode> getParentNodes(String massCentre, String date) {
+    public List<ParentNode> getParentNodes(String massCentre, String date, String category) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ParentNode.class, "parentNode").
+                createAlias("parentNode.studentNodeList", "studentNode", JoinType.INNER_JOIN).
                 add(Restrictions.eq("massCentreName", massCentre));
+        ;
         if(!date.equals("all")) {
-           criteria.createAlias("parentNode.studentNodeList", "studentNode", JoinType.INNER_JOIN);
            criteria.add(Restrictions.isNotNull("studentNode.".concat(date)));
         }
-        return criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+        if(!category.equals("all")) {
+           criteria.add(Restrictions.eq("studentNode.retreatSection", category));
+        }
+        return criteria.addOrder(Order.asc("firstName")).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override

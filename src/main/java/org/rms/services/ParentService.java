@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface ParentService {
 
-    List<ParentNode> getParentNodes(String massCentre, String date);
+    List<ParentNode> getParentNodes(String massCentre, String date, String category);
 
     ParentNode getCheckInOutParentNodeDetails(ParentNode parentNode);
 
