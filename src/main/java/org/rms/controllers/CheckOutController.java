@@ -101,7 +101,7 @@ public class CheckOutController {
         if (retrievedParentNode != null) {
             for (StudentNode studentNode : retrievedParentNode.getStudentNodeList()) {
                 for (StudentNode checkOutStudentNode : parentNode.getStudentNodeList()) {
-                    if (checkOutStudentNode.getId() == studentNode.getId() && checkOutStudentNode.getCheckOut() != null && checkOutStudentNode.getCheckOut()) {
+                    if (checkOutStudentNode.getId().longValue() == studentNode.getId().longValue() && checkOutStudentNode.getCheckOut() != null && checkOutStudentNode.getCheckOut()) {
                         if (!studentNode.getHasOutEntryOnDate()) {
                             for (InOutInformer inOutInformer : studentNode.getInOutInformerList()) {
                                 if (inOutInformer.getDate().equals(getCurrentDateAsString())) {

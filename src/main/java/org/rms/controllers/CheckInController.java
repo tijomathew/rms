@@ -89,7 +89,7 @@ public class CheckInController {
             }
 
             return "checkinview";
-        }catch (Exception e){
+        } catch (Exception e) {
             HttpSession httpSession = httpServletRequest.getSession();
             httpSession.setAttribute("hideErrorMessageDiv", false);
             model.addAttribute("searchCheckInParentNode", new ParentNode());
@@ -103,7 +103,7 @@ public class CheckInController {
         if (retrievedParentNode != null) {
             for (StudentNode studentNode : retrievedParentNode.getStudentNodeList()) {
                 for (StudentNode checkInStudentNode : parentNode.getStudentNodeList()) {
-                    if (checkInStudentNode.getId() == studentNode.getId() && checkInStudentNode.getCheckIn() != null && checkInStudentNode.getCheckIn()) {
+                    if (checkInStudentNode.getId().longValue() == studentNode.getId().longValue() && checkInStudentNode.getCheckIn() != null && checkInStudentNode.getCheckIn()) {
                         if (!studentNode.getHasInEntryOnDate()) {
                             InOutInformer inOutInformer = new InOutInformer();
                             inOutInformer.setDate(getCurrentDateAsString());
