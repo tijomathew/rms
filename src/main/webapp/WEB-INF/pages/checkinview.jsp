@@ -35,7 +35,9 @@
     <div class="container">
         <ul class="nav nav-pills">
             <li><a href="showcounts.action">Show Counts</a></li>
-            <li><a href="adduser.action">Add Users</a></li>
+            <c:if test="${currentUser.systemRole == 'ADMIN'}">
+                <li><a href="adduser.action">Add Users</a></li>
+            </c:if>
             <li class="active"><a href="checkinsearch.action">Check In</a></li>
             <li><a href="checkoutsearch.action">Check Out</a></li>
             <li><a href="registration.action">Registration</a></li>
@@ -104,7 +106,7 @@
                                                 <form:input path="studentNodeList[${count.index}].retreatSection"
                                                             id="id"
                                                             class="form-control"
-                                                            value="${element.retreatSection}" readonly="true"/>
+                                                            value="${element.retreatSection}" readonly="true" cssStyle="background: red"/>
                                             </div>
                                             <div class="col-md-2">
                                                 <label for="bandCode">Band Code:</label>

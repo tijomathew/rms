@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 
 /**
  * Created by bibin on 28/10/16.
@@ -41,22 +42,26 @@ public class SearchController {
         if (retrievedParentNode != null) {
             //Remove other dates registered Child
 
-            for (StudentNode studentNode : retrievedParentNode.getStudentNodeList()) {
+            Iterator<StudentNode> studentNodeIterator = retrievedParentNode.getStudentNodeList().iterator();
+
+            while (studentNodeIterator.hasNext()) {
+                StudentNode studentNode = studentNodeIterator.next();
+
                 if (getCurrentDateAsString().equals("Oct-26")) {
                     if (studentNode.getDayOne() == null)
-                        retrievedParentNode.getStudentNodeList().remove(studentNode);
+                        studentNodeIterator.remove();
                 }
                 if (getCurrentDateAsString().equals("Oct-27")) {
                     if (studentNode.getDayTwo() == null)
-                        retrievedParentNode.getStudentNodeList().remove(studentNode);
+                        studentNodeIterator.remove();
                 }
                 if (getCurrentDateAsString().equals("Oct-28")) {
                     if (studentNode.getDayThree() == null)
-                        retrievedParentNode.getStudentNodeList().remove(studentNode);
+                        studentNodeIterator.remove();
                 }
                 if (getCurrentDateAsString().equals("Oct-29")) {
                     if (studentNode.getDayFour() == null)
-                        retrievedParentNode.getStudentNodeList().remove(studentNode);
+                        studentNodeIterator.remove();
                 }
             }
             HttpSession httpSession = httpServletRequest.getSession();

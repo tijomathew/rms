@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 
 /**
  * Created by tijo on 24/10/16.
@@ -52,34 +53,40 @@ public class CheckInController {
 
         if (retrievedParentNode != null) {
             //Remove other dates registered Child
+            Iterator<StudentNode> studentNodeIterator = retrievedParentNode.getStudentNodeList().iterator();
 
-            for (StudentNode studentNode : retrievedParentNode.getStudentNodeList()) {
+            while (studentNodeIterator.hasNext()) {
+                StudentNode studentNode = studentNodeIterator.next();
+
                 if (getCurrentDateAsString().equals("Oct-26")) {
                     if (studentNode.getDayOne() == null)
-                        retrievedParentNode.getStudentNodeList().remove(studentNode);
+                        studentNodeIterator.remove();
                 }
                 if (getCurrentDateAsString().equals("Oct-27")) {
                     if (studentNode.getDayTwo() == null)
-                        retrievedParentNode.getStudentNodeList().remove(studentNode);
+                        studentNodeIterator.remove();
                 }
                 if (getCurrentDateAsString().equals("Oct-28")) {
                     if (studentNode.getDayThree() == null)
-                        retrievedParentNode.getStudentNodeList().remove(studentNode);
+                        studentNodeIterator.remove();
                 }
                 if (getCurrentDateAsString().equals("Oct-29")) {
                     if (studentNode.getDayFour() == null)
-                        retrievedParentNode.getStudentNodeList().remove(studentNode);
+                        studentNodeIterator.remove();
                 }
             }
             HttpSession httpSession = httpServletRequest.getSession();
             httpSession.setAttribute("checkInParent", retrievedParentNode);
             model.addAttribute("checkInViewParent", new ParentNode());
-        } else {
+        } else
+
+        {
             HttpSession httpSession = httpServletRequest.getSession();
             httpSession.setAttribute("hideErrorMessageDiv", false);
             model.addAttribute("searchCheckInParentNode", new ParentNode());
             return "checkinsearchentry";
         }
+
         return "checkinview";
     }
 

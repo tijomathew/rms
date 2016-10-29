@@ -27,14 +27,16 @@ public class ParentDaoImpl implements ParentDao {
     @Override
     public List<ParentNode> getParentNodes(String massCentre, String date, String category) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ParentNode.class, "parentNode").
-                createAlias("parentNode.studentNodeList", "studentNode", JoinType.INNER_JOIN).
-                add(Restrictions.eq("massCentreName", massCentre));
+                createAlias("parentNode.studentNodeList", "studentNode", JoinType.INNER_JOIN);
         ;
-        if(!date.equals("all")) {
-           criteria.add(Restrictions.isNotNull("studentNode.".concat(date)));
+        if (!massCentre.equals("All")) {
+            criteria.add(Restrictions.eq("massCentreName", massCentre));
         }
-        if(!category.equals("all")) {
-           criteria.add(Restrictions.eq("studentNode.retreatSection", category));
+        if (!date.equals("all")) {
+            criteria.add(Restrictions.isNotNull("studentNode.".concat(date)));
+        }
+        if (!category.equals("all")) {
+            criteria.add(Restrictions.eq("studentNode.retreatSection", category));
         }
         return criteria.addOrder(Order.asc("firstName")).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
