@@ -136,15 +136,23 @@ public class EditRegistrationController {
 
     @RequestMapping(value = "getRegisteredEntry.action", method = {RequestMethod.POST})
     public String getRegisteredFamilyDetails(@ModelAttribute("searchEditParent") ParentNode registeredParent, Model model, HttpServletRequest httpServletRequest) {
-        ParentNode parentNode = parentService.getCheckInOutParentNodeDetails(registeredParent);
-        if (parentNode != null) {
-            HttpSession httpSession = httpServletRequest.getSession();
-            httpSession.setAttribute("selectedParentNode", parentNode);
-            model.addAttribute("parentNodeForm", parentNode);
-            return "editregistration";
-        } else {
+        try {
+            ParentNode parentNode = parentService.getCheckInOutParentNodeDetails(registeredParent);
+            if (parentNode != null) {
+                HttpSession httpSession = httpServletRequest.getSession();
+                httpSession.setAttribute("selectedParentNode", parentNode);
+                model.addAttribute("parentNodeForm", parentNode);
+                return "editregistration";
+            } else {
+                HttpSession httpSession = httpServletRequest.getSession();
+                httpSession.setAttribute("hideErrorMessageDiv", false);
+                model.addAttribute("searchEditParent", new ParentNode());
+                return "editsearchformentry";
+            }
+        } catch (Exception e) {
             HttpSession httpSession = httpServletRequest.getSession();
             httpSession.setAttribute("hideErrorMessageDiv", false);
+            model.addAttribute("searchEditParent", new ParentNode());
             return "editsearchformentry";
         }
     }

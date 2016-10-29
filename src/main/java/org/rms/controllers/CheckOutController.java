@@ -50,42 +50,49 @@ public class CheckOutController {
 
     @RequestMapping(value = "checkoutview.action", method = RequestMethod.POST)
     public String checkInSearchProcess(@ModelAttribute("searchCheckOutParentNode") ParentNode parentNode, HttpServletRequest httpServletRequest, Model model) {
-        ParentNode retrievedParentNode = parentService.getCheckInOutParentNodeDetails(parentNode);
+        try {
+            ParentNode retrievedParentNode = parentService.getCheckInOutParentNodeDetails(parentNode);
 
-        if (retrievedParentNode != null) {
-            //Remove other dates registered Child
+            if (retrievedParentNode != null) {
+                //Remove other dates registered Child
 
-            Iterator<StudentNode> studentNodeIterator = retrievedParentNode.getStudentNodeList().iterator();
+                Iterator<StudentNode> studentNodeIterator = retrievedParentNode.getStudentNodeList().iterator();
 
-            while (studentNodeIterator.hasNext()) {
-                StudentNode studentNode = studentNodeIterator.next();
+                while (studentNodeIterator.hasNext()) {
+                    StudentNode studentNode = studentNodeIterator.next();
 
-                if (getCurrentDateAsString().equals("Oct-29")) {
-                    if (studentNode.getDayOne() == null)
-                        studentNodeIterator.remove();
+                    if (getCurrentDateAsString().equals("Oct-29")) {
+                        if (studentNode.getDayOne() == null)
+                            studentNodeIterator.remove();
+                    }
+                    if (getCurrentDateAsString().equals("Oct-30")) {
+                        if (studentNode.getDayTwo() == null)
+                            studentNodeIterator.remove();
+                    }
+                    if (getCurrentDateAsString().equals("Oct-31")) {
+                        if (studentNode.getDayThree() == null)
+                            studentNodeIterator.remove();
+                    }
+                    if (getCurrentDateAsString().equals("Nov-1")) {
+                        if (studentNode.getDayFour() == null)
+                            studentNodeIterator.remove();
+                    }
                 }
-                if (getCurrentDateAsString().equals("Oct-30")) {
-                    if (studentNode.getDayTwo() == null)
-                        studentNodeIterator.remove();
-                }
-                if (getCurrentDateAsString().equals("Oct-31")) {
-                    if (studentNode.getDayThree() == null)
-                        studentNodeIterator.remove();
-                }
-                if (getCurrentDateAsString().equals("Nov-1")) {
-                    if (studentNode.getDayFour() == null)
-                        studentNodeIterator.remove();
-                }
+                HttpSession httpSession = httpServletRequest.getSession();
+                httpSession.setAttribute("checkOutParent", retrievedParentNode);
+                model.addAttribute("checkOutViewParent", new ParentNode());
+            } else {
+                HttpSession httpSession = httpServletRequest.getSession();
+                httpSession.setAttribute("hideErrorMessageDiv", false);
+                return "checkoutsearchentry";
             }
-            HttpSession httpSession = httpServletRequest.getSession();
-            httpSession.setAttribute("checkOutParent", retrievedParentNode);
-            model.addAttribute("checkOutViewParent", new ParentNode());
-        } else {
+            return "checkoutview";
+        } catch (Exception e) {
             HttpSession httpSession = httpServletRequest.getSession();
             httpSession.setAttribute("hideErrorMessageDiv", false);
+            model.addAttribute("searchCheckOutParentNode", new ParentNode());
             return "checkoutsearchentry";
         }
-        return "checkoutview";
     }
 
     @RequestMapping(value = "checkoutupdate.action", method = RequestMethod.POST)

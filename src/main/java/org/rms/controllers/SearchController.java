@@ -37,42 +37,49 @@ public class SearchController {
 
     @RequestMapping(value = "searchview.action", method = RequestMethod.POST)
     public String checkInSearchProcess(@ModelAttribute("searchParentNode") ParentNode parentNode, HttpServletRequest httpServletRequest, Model model) {
-        ParentNode retrievedParentNode = parentService.getCheckInOutParentNodeDetails(parentNode);
+        try {
+            ParentNode retrievedParentNode = parentService.getCheckInOutParentNodeDetails(parentNode);
 
-        if (retrievedParentNode != null) {
-            //Remove other dates registered Child
+            if (retrievedParentNode != null) {
+                //Remove other dates registered Child
 
-            Iterator<StudentNode> studentNodeIterator = retrievedParentNode.getStudentNodeList().iterator();
+                Iterator<StudentNode> studentNodeIterator = retrievedParentNode.getStudentNodeList().iterator();
 
-            while (studentNodeIterator.hasNext()) {
-                StudentNode studentNode = studentNodeIterator.next();
+                while (studentNodeIterator.hasNext()) {
+                    StudentNode studentNode = studentNodeIterator.next();
 
-                if (getCurrentDateAsString().equals("Oct-29")) {
-                    if (studentNode.getDayOne() == null)
-                        studentNodeIterator.remove();
+                    if (getCurrentDateAsString().equals("Oct-29")) {
+                        if (studentNode.getDayOne() == null)
+                            studentNodeIterator.remove();
+                    }
+                    if (getCurrentDateAsString().equals("Oct-30")) {
+                        if (studentNode.getDayTwo() == null)
+                            studentNodeIterator.remove();
+                    }
+                    if (getCurrentDateAsString().equals("Oct-31")) {
+                        if (studentNode.getDayThree() == null)
+                            studentNodeIterator.remove();
+                    }
+                    if (getCurrentDateAsString().equals("Nov-1")) {
+                        if (studentNode.getDayFour() == null)
+                            studentNodeIterator.remove();
+                    }
                 }
-                if (getCurrentDateAsString().equals("Oct-30")) {
-                    if (studentNode.getDayTwo() == null)
-                        studentNodeIterator.remove();
-                }
-                if (getCurrentDateAsString().equals("Oct-31")) {
-                    if (studentNode.getDayThree() == null)
-                        studentNodeIterator.remove();
-                }
-                if (getCurrentDateAsString().equals("Nov-1")) {
-                    if (studentNode.getDayFour() == null)
-                        studentNodeIterator.remove();
-                }
+                HttpSession httpSession = httpServletRequest.getSession();
+                httpSession.setAttribute("searchParent", retrievedParentNode);
+            } else {
+                HttpSession httpSession = httpServletRequest.getSession();
+                httpSession.setAttribute("hideErrorMessageDiv", false);
+                model.addAttribute("searchParentNode", new ParentNode());
+                return "searchentryform";
             }
-            HttpSession httpSession = httpServletRequest.getSession();
-            httpSession.setAttribute("searchParent", retrievedParentNode);
-        } else {
+            return "searchview";
+        } catch (Exception e) {
             HttpSession httpSession = httpServletRequest.getSession();
             httpSession.setAttribute("hideErrorMessageDiv", false);
             model.addAttribute("searchParentNode", new ParentNode());
             return "searchentryform";
         }
-        return "searchview";
     }
 
     private String getCurrentDateAsString() {

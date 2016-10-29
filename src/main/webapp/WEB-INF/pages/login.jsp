@@ -31,7 +31,7 @@
                    action="${pageContext.request.contextPath}/loggedin.action"
                    method="post">
             <div class="form-group">
-                <label for="email">Email:</label>
+                <label for="email">Username:</label>
                 <form:input path="email" id="email" class="form-control" required="true" placeholder="email"/>
             </div>
             <div class="form-group">
