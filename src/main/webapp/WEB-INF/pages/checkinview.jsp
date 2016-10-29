@@ -57,16 +57,18 @@
 
                             <label>Mass Centre
                                 Name: </label> <c:if
-                                test="${not empty checkInParent.massCentreName}">${checkInParent.massCentreName}</c:if> <p></p>
+                                test="${not empty checkInParent.massCentreName}">${checkInParent.massCentreName}</c:if>
+                            <p></p>
                             <label>Parent/Guardian's
                                 Name: </label> <c:if
                                 test="${not empty checkInParent.firstName}">${checkInParent.firstName}</c:if><c:if
                                 test="${not empty checkInParent.lastName}"> ${checkInParent.lastName}</c:if><p></p>
-                            <label>Phone - 1: </label>   <c:if
+                            <label>Phone - 1: </label> <c:if
                                 test="${not empty checkInParent.phoneNumber}">${checkInParent.phoneNumber}</c:if><p></p>
                             <label>Phone -2: </label> <c:if
-                                test="${not empty checkInParent.alternativePhoneNumber}"> ${checkInParent.alternativePhoneNumber}</c:if><p></p>
-                            <label>Email: </label>   <c:if
+                                test="${not empty checkInParent.alternativePhoneNumber}"> ${checkInParent.alternativePhoneNumber}</c:if>
+                            <p></p>
+                            <label>Email: </label> <c:if
                                 test="${not empty checkInParent.email}">${checkInParent.email}</c:if><p></p>
                             <label>Address:</label>
                             <c:if test="${not empty checkInParent.houseNo}"> ${checkInParent.houseNo}</c:if>
@@ -75,7 +77,8 @@
                             <c:if
                                     test="${not empty checkInParent.addressLineTwo}"> ${checkInParent.addressLineTwo}</c:if>
                             <c:if
-                                    test="${not empty checkInParent.addressLineThree}"> ${checkInParent.addressLineThree}</c:if><p></p>
+                                    test="${not empty checkInParent.addressLineThree}"> ${checkInParent.addressLineThree}</c:if>
+                            <p></p>
 
                         </div>
                         <div class="col-md-12">
@@ -105,43 +108,41 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <label>Section:</label>
+                                                <form:input
+                                                        path="studentNodeList[${count.index}].retreatSection"
+                                                        id="id"
+                                                        class="form-control"
+                                                        value="${element.retreatSection}" readonly="true"/>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="bandCode">Band Code:</label>
                                                 <c:if test="${not empty element.retreatSection}">
                                                     <c:if test="${element.retreatSection == 'Junior'}">
-                                                        <form:input
-                                                                path="studentNodeList[${count.index}].retreatSection"
-                                                                id="id"
-                                                                class="form-control"
-                                                                value="${element.retreatSection}" readonly="true"
-                                                                cssStyle="background-color: green;color: white"/>
+                                                        <form:input path="studentNodeList[${count.index}].bandCode"
+                                                                    id="bandCode"
+                                                                    class="form-control"
+                                                                    value="${element.bandCode}" readonly="true"
+                                                                    cssStyle="background-color: green;color: white"/>
                                                     </c:if>
                                                 </c:if>
                                                 <c:if test="${not empty element.retreatSection}">
                                                     <c:if test="${element.retreatSection == 'Senior'}">
-                                                        <form:input
-                                                                path="studentNodeList[${count.index}].retreatSection"
-                                                                id="id"
-                                                                class="form-control"
-                                                                value="${element.retreatSection}" readonly="true"
-                                                                cssStyle="background-color: yellow;color: black"/>
+                                                        <form:input path="studentNodeList[${count.index}].bandCode"
+                                                                    id="bandCode"
+                                                                    class="form-control"
+                                                                    value="${element.bandCode}" readonly="true"
+                                                                    cssStyle="background-color: yellow;color: black"/>
                                                     </c:if>
                                                 </c:if>
                                                 <c:if test="${not empty element.retreatSection}">
                                                     <c:if test="${element.retreatSection == 'SuperSenior'}">
-                                                        <form:input
-                                                                path="studentNodeList[${count.index}].retreatSection"
-                                                                id="id"
-                                                                class="form-control"
-                                                                value="${element.retreatSection}" readonly="true"
-                                                                cssStyle="background-color: red;color: white"/>
+                                                        <form:input path="studentNodeList[${count.index}].bandCode"
+                                                                    id="bandCode"
+                                                                    class="form-control"
+                                                                    value="${element.bandCode}" readonly="true"
+                                                                    cssStyle="background-color: red;color: white"/>
                                                     </c:if>
                                                 </c:if>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label for="bandCode">Band Code:</label>
-                                                <form:input path="studentNodeList[${count.index}].bandCode"
-                                                            id="bandCode"
-                                                            class="form-control"
-                                                            value="${element.bandCode}" readonly="true"/>
                                             </div>
                                             <c:if test="${not element.hasInEntryOnDate}">
                                                 <div class="col-md-2">
