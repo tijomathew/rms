@@ -112,6 +112,7 @@ public class StudentNode implements Serializable {
     }
 
     public String getDayOne() {
+        dayOne = dayOne != null ? dayOne.replace("on", "").replace(",", "") : dayOne;
         return dayOne;
     }
 
@@ -120,6 +121,7 @@ public class StudentNode implements Serializable {
     }
 
     public String getDayTwo() {
+        dayTwo = dayTwo != null ? dayTwo.replace("on", "").replace(",", "") : dayTwo;
         return dayTwo;
     }
 
@@ -128,6 +130,7 @@ public class StudentNode implements Serializable {
     }
 
     public String getDayThree() {
+        dayThree = dayThree != null ? dayThree.replace("on", "").replace(",", "") : dayThree;
         return dayThree;
     }
 
@@ -136,6 +139,7 @@ public class StudentNode implements Serializable {
     }
 
     public String getDayFour() {
+        dayFour = dayFour != null ? dayFour.replace("on", "").replace(",", "") : dayFour;
         return dayFour;
     }
 
