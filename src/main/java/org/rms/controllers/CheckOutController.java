@@ -60,19 +60,19 @@ public class CheckOutController {
             while (studentNodeIterator.hasNext()) {
                 StudentNode studentNode = studentNodeIterator.next();
 
-                if (getCurrentDateAsString().equals("Oct-26")) {
+                if (getCurrentDateAsString().equals("Oct-29")) {
                     if (studentNode.getDayOne() == null)
                         studentNodeIterator.remove();
                 }
-                if (getCurrentDateAsString().equals("Oct-27")) {
+                if (getCurrentDateAsString().equals("Oct-30")) {
                     if (studentNode.getDayTwo() == null)
                         studentNodeIterator.remove();
                 }
-                if (getCurrentDateAsString().equals("Oct-28")) {
+                if (getCurrentDateAsString().equals("Oct-31")) {
                     if (studentNode.getDayThree() == null)
                         studentNodeIterator.remove();
                 }
-                if (getCurrentDateAsString().equals("Oct-29")) {
+                if (getCurrentDateAsString().equals("Nov-1")) {
                     if (studentNode.getDayFour() == null)
                         studentNodeIterator.remove();
                 }
