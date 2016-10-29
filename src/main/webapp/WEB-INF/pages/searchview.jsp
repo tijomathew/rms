@@ -45,26 +45,26 @@
     </div>
     <div class="mainWrapper">
         <div class="row row-offcanvas row-offcanvas-right">
-            <br class="col-xs-12 col-sm-12">
-            <br class="panel panel-default">
+            <div class="col-xs-12 col-sm-12">
+            <div class="panel panel-default">
 
             <div class="panel-heading headerColor">Search Result</div>
-            <br class="panel-body">
-            <br class="col-md-12">
+            <div class="panel-body">
+            <div class="col-md-12">
 
             <label>Mass Centre
                 Name: </label> <c:if
-                test="${not empty searchParent.massCentreName}">${searchParent.massCentreName}</c:if> </br>
+                test="${not empty searchParent.massCentreName}">${searchParent.massCentreName}</c:if> <p></p>
             <label>Parent/Guardian's
                 Name: </label> <c:if
                 test="${not empty searchParent.firstName}">${searchParent.firstName}</c:if><c:if
-                test="${not empty searchParent.lastName}"> ${searchParent.lastName}</c:if>
+                test="${not empty searchParent.lastName}"> ${searchParent.lastName}</c:if><p></p>
             <label>Phone - 1: </label>   <c:if
-                test="${not empty searchParent.phoneNumber}">${searchParent.phoneNumber}</c:if></br>
+                test="${not empty searchParent.phoneNumber}">${searchParent.phoneNumber}</c:if><p></p>
             <label>Phone -2: </label> <c:if
-                test="${not empty searchParent.alternativePhoneNumber}"> ${searchParent.alternativePhoneNumber}</c:if>
+                test="${not empty searchParent.alternativePhoneNumber}"> ${searchParent.alternativePhoneNumber}</c:if><p></p>
             <label>Email: </label>   <c:if
-                test="${not empty searchParent.email}">${searchParent.email}</c:if></br>
+                test="${not empty searchParent.email}">${searchParent.email}</c:if><p></p>
             <label>Address:</label>
             <c:if test="${not empty searchParent.houseNo}"> ${searchParent.houseNo}</c:if>
             <c:if
@@ -72,7 +72,7 @@
             <c:if
                     test="${not empty searchParent.addressLineTwo}"> ${searchParent.addressLineTwo}</c:if>
             <c:if
-                    test="${not empty searchParent.addressLineThree}"> ${searchParent.addressLineThree}</c:if>
+                    test="${not empty searchParent.addressLineThree}"> ${searchParent.addressLineThree}</c:if><p></p>
 
         </div>
         <div class="col-md-12">
@@ -84,8 +84,22 @@
                         test="${not empty element.lastName}"> ${element.lastName}</c:if>
                 </div>
                 <div class="col-md-3">
-                    <label>Section:</label><span style="background-color: red;color: white"><c:if
-                        test="${not empty element.retreatSection}">${element.retreatSection}</c:if></span></br>
+                    <label>Section:</label>
+                    <c:if test="${not empty element.retreatSection}">
+                        <c:if test="${element.retreatSection == 'Junior'}">
+                            <span style="background-color: green;color: white"> ${element.retreatSection}</span>
+                        </c:if>
+                    </c:if>
+                    <c:if test="${not empty element.retreatSection}">
+                        <c:if test="${element.retreatSection == 'Senior'}">
+                            <span style="background-color: yellow;color: black"> ${element.retreatSection}</span>
+                        </c:if>
+                    </c:if>
+                    <c:if test="${not empty element.retreatSection}">
+                        <c:if test="${element.retreatSection == 'SuperSenior'}">
+                            <span style="background-color: red;color: white"> ${element.retreatSection}</span>
+                        </c:if>
+                    </c:if>
                 </div>
                 <div class="col-md-2">
                     <label>Band Code:</label><span><c:if

@@ -54,7 +54,7 @@ public class LoginController {
                         return "registerationcounts";
                     } else if (loggedInUser.getSystemRole().equals(SystemRole.ORGANIZER)) {
                         requestResponseHolder.setAttributeToSession(SystemRole.RMS_CURRENT_USER.toString(), loggedInUser);
-                        return "redirect:/getEditParentEntryForm.action";
+                        return "redirect:/searchviewentry.action";
                     }
                 } else {
                     model.addAttribute("changePasswordUser", loggedInUser);
