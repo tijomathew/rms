@@ -255,13 +255,13 @@ public class StudentNode implements Serializable {
             dayNames = getDayOne() + " ";
         }
         if (getDayTwo() != null) {
-            dayNames = getDayTwo() + " ";
+            dayNames = dayNames.concat(getDayTwo()).concat(" ");
         }
         if (getDayThree() != null) {
-            dayNames = getDayThree() + " ";
+            dayNames = dayNames.concat(getDayThree()).concat(" ");
         }
         if (getDayFour() != null) {
-            dayNames = getDayFour();
+            dayNames = dayNames.concat(getDayFour()).concat(" ");
         }
         return dayNames;
     }
