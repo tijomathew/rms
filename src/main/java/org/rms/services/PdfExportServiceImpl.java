@@ -1,7 +1,6 @@
 package org.rms.services;
 
 import com.itextpdf.text.*;
-import com.itextpdf.text.html.WebColors;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -13,7 +12,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -94,8 +92,8 @@ public class PdfExportServiceImpl implements PdfExportService {
                     addCellContentToPDFTable(studentNode.getRetreatSection(), fontNormal, Element.ALIGN_LEFT);
                     addCellContentToPDFTable(studentNode.getBandCode(), fontNormal, Element.ALIGN_LEFT);
                     addCellContentToPDFTable(studentNode.getAllRegisteredDays(), fontNormal, Element.ALIGN_LEFT);
-                    addCellContentToPDFTable(studentNode.getInTimes(), fontNormal, Element.ALIGN_LEFT);
-                    addCellContentToPDFTable(studentNode.getOutTimes(), fontNormal, Element.ALIGN_LEFT);
+                    addCellContentToPDFTable(studentNode.getInTimes(date), fontNormal, Element.ALIGN_LEFT);
+                    addCellContentToPDFTable(studentNode.getOutTimes(date), fontNormal, Element.ALIGN_LEFT);
                 }
             } else {
                 addCellContentToPDFTable("", fontNormal, Element.ALIGN_LEFT);

@@ -7,9 +7,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by bibin on 5/10/16.
@@ -217,12 +215,24 @@ public class StudentNode implements Serializable {
         return outFlag;
     }
 
-    public String getInTimes() {
+    public String getInTimes(String date) {
+        Map<String, String> lookUpMap = new HashMap<>();
+        lookUpMap.put("dayOne", "Oct-29");
+        lookUpMap.put("dayTwo", "Oct-30");
+        lookUpMap.put("dayThree", "Oct-31");
+        lookUpMap.put("dayFour", "Nov-1");
         if (!inOutInformerList.isEmpty()) {
             SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy, HH:MM");
             StringBuilder stringBuilder = new StringBuilder();
             for (InOutInformer inOutInformer : inOutInformerList) {
-                if (null != inOutInformer.getInTime()) {
+                String DateFromUI = lookUpMap.get(date) != null ? lookUpMap.get(date) : org.apache.commons.lang.StringUtils.EMPTY;
+                Boolean flagToEmptyCheckInForCurrentDate;
+                if (DateFromUI.isEmpty()) {
+                    flagToEmptyCheckInForCurrentDate = true;
+                } else {
+                    flagToEmptyCheckInForCurrentDate = inOutInformer.getDate().equals(lookUpMap.get(date));
+                }
+                if (null != inOutInformer.getInTime() && flagToEmptyCheckInForCurrentDate) {
                     stringBuilder.append(dateFormatter.format(inOutInformer.getInTime())).append("\n");
                 }
             }
@@ -231,12 +241,24 @@ public class StudentNode implements Serializable {
         return org.apache.commons.lang.StringUtils.EMPTY;
     }
 
-    public String getOutTimes() {
+    public String getOutTimes(String date) {
+        Map<String, String> lookUpMap = new HashMap<>();
+        lookUpMap.put("dayOne", "Oct-29");
+        lookUpMap.put("dayTwo", "Oct-30");
+        lookUpMap.put("dayThree", "Oct-31");
+        lookUpMap.put("dayFour", "Nov-1");
         if (!inOutInformerList.isEmpty()) {
             SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy, HH:MM");
             StringBuilder stringBuilder = new StringBuilder();
             for (InOutInformer inOutInformer : inOutInformerList) {
-                if (null != inOutInformer.getOutTime()) {
+                String DateFromUI = lookUpMap.get(date) != null ? lookUpMap.get(date) : org.apache.commons.lang.StringUtils.EMPTY;
+                Boolean flagToEmptyCheckInForCurrentDate;
+                if (DateFromUI.isEmpty()) {
+                    flagToEmptyCheckInForCurrentDate = true;
+                } else {
+                    flagToEmptyCheckInForCurrentDate = inOutInformer.getDate().equals(lookUpMap.get(date));
+                }
+                if (null != inOutInformer.getOutTime() && flagToEmptyCheckInForCurrentDate) {
                     stringBuilder.append(dateFormatter.format(inOutInformer.getOutTime())).append("\n");
                 }
             }
