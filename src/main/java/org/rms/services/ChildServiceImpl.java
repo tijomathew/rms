@@ -74,12 +74,14 @@ public class ChildServiceImpl implements ChildService {
             ChartCol chartColThree = new ChartCol("senior", "Senior", "senior", "number");
             ChartCol chartColFour = new ChartCol("superSenior", "Super Senior", "superSenior", "number");
             ChartCol chartColFive = new ChartCol("youth", "Youth", "youth", "number");
+            ChartCol chartColSix = new ChartCol("total", "Total", "total", "number");
 
             chartColList.add(chartColOne);
             chartColList.add(chartColTwo);
             chartColList.add(chartColThree);
             chartColList.add(chartColFour);
             chartColList.add(chartColFive);
+            chartColList.add(chartColSix);
         }
         return chartColList;
     }
@@ -102,11 +104,16 @@ public class ChildServiceImpl implements ChildService {
 
             ChartCell<Long> chartCellYouthCount = new ChartCell<>(0l, String.valueOf(0));
 
+            Long totalCountByRowWise = getAllRegisteredStudentsOnCategoryAndOct29Wise("Junior", date[i], property[i], inOutFlag) + getAllRegisteredStudentsOnCategoryAndOct29Wise("Senior", date[i], property[i], inOutFlag) + getAllRegisteredStudentsOnCategoryAndOct29Wise("SuperSenior", date[i], property[i], inOutFlag);
+
+            ChartCell<Long> chartCellTotalCount = new ChartCell<>(totalCountByRowWise, totalCountByRowWise.toString());
+
             chartCellList.add(chartCellDate);
             chartCellList.add(chartCellJuniorCount);
             chartCellList.add(chartCellSeniorCount);
             chartCellList.add(chartCellSuperSeniorCount);
             chartCellList.add(chartCellYouthCount);
+            chartCellList.add(chartCellTotalCount);
 
             chartRowList.add(new ChartRow(chartCellList));
         }
@@ -118,6 +125,8 @@ public class ChildServiceImpl implements ChildService {
 
         ChartCell<Long> chartCellYouthCount = new ChartCell<>(getAllRegisteredStudentsOnCategoryAndNov1Wise(inOutFlag), getAllRegisteredStudentsOnCategoryAndNov1Wise(inOutFlag).toString());
 
+        ChartCell<Long> chartCellTotalCount = new ChartCell<>(getAllRegisteredStudentsOnCategoryAndNov1Wise(inOutFlag), getAllRegisteredStudentsOnCategoryAndNov1Wise(inOutFlag).toString());
+
         List<ChartCell> chartCellList = new ArrayList<>();
 
         chartCellList.add(chartCellDate);
@@ -125,6 +134,7 @@ public class ChildServiceImpl implements ChildService {
         chartCellList.add(chartCellSeniorCount);
         chartCellList.add(chartCellSuperSeniorCount);
         chartCellList.add(chartCellYouthCount);
+        chartCellList.add(chartCellTotalCount);
 
         chartRowList.add(new ChartRow(chartCellList));
 

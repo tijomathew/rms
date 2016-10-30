@@ -1,10 +1,8 @@
 package org.rms.controllers;
 
 import org.rms.displaywrappers.ChildWrapper;
-import org.rms.displaywrappers.ParentWrapper;
 import org.rms.helpers.GridRow;
 import org.rms.helpers.JsonBuilder;
-import org.rms.models.ParentNode;
 import org.rms.models.StudentNode;
 import org.rms.services.ChildService;
 import org.rms.services.ParentService;
@@ -73,11 +71,12 @@ public class ReportController {
     public Object pdfCustomLogReport(HttpServletRequest request, HttpServletResponse response,
                                      @RequestParam(value = "massCentre", required = false) String massCentre,
                                      @RequestParam(value = "date", required = false) String date,
-                                     @RequestParam(value = "category", required = false) String category) {
+                                     @RequestParam(value = "category", required = false) String category,
+                                     @RequestParam(value = "medicalflag", required = false) String medicalflag) {
 
 
         try {
-            File pdfFile = reportService.getReport(massCentre, date, category);
+            File pdfFile = reportService.getReport(massCentre, date, category, medicalflag);
             if (null != pdfFile) {
                 response.setContentType("application/pdf");
                 response.setHeader("Content-disposition", "attachment; filename=Syro_Malabar_Catholic_Church_Retreat_Report.pdf");

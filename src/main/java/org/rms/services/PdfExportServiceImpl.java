@@ -47,14 +47,14 @@ public class PdfExportServiceImpl implements PdfExportService {
         document.setMargins(75, 75, 100, 75);
 
         //A class to write the header and footer to the pdf
-        PdfHeaderAndFooter event = new PdfHeaderAndFooter(massCentre,date);
+        PdfHeaderAndFooter event = new PdfHeaderAndFooter(massCentre, date);
         //writer.setBoxSize("headerBox", headerBox);
         writer.setPageEvent(event);
 
         document.open();
-        table = new PdfPTable(10);//create a table with respective column size
+        table = new PdfPTable(11);//create a table with respective column size
 
-        table.setWidths(new int[]{2, 15, 7, 7, 15, 7, 7, 20, 10, 10});
+        table.setWidths(new int[]{2, 15, 7, 7, 15, 7, 7, 20, 7, 7, 6});
         table.setSpacingBefore(5);
         table.setSpacingAfter(5);
         addCellContentToPDFTable("No.", fontBold, Element.ALIGN_CENTER);
@@ -67,6 +67,7 @@ public class PdfExportServiceImpl implements PdfExportService {
         addCellContentToPDFTable("Days", fontBold, Element.ALIGN_CENTER);
         addCellContentToPDFTable("Check In", fontBold, Element.ALIGN_CENTER);
         addCellContentToPDFTable("Check Out", fontBold, Element.ALIGN_CENTER);
+        addCellContentToPDFTable("Medical Info", fontBold, Element.ALIGN_CENTER);
         int i = 1;
         PdfPCell cell;
         for (ParentNode parentNode : parentNodes) {
@@ -96,6 +97,7 @@ public class PdfExportServiceImpl implements PdfExportService {
                     addCellContentToPDFTable(studentNode.getAllRegisteredDays(), fontNormal, Element.ALIGN_LEFT);
                     addCellContentToPDFTable(studentNode.getInTimes(), fontNormal, Element.ALIGN_LEFT);
                     addCellContentToPDFTable(studentNode.getOutTimes(), fontNormal, Element.ALIGN_LEFT);
+                    addCellContentToPDFTable(parentNode.getMedicalInformation(), fontNormal, Element.ALIGN_LEFT);
                 }
             } else {
                 addCellContentToPDFTable("", fontNormal, Element.ALIGN_LEFT);
