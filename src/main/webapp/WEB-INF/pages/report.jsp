@@ -32,7 +32,7 @@
         jQuery(document).ready(function () {
             $('#pdfReport').click(function () {
                 jQuery("<form action='" + encodeURI("pdfreport.action?massCentre=" + $('select[name=massCentre]').val() +
-                                "&date=" + $(':radio[name=date]:checked').val() + '&category= ' + +$('select[name=category]').val() + "&medicalflag=" + $(':radio[name=medicalflag]:checked').val())
+                                "&date=" + $(':radio[name=date]:checked').val() + '&category= ' + +$('select[name=category]').val())
                         + "' method='post' accept-charset='utf-8'" + "/>")
                         .appendTo('body').submit().remove();
             });
@@ -101,11 +101,6 @@
                                         <option value="Senior">Senior</option>
                                         <option value="SuperSenior">SuperSenior</option>
                                     </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label>Medical Care required childrens:</label>
-                                    <input type="radio" name="medicalflag" value="yes"> Yes<br>
-                                    <input type="radio" name="medicalflag" value="no" checked> No<br>
                                 </div>
                             </div>
                             <div class="col-md-12">

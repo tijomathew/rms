@@ -25,7 +25,7 @@ public class ParentDaoImpl implements ParentDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public List<ParentNode> getParentNodes(String massCentre, String date, String category, String medicalFlag) {
+    public List<ParentNode> getParentNodes(String massCentre, String date, String category) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ParentNode.class, "parentNode").
                 createAlias("parentNode.studentNodeList", "studentNode", JoinType.INNER_JOIN);
         ;
@@ -37,9 +37,6 @@ public class ParentDaoImpl implements ParentDao {
         }
         if (!category.equals("all")) {
             criteria.add(Restrictions.eq("studentNode.retreatSection", category));
-        }
-        if (medicalFlag.equals("yes")) {
-            criteria.add(Restrictions.eq("parentNode.medicalInfoFlag", true));
         }
         return criteria.addOrder(Order.asc("firstName")).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }

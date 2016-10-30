@@ -23,8 +23,8 @@ public class ReportServiceImpl implements ReportService {
     private PdfExportService pdfExportService;
 
     @Override
-    public File getReport(String massCentre, String date, String category, String medicalFlag) throws DocumentException {
-        List<ParentNode> parentNodeList = parentService.getParentNodes(massCentre, date, category, medicalFlag);
+    public File getReport(String massCentre, String date, String category) throws DocumentException {
+        List<ParentNode> parentNodeList = parentService.getParentNodes(massCentre, date, category);
         if (!category.equals("all")) {
             for (ParentNode parentNode : parentNodeList) {
                 for (Iterator<StudentNode> itr = parentNode.getStudentNodeList().listIterator(); itr.hasNext(); ) {
