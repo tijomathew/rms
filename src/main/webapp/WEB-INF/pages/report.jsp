@@ -62,7 +62,7 @@
     <div class="row row-offcanvas row-offcanvas-right">
         <div class="col-xs-12 col-sm-12">
             <div class="panel panel-default">
-                <div class="panel-heading headerColor"></div>
+                <div class="panel-heading headerColor">Report</div>
                 <div class="panel-body">
                     <form id="checkinsearch-form"
                           action="${pageContext.request.contextPath}/pdfreport.action"
