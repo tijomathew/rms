@@ -24,11 +24,13 @@ public class ChildDaoImpl implements ChildDao {
     @Override
     public Long getAllRegisteredStudentsOnCategoryAndOct29Wise(String category, String date, String property, String inOutFlag) {
         Long registeredStudentCounts = 0l;
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(StudentNode.class, "studentNode").add(Restrictions.eq("studentNode.retreatSection", category)).add(Restrictions.eq("studentNode." + property, date));
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(StudentNode.class, "studentNode").add(Restrictions.eq("studentNode.retreatSection", category));
         if (inOutFlag.equals("In")) {
             criteria.createAlias("studentNode.inOutInformerList", "inoutinfo").add(Restrictions.isNotNull("inoutinfo.inTime")).add(Restrictions.eq("inoutinfo.date", date));
         } else if (inOutFlag.equals("Out")) {
             criteria.createAlias("studentNode.inOutInformerList", "inoutinfo").add(Restrictions.isNotNull("inoutinfo.outTime")).add(Restrictions.eq("inoutinfo.date", date));
+        } else if (inOutFlag.equals("All")) {
+            criteria.add(Restrictions.eq("studentNode." + property, date));
         }
         registeredStudentCounts = (Long) criteria.setProjection(Projections.rowCount()).uniqueResult();
         if (registeredStudentCounts == null) {
