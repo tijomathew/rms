@@ -131,6 +131,9 @@ public class CheckOutController {
         Date currentDate = new Date();
         SimpleDateFormat dateFormatter = new SimpleDateFormat("MMM-dd");
         String currentDateInStringFormat = dateFormatter.format(currentDate);
+        if (currentDateInStringFormat.equalsIgnoreCase("Nov-01")) {
+            currentDateInStringFormat=currentDateInStringFormat.replace("0", "");
+        }
         return currentDateInStringFormat;
     }
 }
